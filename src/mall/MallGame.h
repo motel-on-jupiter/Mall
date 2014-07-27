@@ -8,6 +8,17 @@
 class GLUquadric;
 struct MallContext;
 
+class RectangleEntity {
+ public:
+  RectangleEntity(glm::vec2 pos, glm::vec2 scale);
+
+  void Draw(glm::vec2 window_size);
+
+ private:
+  glm::vec2 pos_;
+  glm::vec2 scale_;
+};
+
 class MallGame {
  public:
   MallGame();
@@ -21,8 +32,7 @@ class MallGame {
 
  private:
   bool initialized_;
-  glm::vec2 rect_pos_;
-  glm::vec2 rect_size_;
+  RectangleEntity renctangle_;
 };
 
 #endif /* MALLGAME_H_ */

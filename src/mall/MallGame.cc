@@ -8,7 +8,24 @@
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
-MallGame::MallGame() : initialized_(false), rect_pos_(10.0f, 10.0f), rect_size_(20.0f, 20.0f) {
+RectangleEntity::RectangleEntity(glm::vec2 pos, glm::vec2 scale) : pos_(pos), scale_(scale){
+}
+
+void RectangleEntity::Draw(glm::vec2 window_size) {
+  glBegin(GL_QUADS);
+  glVertex2f(pos_.x / window_size.x * 2.0f - 1.0f,
+             pos_.y / window_size.y * 2.0f - 1.0f);
+  glVertex2f(pos_.x / window_size.x * 2.0f - 1.0f,
+             (pos_.y + scale_.y) / window_size.y * 2.0f - 1.0f);
+  glVertex2f((pos_.x + scale_.x) / window_size.x * 2.0f - 1.0f,
+             (pos_.y + scale_.y) / window_size.y * 2.0f - 1.0f);
+  glVertex2f((pos_.x + scale_.x) / window_size.x * 2.0f - 1.0f,
+             pos_.y / window_size.y * 2.0f - 1.0f);
+  glEnd();
+}
+
+
+MallGame::MallGame() : initialized_(false), renctangle_(glm::vec2(10.0f, 10.0f), glm::vec2(20.0f, 20.0f)) {
 }
 
 MallGame::~MallGame() {
@@ -57,7 +74,6 @@ int MallGame::Draw(glm::vec2 window_size) {
     return 1;
   }
 
-  // clear
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   glMatrixMode(GL_PROJECTION);
@@ -67,18 +83,7 @@ int MallGame::Draw(glm::vec2 window_size) {
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  glBegin(GL_QUADS);
-  glVertex3f(rect_pos_.x / window_size.x * 2.0f - 1.0f,
-             rect_pos_.y / window_size.y * 2.0f - 1.0f, 0.0f);
-  glVertex3f(rect_pos_.x / window_size.x * 2.0f - 1.0f,
-             (rect_pos_.y + rect_size_.y) / window_size.y * 2.0f - 1.0f,
-             0.0f);
-  glVertex3f((rect_pos_.x + rect_size_.x) / window_size.x * 2.0f - 1.0f,
-             (rect_pos_.y + rect_size_.y) / window_size.y * 2.0f - 1.0f,
-             0.0f);
-  glVertex3f((rect_pos_.x + rect_size_.x) / window_size.x * 2.0f - 1.0f,
-             rect_pos_.y / window_size.y * 2.0f - 1.0f, 0.0f);
-  glEnd();
+  renctangle_.Draw(window_size);
 
   return 0;
 }
