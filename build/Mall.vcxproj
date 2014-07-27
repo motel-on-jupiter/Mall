@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cc" />
+    <ClCompile Include="..\src\mall\actor\GoalWalker.cc" />
     <ClCompile Include="..\src\mall\MallGame.cc" />
     <ClCompile Include="..\src\mall\MallMain.cc" />
     <ClCompile Include="..\src\pch\precompile.cc">
@@ -41,6 +42,7 @@
     <ClCompile Include="..\src\util\system\FPSCounter.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\mall\actor\GoalWalker.h" />
     <ClInclude Include="..\src\mall\MallGame.h" />
     <ClInclude Include="..\src\mall\MallMain.h" />
     <ClInclude Include="..\src\pch\precompile.h" />

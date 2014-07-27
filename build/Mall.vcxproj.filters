@@ -34,6 +34,9 @@
     <Filter Include="src\mall">
       <UniqueIdentifier>{127c405c-97a2-4fa0-be2f-ba5cddbd7415}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\mall\actor">
+      <UniqueIdentifier>{be309a10-42a5-41c7-8941-c88dcad634df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\pch\precompile.cc">
@@ -102,6 +105,9 @@
     </ClCompile>
     <ClCompile Include="..\src\mall\MallGame.cc">
       <Filter>src\mall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mall\actor\GoalWalker.cc">
+      <Filter>src\mall\actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="..\src\mall\MallGame.h">
       <Filter>src\mall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\actor\GoalWalker.h">
+      <Filter>src\mall\actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
