@@ -33,7 +33,9 @@ class GoalWalker : public RectangleEntity {
   void Update();
   void SetGoal(GoalNode *goal) { free(goal_); goal_ = goal; }
   bool HasReached() const { return goal_ == nullptr; }
-  void DebugDraw(const glm::vec2 &);
+#ifdef _DEBUG
+  void DebugDraw(const glm::vec2 &window_size);
+#endif // _DEBUG
 
  private:
   GoalNode *goal_;

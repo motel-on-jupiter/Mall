@@ -52,6 +52,7 @@ void GoalWalker::Update() {
   set_pos(pos() + glm::normalize(goal_->pos() - pos()));
 }
 
+#ifdef _DEBUG
 void GoalWalker::DebugDraw(const glm::vec2 &window_size) {
   if (goal_ != nullptr) {
     glColor3fv(glm::value_ptr(kYellowColor));
@@ -61,3 +62,4 @@ void GoalWalker::DebugDraw(const glm::vec2 &window_size) {
     glEnd();
   }
 }
+#endif // _DEBUG

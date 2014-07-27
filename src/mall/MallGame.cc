@@ -89,7 +89,9 @@ int MallGame::Draw(glm::vec2 window_size) {
 
   BOOST_FOREACH (auto walker, walkers_) {
     walker->Draw(window_size);
+#ifdef _DEBUG
     walker->DebugDraw(window_size);
+#endif // _DEBUG
   }
 
   return 0;
