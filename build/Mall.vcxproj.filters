@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{687ab942-b0f0-409d-8422-d1b17153b52e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\pch">
+      <UniqueIdentifier>{da491382-eb5e-47f5-b0a5-85b79613aaef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util">
+      <UniqueIdentifier>{a0c53f76-0fdf-4770-b5bb-deed13f008a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\graphics">
+      <UniqueIdentifier>{dc40cc3a-a96a-40bd-b10e-df8945e0650e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\logging">
+      <UniqueIdentifier>{535fb364-4fd2-431a-a7ee-81db418e4d4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\system">
+      <UniqueIdentifier>{d6b85b33-514f-47d8-83af-3af67a190aaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\wrapper">
+      <UniqueIdentifier>{4ebfc1a6-adad-404e-a41a-d51bd8a67b19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\logging\emitter">
+      <UniqueIdentifier>{4a78daca-3f4f-446a-929b-1ed36ccfaea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\config">
+      <UniqueIdentifier>{1db45bc2-2208-44d7-8f17-41ec9d4302c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\config\reader">
+      <UniqueIdentifier>{4e7da0cc-f32f-4bc4-9a0d-b2a4b980df39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mall">
+      <UniqueIdentifier>{127c405c-97a2-4fa0-be2f-ba5cddbd7415}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\pch\precompile.cc">
+      <Filter>src\pch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\graphics\glot.cc">
+      <Filter>src\util\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\logging\emitter\PipeLogEmitter.cc">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\logging\emitter\DebuggerConsoleLogEmitter.cc">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\logging\emitter\FileLogEmitter.cc">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\logging\emitter\LogEmitter.cc">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\logging\emitter\MessageBoxLogEmitter.cc">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\logging\Logger.cc">
+      <Filter>src\util\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\system\FPSCounter.cc">
+      <Filter>src\util\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\logging\Logger.cc">
+      <Filter>src\util\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\system\FPSCounter.cc">
+      <Filter>src\util\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\logging\emitter\DebuggerConsoleLogEmitter.cc">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\logging\emitter\FileLogEmitter.cc">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\logging\emitter\LogEmitter.cc">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\logging\emitter\MessageBoxLogEmitter.cc">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\logging\emitter\PipeLogEmitter.cc">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\graphics\shader_utils.cc">
+      <Filter>src\util\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\config\reader\GLINIReader.cpp">
+      <Filter>src\util\config\reader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\config\reader\INIReader.cpp">
+      <Filter>src\util\config\reader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\config\ini.c">
+      <Filter>src\util\config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cc" />
+    <ClCompile Include="..\src\mall\MallMain.cc">
+      <Filter>src\mall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mall\MallGame.cc">
+      <Filter>src\mall</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\pch\precompile.h">
+      <Filter>src\pch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\graphics\glot.h">
+      <Filter>src\util\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\logging\emitter\PipeLogEmitter.h">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\logging\emitter\DebuggerConsoleLogEmitter.h">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\logging\emitter\FileLogEmitter.h">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\logging\emitter\LogEmitter.h">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\logging\emitter\MessageBoxLogEmitter.h">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\logging\Logger.h">
+      <Filter>src\util\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\system\FPSCounter.h">
+      <Filter>src\util\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\wrapper\crtdbg_wrap.h">
+      <Filter>src\util\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\wrapper\glgraphics_wrap.h">
+      <Filter>src\util\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\wrapper\glm_wrap.h">
+      <Filter>src\util\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\logging\Logger.h">
+      <Filter>src\util\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\system\FPSCounter.h">
+      <Filter>src\util\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\wrapper\glm_wrap.h">
+      <Filter>src\util\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\wrapper\crtdbg_wrap.h">
+      <Filter>src\util\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\wrapper\glgraphics_wrap.h">
+      <Filter>src\util\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\logging\emitter\DebuggerConsoleLogEmitter.h">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\logging\emitter\FileLogEmitter.h">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\logging\emitter\LogEmitter.h">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\logging\emitter\MessageBoxLogEmitter.h">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\logging\emitter\PipeLogEmitter.h">
+      <Filter>src\util\logging\emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\graphics\shader_utils.h">
+      <Filter>src\util\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\config\ini.h">
+      <Filter>src\util\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\config\reader\GLINIReader.h">
+      <Filter>src\util\config\reader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\config\reader\INIReader.h">
+      <Filter>src\util\config\reader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\wrapper\spark_wrap.h">
+      <Filter>src\util\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\macro_util.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\MallMain.h">
+      <Filter>src\mall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\MallGame.h">
+      <Filter>src\mall</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
