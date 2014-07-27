@@ -5,7 +5,7 @@
 #ifndef MALLGAME_H_
 #define MALLGAME_H_
 
-#include "mall/actor/Walker.h"
+#include "mall/actor/NodeWalker.h"
 #include "mall/actor/WalkNode.h"
 
 class MallGame {
@@ -24,7 +24,7 @@ class MallGame {
 
   bool initialized_;
   WalkNodeMap nodemap_;
-  std::vector<NodeWalker *> walkers_;
+  std::vector<NodeMapWalker *> walkers_;
 };
 
 #endif /* MALLGAME_H_ */

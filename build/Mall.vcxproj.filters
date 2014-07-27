@@ -109,10 +109,10 @@
     <ClCompile Include="..\src\mall\actor\Entity.cc">
       <Filter>src\mall\actor</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mall\actor\Walker.cc">
+    <ClCompile Include="..\src\mall\actor\WalkNode.cc">
       <Filter>src\mall\actor</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mall\actor\WalkNode.cc">
+    <ClCompile Include="..\src\mall\actor\NodeWalker.cc">
       <Filter>src\mall\actor</Filter>
     </ClCompile>
   </ItemGroup>
@@ -210,10 +210,10 @@
     <ClInclude Include="..\src\mall\actor\Entity.h">
       <Filter>src\mall\actor</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\actor\Walker.h">
+    <ClInclude Include="..\src\mall\actor\WalkNode.h">
       <Filter>src\mall\actor</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\actor\WalkNode.h">
+    <ClInclude Include="..\src\mall\actor\NodeWalker.h">
       <Filter>src\mall\actor</Filter>
     </ClInclude>
   </ItemGroup>

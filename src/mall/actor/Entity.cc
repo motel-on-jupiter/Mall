@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2014 The Motel On Jupiter
  */
-#include "mall/actor/Walker.h"
+#include "mall/actor/NodeWalker.h"
 
 #include <GL/glew.h>
 

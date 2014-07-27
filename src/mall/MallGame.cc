@@ -31,8 +31,11 @@ int MallGame::Initialize(const glm::vec2 &window_size) {
 
   nodemap_.Initialize(window_size);
   for (int i=0; i<kNumWalkWalkers; ++i) {
-    unsigned int nodeidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(nodemap_.nodes().size())));
-    walkers_.push_back(new NodeWalker(*(nodemap_.nodes()[nodeidx])));
+    unsigned int startnodeidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(nodemap_.nodes().size())));
+    NodeMapWalker *walker = new NodeMapWalker(*(nodemap_.nodes()[startnodeidx]), nodemap_);
+    unsigned int goalnodeidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(nodemap_.nodes().size())));
+    walker->SetFinalGoal(nodemap_.nodes()[goalnodeidx]);
+    walkers_.push_back(walker);
   }
 
   glDisable(GL_LIGHTING);
@@ -69,10 +72,6 @@ void MallGame::Update(float elapsed_time) {
   }
 
   BOOST_FOREACH (auto walker, walkers_) {
-    if ((*walker).HasReached()) {
-      unsigned int nodeidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(nodemap_.nodes().size())));
-      (*walker).SetGoal(nodemap_.nodes()[nodeidx]);
-    }
     (*walker).Update();
   }
 
@@ -97,7 +96,7 @@ int MallGame::Draw(glm::vec2 window_size) {
   BOOST_FOREACH (auto walker, walkers_) {
     walker->Draw(window_size);
 #ifdef _DEBUG
-    walker->DebugDraw(window_size);
+    walker->DrawApproach(window_size);
 #endif // _DEBUG
   }
 

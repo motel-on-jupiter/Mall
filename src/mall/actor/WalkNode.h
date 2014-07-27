@@ -11,6 +11,14 @@
 class WalkNode : public PointEntity {
 public:
   WalkNode(const glm::vec2 &pos);
+  virtual ~WalkNode() {}
+
+  void addNextNode(WalkNode *node);
+
+  const std::vector<WalkNode*>& nextnodes() const { return nextnodes_; }
+
+private:
+  std::vector<WalkNode *> nextnodes_;
 };
 
 class WalkNodeMap {
