@@ -68,7 +68,7 @@
     <ProjectGuid>{1AA04D48-AD99-4B2A-8058-B840FC91770A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GLUT3D</RootNamespace>
-    <ProjectName>Maill</ProjectName>
+    <ProjectName>Mall</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
