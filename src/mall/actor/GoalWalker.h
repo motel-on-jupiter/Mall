@@ -8,6 +8,7 @@
 class RectangleEntity {
  public:
   RectangleEntity(glm::vec2 pos, glm::vec2 scale);
+  virtual ~RectangleEntity() {}
 
   void Draw(glm::vec2 window_size);
 
