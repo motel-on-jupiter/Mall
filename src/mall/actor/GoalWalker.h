@@ -27,10 +27,11 @@ public:
 class GoalWalker : public RectangleEntity {
  public:
   GoalWalker(glm::vec2 pos);
+  ~GoalWalker();
 
   void Update();
-  void SetGoal(GoalNode *goal) { goal_ = goal; }
-  bool HasReached() const { return goal_ != nullptr; }
+  void SetGoal(GoalNode *goal) { free(goal_); goal_ = goal; }
+  bool HasReached() const { return goal_ == nullptr; }
 
  private:
   GoalNode *goal_;

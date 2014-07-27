@@ -12,15 +12,15 @@
 #include "util/wrapper/glgraphics_wrap.h"
 
 static const std::string kWindowCaption = "Mall - The Motel On Jupiter";
-static const Uint32 kWindowWidth = 640;
-static const Uint32 kWindowHeight = 480;
-static const Uint32 kFPS = 60;
+static const Uint32 kWindowWidth = 800;
+static const Uint32 kWindowHeight = 600;
+static const Uint32 kFPS = 30;
 
 static const Uint32 kGameLoopInterval = 1000 / kFPS;
 
 static SDL_Window *window = nullptr;
 static SDL_GLContext context = nullptr;
-static MallGame game;
+static MallGame game(glm::vec2(kWindowWidth, kWindowHeight));
 static Uint32 next_time = 0;
 
 static void MallCleanUp();

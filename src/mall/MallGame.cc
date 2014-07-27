@@ -3,16 +3,21 @@
  */
 #include "MallGame.h"
 
+#include <boost/foreach.hpp>
 #include <GL/glew.h>
 #include <glm/gtx/random.hpp>
 
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
-MallGame::MallGame() :
+const int MallGame::kNumWalkWalkers = 50;
+
+MallGame::MallGame(const glm::vec2 &window_size) :
     initialized_(false),
-    walker_(glm::vec2(10.0f, 10.0f)),
-    goal_(nullptr) {
+    walkers_() {
+  for (int i=0; i<kNumWalkWalkers; ++i) {
+    walkers_.push_back(new GoalWalker(glm::linearRand(glm::vec2(), window_size)));
+  }
 }
 
 MallGame::~MallGame() {
@@ -42,6 +47,10 @@ void MallGame::Finalize() {
 
   LOGGER.Info("Clean up the game");
 
+  BOOST_FOREACH (auto walker, walkers_) {
+    delete(walker);
+  }
+
   initialized_ = false;
 
   return;
@@ -54,12 +63,12 @@ void MallGame::Update(float elapsed_time, glm::vec2 window_size) {
     return;
   }
 
-  if (!walker_.HasReached()) {
-    free(goal_);
-    goal_ = new GoalNode(glm::linearRand(glm::vec2(), window_size));
-    walker_.SetGoal(goal_);
+  BOOST_FOREACH (auto walker, walkers_) {
+    if ((*walker).HasReached()) {
+      (*walker).SetGoal(new GoalNode(glm::linearRand(glm::vec2(), window_size)));
+    }
+    (*walker).Update();
   }
-  walker_.Update();
 
   return;
 }
@@ -78,7 +87,9 @@ int MallGame::Draw(glm::vec2 window_size) {
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  walker_.Draw(window_size);
+  BOOST_FOREACH (auto walker, walkers_) {
+    walker->Draw(window_size);
+  }
 
   return 0;
 }

@@ -23,16 +23,21 @@ void RectangleEntity::Draw(glm::vec2 window_size) {
 }
 
 GoalWalker::GoalWalker(glm::vec2 pos) :
-    RectangleEntity(pos, glm::vec2(20.0f, 20.0f)), goal_(nullptr) {
+  RectangleEntity(pos, glm::vec2(5.0f, 5.0f)), goal_(nullptr) {
+}
+
+GoalWalker::~GoalWalker() {
+  delete(goal_);
 }
 
 void GoalWalker::Update() {
-  if (goal_ == nullptr) {
+  if (HasReached()) {
     return;
   }
 
   if (glm::distance(pos(), goal_->pos()) <= 1.0f) {
     set_pos(goal_->pos());
+    free(goal_);
     goal_ = nullptr;
     return;
   }

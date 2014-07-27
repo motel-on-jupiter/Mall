@@ -9,7 +9,7 @@
 
 class MallGame {
  public:
-  MallGame();
+  MallGame(const glm::vec2 &window_size);
   ~MallGame();
 
   int Initialize();
@@ -19,9 +19,10 @@ class MallGame {
   int Draw(glm::vec2 window_size);
 
  private:
+  static const int MallGame::kNumWalkWalkers;
+
   bool initialized_;
-  GoalWalker walker_;
-  GoalNode *goal_;
+  std::vector<GoalWalker *> walkers_;
 };
 
 #endif /* MALLGAME_H_ */
