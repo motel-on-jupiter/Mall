@@ -6,22 +6,24 @@
 #define MALLGAME_H_
 
 #include "mall/actor/Walker.h"
+#include "mall/actor/WalkNode.h"
 
 class MallGame {
  public:
-  MallGame(const glm::vec2 &window_size);
+  MallGame();
   ~MallGame();
 
-  int Initialize();
+  int Initialize(const glm::vec2 &window_size);
   void Finalize();
 
-  void Update(float elapsed_time, glm::vec2 window_size);
+  void Update(float elapsed_time);
   int Draw(glm::vec2 window_size);
 
  private:
   static const int MallGame::kNumWalkWalkers;
 
   bool initialized_;
+  WalkNodeMap nodemap_;
   std::vector<NodeWalker *> walkers_;
 };
 

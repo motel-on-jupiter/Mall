@@ -4,31 +4,9 @@
 #include "mall/actor/Walker.h"
 
 #include <GL/glew.h>
-#include <glm/gtx/random.hpp>
 
 #define GLM_COLOR
 #include "util/def/ColorDef.h"
-
-RectangleEntity::RectangleEntity(const glm::vec2 &pos, const glm::vec2 &scale) :
-  pos_(pos), scale_(scale){
-}
-
-void RectangleEntity::Draw(const glm::vec2 &window_size) {
-  glColor3fv(glm::value_ptr(kWhiteColor));
-  glBegin(GL_QUADS);
-  glVertex2f((pos_.x - scale_.x / 2.0f) / window_size.x * 2.0f - 1.0f,
-             (pos_.y - scale_.y / 2.0f) / window_size.y * 2.0f - 1.0f);
-  glVertex2f((pos_.x - scale_.x / 2.0f) / window_size.x * 2.0f - 1.0f,
-             (pos_.y + scale_.y / 2.0f) / window_size.y * 2.0f - 1.0f);
-  glVertex2f((pos_.x + scale_.x / 2.0f) / window_size.x * 2.0f - 1.0f,
-             (pos_.y + scale_.y / 2.0f) / window_size.y * 2.0f - 1.0f);
-  glVertex2f((pos_.x + scale_.x / 2.0f) / window_size.x * 2.0f - 1.0f,
-             (pos_.y - scale_.y / 2.0f) / window_size.y * 2.0f - 1.0f);
-  glEnd();
-}
-
-WalkNode::WalkNode(const glm::vec2 &pos) : RectangleEntity(pos, glm::vec2(5.0f, 5.0f)) {
-}
 
 GoalWalker::GoalWalker(const glm::vec2 &pos) :
   RectangleEntity(pos, glm::vec2(5.0f, 5.0f)), goal_(nullptr) {
@@ -45,7 +23,6 @@ void GoalWalker::Update() {
 
   if (glm::distance(pos(), goal_->pos()) <= 1.0f) {
     set_pos(goal_->pos());
-    free(goal_);
     goal_ = nullptr;
     return;
   }

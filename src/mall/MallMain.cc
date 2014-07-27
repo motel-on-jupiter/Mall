@@ -20,7 +20,7 @@ static const Uint32 kGameLoopInterval = 1000 / kFPS;
 
 static SDL_Window *window = nullptr;
 static SDL_GLContext context = nullptr;
-static MallGame game(glm::vec2(kWindowWidth, kWindowHeight));
+static MallGame game;
 static Uint32 next_time = 0;
 
 static void MallCleanUp();
@@ -59,7 +59,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     return -1;
   }
 
-  int ret = game.Initialize();
+  int ret = game.Initialize(glm::vec2(kWindowWidth, kWindowHeight));
   if (ret < 0) {
     LOGGER.Error("Failed to initialize the game (ret: %d)", ret);
     MallCleanUp();
@@ -92,7 +92,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     }
 
     // update and draw
-    game.Update(0.0f, glm::vec2(kWindowWidth, kWindowHeight));
+    game.Update(0.0f);
     if (!skip_draw) {
       ret = game.Draw(glm::vec2(kWindowWidth, kWindowHeight));
       if (ret < 0) {
