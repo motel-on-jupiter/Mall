@@ -59,7 +59,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     return -1;
   }
 
-  int ret = game.Initialize(kWindowWidth, kWindowHeight);
+  int ret = game.Initialize();
   if (ret < 0) {
     LOGGER.Error("Failed to initialize the game (ret: %d)", ret);
     MallCleanUp();
@@ -93,7 +93,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
 
     // update and draw
     if (!skip_draw) {
-      ret = game.Draw();
+      ret = game.Draw(glm::vec2(kWindowWidth, kWindowHeight));
       if (ret < 0) {
         LOGGER.Error("Failed to draw the game objects (ret: %d)", ret);
         loop_stat = -1;

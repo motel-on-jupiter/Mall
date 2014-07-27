@@ -13,15 +13,16 @@ class MallGame {
   MallGame();
   ~MallGame();
 
-  int Initialize(int window_width, int window_height);
+  int Initialize();
   void Finalize();
 
   void Update(float elapsed_time);
-  int Draw();
+  int Draw(glm::vec2 window_size);
 
  private:
   bool initialized_;
-  GLUquadric *quadric_;
+  glm::vec2 rect_pos_;
+  glm::vec2 rect_size_;
 };
 
 #endif /* MALLGAME_H_ */

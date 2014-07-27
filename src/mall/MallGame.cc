@@ -8,7 +8,7 @@
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
-MallGame::MallGame() : initialized_(false), quadric_(nullptr) {
+MallGame::MallGame() : initialized_(false), rect_pos_(10.0f, 10.0f), rect_size_(20.0f, 20.0f) {
 }
 
 MallGame::~MallGame() {
@@ -19,43 +19,11 @@ MallGame::~MallGame() {
   }
 }
 
-int MallGame::Initialize(int window_width, int window_height) {
+int MallGame::Initialize() {
   LOGGER.Info("Set up the game");
 
-  // setup viewport
-  glViewport(0, 0, window_width, window_height);
-  glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-  glEnable(GL_DEPTH_TEST);
-
-  // setup projection matrix
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  glLoadMatrixf(
-      glm::value_ptr(
-          glm::perspective(
-              45.0f,
-              static_cast<GLfloat>(window_width)
-                  / static_cast<GLfloat>(window_height),
-              1.0f, 200.0f)));
-
-  // setup light
-  static GLfloat position[] = { -10.0f, 10.0f, 10.0f, 1.0f };
-  static GLfloat ambient[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-  static GLfloat diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-  static GLfloat specular[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-  glLightfv(GL_LIGHT0, GL_POSITION, position);
-  glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
-  glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
-  glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
-  glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
-  glEnable(GL_LIGHTING);
-  glEnable(GL_LIGHT0);
-
-  quadric_ = gluNewQuadric();
-  if (quadric_ == nullptr) {
-    LOGGER.Error("Failed to create the quadric");
-    return -1;
-  }
+  glDisable(GL_LIGHTING);
+  glDisable(GL_LIGHT0);
 
   initialized_ = true;
 
@@ -70,9 +38,6 @@ void MallGame::Finalize() {
 
   LOGGER.Info("Clean up the game");
 
-  if (quadric_ != nullptr) {
-    gluDeleteQuadric(quadric_);
-  }
   initialized_ = false;
 
   return;
@@ -87,7 +52,7 @@ void MallGame::Update(float elapsed_time) {
   return;
 }
 
-int MallGame::Draw() {
+int MallGame::Draw(glm::vec2 window_size) {
   if (!initialized_) {
     return 1;
   }
@@ -95,25 +60,25 @@ int MallGame::Draw() {
   // clear
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  // setup view
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  glOrtho(-1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 1.0f);
+
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
-  glLoadMatrixf(
-      glm::value_ptr(
-          glm::lookAt(glm::vec3(0.0f, 0.0f, -30.0f), glm::vec3(),
-                      glm::vec3(0.0f, -1.0f, 0.0f))));
 
-  // setup material
-  GLfloat ambient[] = { 0.1f, 0.1f, 0.1f, 1.0f };
-  GLfloat diffuse[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-  GLfloat specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-  GLfloat shininess[] = { 0.0f };
-  glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
-  glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
-  glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
-  glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-
-  gluSphere(quadric_, 10.0, 30, 30);
+  glBegin(GL_QUADS);
+  glVertex3f(rect_pos_.x / window_size.x * 2.0f - 1.0f,
+             rect_pos_.y / window_size.y * 2.0f - 1.0f, 0.0f);
+  glVertex3f(rect_pos_.x / window_size.x * 2.0f - 1.0f,
+             (rect_pos_.y + rect_size_.y) / window_size.y * 2.0f - 1.0f,
+             0.0f);
+  glVertex3f((rect_pos_.x + rect_size_.x) / window_size.x * 2.0f - 1.0f,
+             (rect_pos_.y + rect_size_.y) / window_size.y * 2.0f - 1.0f,
+             0.0f);
+  glVertex3f((rect_pos_.x + rect_size_.x) / window_size.x * 2.0f - 1.0f,
+             rect_pos_.y / window_size.y * 2.0f - 1.0f, 0.0f);
+  glEnd();
 
   return 0;
 }
