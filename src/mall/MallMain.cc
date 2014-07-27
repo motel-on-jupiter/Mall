@@ -92,6 +92,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     }
 
     // update and draw
+    game.Update(0.0f, glm::vec2(kWindowWidth, kWindowHeight));
     if (!skip_draw) {
       ret = game.Draw(glm::vec2(kWindowWidth, kWindowHeight));
       if (ret < 0) {
