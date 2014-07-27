@@ -10,7 +10,7 @@
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
-const int MallGame::kNumWalkWalkers = 50;
+const int MallGame::kNumWalkWalkers = 1;
 
 MallGame::MallGame(const glm::vec2 &window_size) :
     initialized_(false),
@@ -89,6 +89,7 @@ int MallGame::Draw(glm::vec2 window_size) {
 
   BOOST_FOREACH (auto walker, walkers_) {
     walker->Draw(window_size);
+    walker->DebugDraw(window_size);
   }
 
   return 0;
