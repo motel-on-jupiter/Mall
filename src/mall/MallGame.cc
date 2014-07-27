@@ -16,7 +16,8 @@ MallGame::MallGame(const glm::vec2 &window_size) :
     initialized_(false),
     walkers_() {
   for (int i=0; i<kNumWalkWalkers; ++i) {
-    walkers_.push_back(new GoalWalker(glm::linearRand(glm::vec2(), window_size)));
+    WalkNode node(glm::linearRand(glm::vec2(), window_size));
+    walkers_.push_back(new NodeWalker(node));
   }
 }
 
@@ -65,7 +66,7 @@ void MallGame::Update(float elapsed_time, glm::vec2 window_size) {
 
   BOOST_FOREACH (auto walker, walkers_) {
     if ((*walker).HasReached()) {
-      (*walker).SetGoal(new GoalNode(glm::linearRand(glm::vec2(), window_size)));
+      (*walker).SetGoal(new WalkNode(glm::linearRand(glm::vec2(), window_size)));
     }
     (*walker).Update();
   }

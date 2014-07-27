@@ -5,7 +5,7 @@
 #ifndef MALLGAME_H_
 #define MALLGAME_H_
 
-#include "mall/actor/GoalWalker.h"
+#include "mall/actor/Walker.h"
 
 class MallGame {
  public:
@@ -22,7 +22,7 @@ class MallGame {
   static const int MallGame::kNumWalkWalkers;
 
   bool initialized_;
-  std::vector<GoalWalker *> walkers_;
+  std::vector<NodeWalker *> walkers_;
 };
 
 #endif /* MALLGAME_H_ */

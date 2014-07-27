@@ -106,7 +106,7 @@
     <ClCompile Include="..\src\mall\MallGame.cc">
       <Filter>src\mall</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mall\actor\GoalWalker.cc">
+    <ClCompile Include="..\src\mall\actor\Walker.cc">
       <Filter>src\mall\actor</Filter>
     </ClCompile>
   </ItemGroup>
@@ -201,7 +201,7 @@
     <ClInclude Include="..\src\mall\MallGame.h">
       <Filter>src\mall</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\actor\GoalWalker.h">
+    <ClInclude Include="..\src\mall\actor\Walker.h">
       <Filter>src\mall\actor</Filter>
     </ClInclude>
   </ItemGroup>
