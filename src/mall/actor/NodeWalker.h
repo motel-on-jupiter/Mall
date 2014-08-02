@@ -42,10 +42,10 @@ protected:
   virtual void SelectNextGoal(const WalkNode *current_goal);
 
 private:
-  bool FindTravelNodes(const WalkNode *node, const WalkNode *finalgoal, std::vector<const WalkNode *> &travelnodes);
+  bool BuildTravelNodeList(const WalkNode *node, const WalkNode *finalgoal, std::vector<const WalkNode *> &travelnodes);
 
   const WalkNodeMap &nodemap_;
-  std::vector<const WalkNode *> travelnodes_;
+  std::vector<const WalkNode *> travelnodelist_;
   const WalkNode *finalgoal_;
 };
 

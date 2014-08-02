@@ -47,20 +47,20 @@ void NodeWalker::SelectNextGoal(const WalkNode *current_goal) {
 }
 
 NodeMapWalker::NodeMapWalker(const WalkNode &start, const WalkNodeMap &nodemap) :
-  NodeWalker(start), nodemap_(nodemap), travelnodes_(), finalgoal_(nullptr) {
+  NodeWalker(start), nodemap_(nodemap), travelnodelist_(), finalgoal_(nullptr) {
   SetGoal(&start);
 }
 
-bool NodeMapWalker::FindTravelNodes(const WalkNode *node, const WalkNode *finalgoal, std::vector<const WalkNode *> &travelnodes) {
+bool NodeMapWalker::BuildTravelNodeList(const WalkNode *node, const WalkNode *finalgoal, std::vector<const WalkNode *> &travelnodelist) {
   BOOST_FOREACH(auto nextnode, node->nextnodes()) {
     if (nextnode == finalgoal) {
-      travelnodes.push_back(nextnode);
-      travelnodes.push_back(finalgoal);
+      travelnodelist.push_back(nextnode);
+      travelnodelist.push_back(finalgoal);
       return true;
     }
 
     bool list_loop = false;
-    BOOST_FOREACH(auto travelnode, travelnodes) {
+    BOOST_FOREACH(auto travelnode, travelnodelist) {
       if (nextnode == travelnode) {
         list_loop = true;
         break;
@@ -70,20 +70,20 @@ bool NodeMapWalker::FindTravelNodes(const WalkNode *node, const WalkNode *finalg
       continue;
     }
 
-    travelnodes.push_back(node);
-    if (FindTravelNodes(nextnode, finalgoal, travelnodes)) {
+    travelnodelist.push_back(node);
+    if (BuildTravelNodeList(nextnode, finalgoal, travelnodelist)) {
       return true;
     }
-    travelnodes.pop_back();
+    travelnodelist.pop_back();
   }
   return false;
 }
 
 void NodeMapWalker::SetFinalGoal(const WalkNode *finalgoal) {
-  std::vector<const WalkNode *> travelnodes;
+  std::vector<const WalkNode *> travelnodelist;
   if ((finalgoal != nullptr) && (goal() != nullptr)) {
-    if (FindTravelNodes(goal(), finalgoal, travelnodes)) {
-      travelnodes_ = travelnodes;
+    if (BuildTravelNodeList(goal(), finalgoal, travelnodelist)) {
+      travelnodelist_ = travelnodelist;
       finalgoal_ = finalgoal;
       return;
     }
@@ -105,9 +105,9 @@ void NodeMapWalker::DrawApproach(const glm::vec2 &window_size) {
 void NodeMapWalker::SelectNextGoal(const WalkNode *current_goal) {
   UNUSED(current_goal);
 
-  if (travelnodes_.size() != 0) {
-    SetGoal(travelnodes_.front());
-    travelnodes_.erase(travelnodes_.begin());
+  if (travelnodelist_.size() != 0) {
+    SetGoal(travelnodelist_.front());
+    travelnodelist_.erase(travelnodelist_.begin());
   }
 }
 
