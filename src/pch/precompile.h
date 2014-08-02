@@ -6,4 +6,3 @@
 #include "util/wrapper/crtdbg_wrap.h"
 #include "util/wrapper/glgraphics_wrap.h"
 #include "util/wrapper/glm_wrap.h"
-#include "util/wrapper/spark_wrap.h"

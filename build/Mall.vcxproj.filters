@@ -201,9 +201,6 @@
     <ClInclude Include="..\src\util\config\reader\INIReader.h">
       <Filter>src\util\config\reader</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\util\wrapper\spark_wrap.h">
-      <Filter>src\util\wrapper</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\util\macro_util.h">
       <Filter>src\util</Filter>
     </ClInclude>
