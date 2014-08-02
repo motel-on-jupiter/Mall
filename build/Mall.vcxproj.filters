@@ -115,6 +115,12 @@
     <ClCompile Include="..\src\mall\actor\NodeWalker.cc">
       <Filter>src\mall\actor</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\util\wrapper\TwEventSDL20.c">
+      <Filter>src\util\wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\wrapper\atb_wrap.cc">
+      <Filter>src\util\wrapper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\pch\precompile.h">
@@ -215,6 +221,9 @@
     </ClInclude>
     <ClInclude Include="..\src\mall\actor\NodeWalker.h">
       <Filter>src\mall\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\wrapper\atb_wrap.h">
+      <Filter>src\util\wrapper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,6 +3,8 @@
  */
 #include "MallMain.h"
 
+#include <sstream>
+
 #include <SDL.h>
 #include <SDL_opengl.h>
 
@@ -20,6 +22,7 @@ static const Uint32 kGameLoopInterval = 1000 / kFPS;
 
 static SDL_Window *window = nullptr;
 static SDL_GLContext context = nullptr;
+static TwBar *tw_bar = nullptr;
 static MallGame game;
 static Uint32 next_time = 0;
 
@@ -59,6 +62,24 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     return -1;
   }
 
+  // Initialize the tweaker library
+  if (TwInit(TW_OPENGL, NULL) == 0) {
+    LOGGER.Error("Failed to initialize the tweaker library (errmsg: %s)", TwGetLastError());
+    MallCleanUp();
+    return -1;
+  }
+  if (TwWindowSize(kWindowWidth, kWindowHeight) == 0) {
+    LOGGER.Error("Failed to set the window size to tweaker (errmsg: %s)", TwGetLastError());
+    MallCleanUp();
+    return -1;
+  }
+  tw_bar = TwNewBar("TweakMenu");
+  std::stringstream tw_def;
+  tw_def << "TweakMenu position='" << 550 << " " << 10 <<
+      "' size='" << 240 << " " << 580 << "' color='41 126 231' iconified=true";
+  TwDefine(tw_def.str().c_str());
+
+  // Initialize the game
   int ret = game.Initialize(glm::vec2(kWindowWidth, kWindowHeight));
   if (ret < 0) {
     LOGGER.Error("Failed to initialize the game (ret: %d)", ret);
@@ -66,7 +87,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     return -1;
   }
 
-  // mainloop
+  // Execute the mainloop
   next_time = SDL_GetTicks() + kGameLoopInterval;
   bool skip_draw = false;
   int loop_stat = 0;
@@ -74,7 +95,10 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     // check event
     bool escape_loop = false;
     SDL_Event event;
-    while (SDL_PollEvent(&event)) {
+    while (SDL_PollEvent(&event) == 1) {
+      if (TwEventSDL20(&event) != 0) {
+        continue;
+      }
       switch (event.type) {
         case SDL_QUIT:
           escape_loop = true;
@@ -91,12 +115,19 @@ int MallMain(int argc, char *argv[], const char *config_path) {
       break;
     }
 
-    // update and draw
+    // Update the game
     game.Update(0.0f);
+
+    // Draw the objects
     if (!skip_draw) {
       ret = game.Draw(glm::vec2(kWindowWidth, kWindowHeight));
       if (ret < 0) {
         LOGGER.Error("Failed to draw the game objects (ret: %d)", ret);
+        loop_stat = -1;
+        break;
+      }
+      if (TwDraw() == 0) {
+        LOGGER.Error("Failed to draw the tweaker (errmsg: %s)", TwGetLastError());
         loop_stat = -1;
         break;
       }
@@ -108,7 +139,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
       SDL_Delay(static_cast<Uint32>(delay_time));
       skip_draw = false;
     } else {
-      // skip next draw step because of no time
+      // Skip next draw step because of no time
       skip_draw = true;
     }
     next_time += kGameLoopInterval;
@@ -122,6 +153,10 @@ static void MallCleanUp() {
   LOGGER.Info("Clean up the application");
 
   game.Finalize();
+  if (TwTerminate() == 0) {
+    // Ignore the error to terminate the tweaker
+    // because the tweaker library may be not initialized
+  }
   if (context != nullptr) {
     SDL_GL_DeleteContext(context);
   }

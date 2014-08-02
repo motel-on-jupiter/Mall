@@ -42,6 +42,11 @@
     <ClCompile Include="..\src\util\logging\emitter\PipeLogEmitter.cc" />
     <ClCompile Include="..\src\util\logging\Logger.cc" />
     <ClCompile Include="..\src\util\system\FPSCounter.cc" />
+    <ClCompile Include="..\src\util\wrapper\atb_wrap.cc" />
+    <ClCompile Include="..\src\util\wrapper\TwEventSDL20.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\mall\actor\Entity.h" />
@@ -63,6 +68,7 @@
     <ClInclude Include="..\src\util\logging\Logger.h" />
     <ClInclude Include="..\src\util\macro_util.h" />
     <ClInclude Include="..\src\util\system\FPSCounter.h" />
+    <ClInclude Include="..\src\util\wrapper\atb_wrap.h" />
     <ClInclude Include="..\src\util\wrapper\crtdbg_wrap.h" />
     <ClInclude Include="..\src\util\wrapper\glgraphics_wrap.h" />
     <ClInclude Include="..\src\util\wrapper\glm_wrap.h" />
