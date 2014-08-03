@@ -15,7 +15,7 @@ void WalkNode::addNextNode(WalkNode *node) {
   nextnodes_.push_back(node);
 }
 
-const float WalkNodeMap::kMapNodeInterval = 40.0f;
+const float WalkNodeMap::kMapNodeInterval = 70.0f;
 
 WalkNodeMap::WalkNodeMap() : nodes_() {
 }
@@ -60,4 +60,17 @@ void WalkNodeMap::Draw(const glm::vec2 &window_size) {
   BOOST_FOREACH (auto node, nodes_) {
     node->Draw(window_size);
   }
+}
+
+const WalkNode *WalkNodeMap::CalcNearestNode(const glm::vec2 &pos) {
+  const WalkNode *nearest = nullptr;
+  float nearest_len = FLT_MAX;
+  BOOST_FOREACH (auto node, nodes_) {
+    float len = glm::length(node->pos() - pos);
+    if (len < nearest_len) {
+      nearest = node;
+      nearest_len = len;
+    }
+  }
+  return nearest;
 }

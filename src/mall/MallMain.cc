@@ -106,8 +106,11 @@ int MallMain(int argc, char *argv[], const char *config_path) {
         case SDL_KEYDOWN:
           if (event.key.keysym.sym == SDLK_ESCAPE) {
             escape_loop = true;
-            break;
           }
+          break;
+        case SDL_MOUSEBUTTONDOWN:
+          game.OnMouseButtonDown(event.button.button, event.button.x, event.button.y,
+                                 glm::vec2(kWindowWidth, kWindowHeight));
           break;
       }
     }

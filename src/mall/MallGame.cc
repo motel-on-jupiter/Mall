@@ -102,3 +102,15 @@ int MallGame::Draw(glm::vec2 window_size) {
 
   return 0;
 }
+
+int MallGame::OnMouseButtonDown(Uint8 button, Sint32 x, Sint32 y, glm::vec2 window_size) {
+  if (button == 1) {
+    Sint32 maxx = static_cast<Sint32>(window_size.x) - 1;
+    Sint32 maxy = static_cast<Sint32>(window_size.y) - 1;
+    if (x != 0 && y != 0 && x != maxx && y != maxy) {
+      const WalkNode *node = nodemap_.CalcNearestNode(glm::vec2(x, y));
+      walkers_[0]->UpdateFinalGoal(node);
+    }
+  }
+  return 0;
+}

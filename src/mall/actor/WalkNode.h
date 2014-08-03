@@ -30,8 +30,8 @@ class WalkNodeMap {
 
   int Initialize(const glm::vec2 &window_size);
   void Finalize();
-
   void Draw(const glm::vec2 &window_size);
+  const WalkNode *CalcNearestNode(const glm::vec2 &pos);
 
   const std::vector<WalkNode*>& nodes() const { return nodes_; }
 

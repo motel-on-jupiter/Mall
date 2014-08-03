@@ -15,9 +15,9 @@ class MallGame {
 
   int Initialize(const glm::vec2 &window_size);
   void Finalize();
-
   void Update(float elapsed_time);
   int Draw(glm::vec2 window_size);
+  int OnMouseButtonDown(Uint8 button, Sint32 x, Sint32 y, glm::vec2 window_size);
 
  private:
   static const int MallGame::kNumWalkWalkers;
