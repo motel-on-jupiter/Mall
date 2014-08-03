@@ -34,7 +34,7 @@ int MallGame::Initialize(const glm::vec2 &window_size) {
     unsigned int startnodeidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(nodemap_.nodes().size())));
     NodeMapWalker *walker = new NodeMapWalker(*(nodemap_.nodes()[startnodeidx]), nodemap_);
     unsigned int goalnodeidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(nodemap_.nodes().size())));
-    walker->SetFinalGoal(nodemap_.nodes()[goalnodeidx]);
+    walker->UpdateFinalGoal(nodemap_.nodes()[goalnodeidx]);
     walkers_.push_back(walker);
   }
 

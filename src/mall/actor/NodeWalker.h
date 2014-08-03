@@ -34,18 +34,20 @@ class NodeWalker : public RectangleEntity {
 class NodeMapWalker : public NodeWalker, private boost::noncopyable {
 public:
   NodeMapWalker(const WalkNode &start, const WalkNodeMap &nodemap);
+  virtual ~NodeMapWalker();
 
-  void SetFinalGoal(const WalkNode *finalgoal);
+  int UpdateFinalGoal(const WalkNode *finalgoal);
   virtual void DrawApproach(const glm::vec2 &window_size);
 
 protected:
   virtual void SelectNextGoal(const WalkNode *current_goal);
 
 private:
-  bool BuildTravelNodeList(const WalkNode *node, const WalkNode *finalgoal, std::vector<const WalkNode *> &travelnodes);
+  int BuildTravelNodeListImpl(const WalkNode *node, const WalkNode *finalgoal, std::vector<const WalkNode *> &breadcrumbs, std::vector<const WalkNode *> **minlist);
+  int BuildTravelNodeList(const WalkNode *finalgoal);
 
   const WalkNodeMap &nodemap_;
-  std::vector<const WalkNode *> travelnodelist_;
+  std::vector<const WalkNode *> *travelnodelist_;
   const WalkNode *finalgoal_;
 };
 

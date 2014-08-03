@@ -7,6 +7,7 @@
 #include <GL/glew.h>
 #include <boost/foreach.hpp>
 
+#include "util/logging/Logger.h"
 #include "util/macro_util.h"
 #define GLM_COLOR
 #include "util/def/ColorDef.h"
@@ -47,48 +48,77 @@ void NodeWalker::SelectNextGoal(const WalkNode *current_goal) {
 }
 
 NodeMapWalker::NodeMapWalker(const WalkNode &start, const WalkNodeMap &nodemap) :
-  NodeWalker(start), nodemap_(nodemap), travelnodelist_(), finalgoal_(nullptr) {
+  NodeWalker(start), nodemap_(nodemap), travelnodelist_(nullptr), finalgoal_(nullptr) {
   SetGoal(&start);
 }
 
-bool NodeMapWalker::BuildTravelNodeList(const WalkNode *node, const WalkNode *finalgoal, std::vector<const WalkNode *> &travelnodelist) {
-  BOOST_FOREACH(auto nextnode, node->nextnodes()) {
-    if (nextnode == finalgoal) {
-      travelnodelist.push_back(nextnode);
-      travelnodelist.push_back(finalgoal);
-      return true;
-    }
-
-    bool list_loop = false;
-    BOOST_FOREACH(auto travelnode, travelnodelist) {
-      if (nextnode == travelnode) {
-        list_loop = true;
-        break;
-      }
-    }
-    if (list_loop) {
-      continue;
-    }
-
-    travelnodelist.push_back(node);
-    if (BuildTravelNodeList(nextnode, finalgoal, travelnodelist)) {
-      return true;
-    }
-    travelnodelist.pop_back();
-  }
-  return false;
+NodeMapWalker::~NodeMapWalker() {
+  delete travelnodelist_;
 }
 
-void NodeMapWalker::SetFinalGoal(const WalkNode *finalgoal) {
-  std::vector<const WalkNode *> travelnodelist;
-  if ((finalgoal != nullptr) && (goal() != nullptr)) {
-    if (BuildTravelNodeList(goal(), finalgoal, travelnodelist)) {
-      travelnodelist_ = travelnodelist;
-      finalgoal_ = finalgoal;
-      return;
+int NodeMapWalker::BuildTravelNodeListImpl(const WalkNode *curnode, const WalkNode *finalgoal, std::vector<const WalkNode *> &breadcrumbs, std::vector<const WalkNode *> **minlist) {
+  // For short circuit
+  if ((*minlist != nullptr) && (breadcrumbs.size() + 2 >= (*minlist)->size())) {
+    return 0;
+  }
+
+  // Detect the looping
+  BOOST_FOREACH(auto breadcrumb, breadcrumbs) {
+    if (curnode == breadcrumb) {
+      return 0;
     }
   }
-  finalgoal_ = nullptr;
+
+  BOOST_FOREACH(auto nextnode, curnode->nextnodes()) {
+    // Check whether this node is goal or not
+    if (nextnode == finalgoal) {
+      assert(minlist != nullptr);
+      if ((*minlist == nullptr) ||
+          (breadcrumbs.size() + 2 < (*minlist)->size())) {
+        delete *minlist;
+        *minlist = new std::vector<const WalkNode *>(breadcrumbs);
+        if (minlist == nullptr) {
+          LOGGER.Error("Failed to deep-copy braedcrumbs as the minimun length node list");
+          return -1;
+        }
+        (*minlist)->push_back(nextnode);
+        (*minlist)->push_back(finalgoal);
+      }
+      return 0;
+    }
+
+    // Walk the next nodes
+    breadcrumbs.push_back(curnode);
+    if (BuildTravelNodeListImpl(nextnode, finalgoal, breadcrumbs, minlist) < 0) {
+      return -1;
+    }
+    breadcrumbs.pop_back();
+  }
+  return 0;
+}
+
+int NodeMapWalker::BuildTravelNodeList(const WalkNode *finalgoal) {
+  std::vector<const WalkNode *> listbuf;
+  std::vector<const WalkNode *> *minlist = nullptr;
+  if (BuildTravelNodeListImpl(goal(), finalgoal, listbuf, &minlist) < 0) {
+    delete minlist;
+    return -1;
+  }
+  delete travelnodelist_;
+  travelnodelist_ = minlist;
+  return 0;
+}
+
+int NodeMapWalker::UpdateFinalGoal(const WalkNode *finalgoal) {
+  std::vector<const WalkNode *> travelnodelist;
+  if ((finalgoal != nullptr) && (goal() != nullptr)) {
+    if (BuildTravelNodeList(finalgoal) < 0) {
+      LOGGER.Error("Failed to build the travel node list");
+      return -1;
+    }
+  }
+  finalgoal_ = finalgoal;
+  return 0;
 }
 
 void NodeMapWalker::DrawApproach(const glm::vec2 &window_size) {
@@ -105,9 +135,9 @@ void NodeMapWalker::DrawApproach(const glm::vec2 &window_size) {
 void NodeMapWalker::SelectNextGoal(const WalkNode *current_goal) {
   UNUSED(current_goal);
 
-  if (travelnodelist_.size() != 0) {
-    SetGoal(travelnodelist_.front());
-    travelnodelist_.erase(travelnodelist_.begin());
+  if ((travelnodelist_ != NULL) && (travelnodelist_->size() != 0)) {
+    SetGoal(travelnodelist_->front());
+    travelnodelist_->erase(travelnodelist_->begin());
   }
 }
 
