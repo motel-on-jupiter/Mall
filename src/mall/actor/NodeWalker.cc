@@ -3,9 +3,7 @@
  */
 #include "mall/actor/NodeWalker.h"
 
-#include <cassert>
 #include <GL/glew.h>
-#include <boost/foreach.hpp>
 
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
@@ -56,52 +54,11 @@ NodeMapWalker::~NodeMapWalker() {
   delete travelnodelist_;
 }
 
-int NodeMapWalker::BuildTravelNodeListImpl(const WalkNode *curnode, const WalkNode *finalgoal, std::vector<const WalkNode *> &breadcrumbs, std::vector<const WalkNode *> **minlist) {
-  assert(minlist != nullptr);
-
-  // For short circuit
-  if ((*minlist != nullptr) && (breadcrumbs.size() + 2 >= (*minlist)->size())) {
-    return 0;
-  }
-
-  // Detect the looping
-  BOOST_FOREACH(auto breadcrumb, breadcrumbs) {
-    if (curnode == breadcrumb) {
-      return 0;
-    }
-  }
-
-  BOOST_FOREACH(auto nextnode, curnode->nextnodes()) {
-    // Check whether this node is goal or not
-    if (nextnode == finalgoal) {
-      if ((*minlist == nullptr) ||
-          (breadcrumbs.size() + 2 < (*minlist)->size())) {
-        delete *minlist;
-        *minlist = new std::vector<const WalkNode *>(breadcrumbs);
-        if (minlist == nullptr) {
-          LOGGER.Error("Failed to deep-copy braedcrumbs as the minimun length node list");
-          return -1;
-        }
-        (*minlist)->push_back(nextnode);
-        (*minlist)->push_back(finalgoal);
-      }
-      return 0;
-    }
-
-    // Walk the next nodes
-    breadcrumbs.push_back(curnode);
-    if (BuildTravelNodeListImpl(nextnode, finalgoal, breadcrumbs, minlist) < 0) {
-      return -1;
-    }
-    breadcrumbs.pop_back();
-  }
-  return 0;
-}
-
 int NodeMapWalker::BuildTravelNodeList(const WalkNode *finalgoal) {
   std::vector<const WalkNode *> listbuf;
   std::vector<const WalkNode *> *minlist = nullptr;
   if (BuildTravelNodeListImpl(goal(), finalgoal, listbuf, &minlist) < 0) {
+    LOGGER.Error("Failed to deep-copy braedcrumbs as the minimun length node list");
     delete minlist;
     return -1;
   }
@@ -111,7 +68,6 @@ int NodeMapWalker::BuildTravelNodeList(const WalkNode *finalgoal) {
 }
 
 int NodeMapWalker::UpdateFinalGoal(const WalkNode *finalgoal) {
-  std::vector<const WalkNode *> travelnodelist;
   if ((finalgoal != nullptr) && (goal() != nullptr)) {
     if (BuildTravelNodeList(finalgoal) < 0) {
       LOGGER.Error("Failed to build the travel node list");

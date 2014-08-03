@@ -2,8 +2,8 @@
  * Copyright (C) 2014 The Motel On Jupiter
  */
 
-#ifndef WALKER_H_
-#define WALKER_H_
+#ifndef NODEWALKER_H_
+#define NODEWALKER_H_
 
 #include <boost/noncopyable.hpp>
 
@@ -64,4 +64,6 @@ private:
   const WalkNodeMap &nodemap_;
 };
 
-#endif /* WALKER_H_ */
+#include "mall/actor/NodeWalker.inl"
+
+#endif /* NODEWALKER_H_ */

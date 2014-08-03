@@ -133,6 +133,8 @@
       <SmallerTypeCheck>true</SmallerTypeCheck>
       <DisableSpecificWarnings>4127;4530</DisableSpecificWarnings>
       <AdditionalOptions>/Zm360 %(AdditionalOptions)</AdditionalOptions>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
