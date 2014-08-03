@@ -57,6 +57,8 @@ NodeMapWalker::~NodeMapWalker() {
 }
 
 int NodeMapWalker::BuildTravelNodeListImpl(const WalkNode *curnode, const WalkNode *finalgoal, std::vector<const WalkNode *> &breadcrumbs, std::vector<const WalkNode *> **minlist) {
+  assert(minlist != nullptr);
+
   // For short circuit
   if ((*minlist != nullptr) && (breadcrumbs.size() + 2 >= (*minlist)->size())) {
     return 0;
@@ -72,7 +74,6 @@ int NodeMapWalker::BuildTravelNodeListImpl(const WalkNode *curnode, const WalkNo
   BOOST_FOREACH(auto nextnode, curnode->nextnodes()) {
     // Check whether this node is goal or not
     if (nextnode == finalgoal) {
-      assert(minlist != nullptr);
       if ((*minlist == nullptr) ||
           (breadcrumbs.size() + 2 < (*minlist)->size())) {
         delete *minlist;
