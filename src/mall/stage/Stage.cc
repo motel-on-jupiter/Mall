@@ -6,19 +6,12 @@
 #include <boost/foreach.hpp>
 #define GLM_COLOR
 #include "util/def/ColorDef.h"
+#include "util/logging/Logger.h"
 
 Stage::Stage() : nodemap_() {
 }
 
 Stage::~Stage() {
-}
-
-int Stage::Initialize(const glm::vec2 &window_size) {
-  return nodemap_.Initialize(window_size);
-}
-
-void Stage::Finalize() {
-  nodemap_.Finalize();
 }
 
 void Stage::Draw(const glm::vec2 &window_size) {
@@ -31,3 +24,43 @@ void Stage::Draw(const glm::vec2 &window_size) {
   }
   glEnd();
 }
+
+const float GridStage::kMapNodeInterval = 70.0f;
+
+GridStage::GridStage() : Stage() {
+}
+
+GridStage::~GridStage() {
+}
+
+int GridStage::Initialize(const glm::vec2 &window_size) {
+  int max_raw = static_cast<int>(window_size.x / kMapNodeInterval);
+  int max_column = static_cast<int>(window_size.y / kMapNodeInterval);
+  for (int raw = 0; raw < max_raw; ++raw) {
+    for (int column = 0; column < max_column; ++column) {
+      WalkNode *node = new WalkNode(glm::vec2(kMapNodeInterval * static_cast<float>(raw),
+                                              kMapNodeInterval * static_cast<float>(column)));
+      if (node == nullptr) {
+        LOGGER.Error("Failed to allocate the walk node object");
+        return -1;
+      }
+
+      if (raw != 0) {
+        node->AddNextNode(const_nodemap().nodes()[(raw - 1) * max_column + column]);
+        nodemap().nodes()[(raw - 1) * max_column + column]->AddNextNode(node);
+      }
+      if (column != 0) {
+        node->AddNextNode(const_nodemap().nodes()[raw * max_column + (column - 1)]);
+        nodemap().nodes()[raw * max_column + (column - 1)]->AddNextNode(node);
+      }
+
+      nodemap().AddNode(node);
+    }
+  }
+  return 0;
+}
+
+void GridStage::Finalize() {
+  nodemap().Clear();
+}
+
