@@ -5,7 +5,7 @@
 #ifndef STAGE_H_
 #define STAGE_H_
 
-#include "mall/actor/WalkNode.h"
+#include "navigation/Waypoint.h"
 
 class Stage {
 public:
@@ -17,18 +17,18 @@ public:
 
   void Draw(const glm::vec2 &window_size);
 
-  const WalkNodeGraph& const_graph() const { return nodemap_; }
+  const WaypointGraph& const_graph() const { return graph_; }
 
 protected:
-  WalkNodeGraph& nodemap() { return nodemap_; }
+  WaypointGraph& graph() { return graph_; }
 
 private:
-  WalkNodeGraph nodemap_;
+  WaypointGraph graph_;
 };
 
 class GridStage : public Stage {
  public:
-  static const float kMapNodeInterval;
+  static const float kGridInterval;
 
   GridStage();
   virtual ~GridStage();

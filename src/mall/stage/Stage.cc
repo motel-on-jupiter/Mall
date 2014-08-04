@@ -8,7 +8,7 @@
 #include "util/def/ColorDef.h"
 #include "util/logging/Logger.h"
 
-Stage::Stage() : nodemap_() {
+Stage::Stage() : graph_() {
 }
 
 Stage::~Stage() {
@@ -18,14 +18,14 @@ void Stage::Draw(const glm::vec2 &window_size) {
   glColor3fv(glm::value_ptr(kWhiteColor));
   glPointSize(0.1f);
   glBegin(GL_POINTS);
-  BOOST_FOREACH (auto node, nodemap_.nodes()) {
-    glVertex2f(node->pos().x / window_size.x * 2.0f - 1.0f,
-               node->pos().y / window_size.y * 2.0f - 1.0f);
+  BOOST_FOREACH(auto point, graph_.points()) {
+    glVertex2f(point->pos().x / window_size.x * 2.0f - 1.0f,
+               point->pos().y / window_size.y * 2.0f - 1.0f);
   }
   glEnd();
 }
 
-const float GridStage::kMapNodeInterval = 70.0f;
+const float GridStage::kGridInterval = 70.0f;
 
 GridStage::GridStage() : Stage() {
 }
@@ -34,33 +34,33 @@ GridStage::~GridStage() {
 }
 
 int GridStage::Initialize(const glm::vec2 &window_size) {
-  int max_raw = static_cast<int>(window_size.x / kMapNodeInterval);
-  int max_column = static_cast<int>(window_size.y / kMapNodeInterval);
+  int max_raw = static_cast<int>(window_size.x / kGridInterval);
+  int max_column = static_cast<int>(window_size.y / kGridInterval);
   for (int raw = 0; raw < max_raw; ++raw) {
     for (int column = 0; column < max_column; ++column) {
-      WalkNode *node = new WalkNode(glm::vec2(kMapNodeInterval * static_cast<float>(raw),
-                                              kMapNodeInterval * static_cast<float>(column)));
-      if (node == nullptr) {
-        LOGGER.Error("Failed to allocate the walk node object");
+      Waypoint *point = new Waypoint(glm::vec2(kGridInterval * static_cast<float>(raw),
+                                               kGridInterval * static_cast<float>(column)));
+      if (point == nullptr) {
+        LOGGER.Error("Failed to allocate the waypoint object");
         return -1;
       }
 
       if (raw != 0) {
-        node->AddNextNode(const_graph().nodes()[(raw - 1) * max_column + column]);
-        nodemap().nodes()[(raw - 1) * max_column + column]->AddNextNode(node);
+        point->AddNextPoint(const_graph().points()[(raw - 1) * max_column + column]);
+        graph().points()[(raw - 1) * max_column + column]->AddNextPoint(point);
       }
       if (column != 0) {
-        node->AddNextNode(const_graph().nodes()[raw * max_column + (column - 1)]);
-        nodemap().nodes()[raw * max_column + (column - 1)]->AddNextNode(node);
+        point->AddNextPoint(const_graph().points()[raw * max_column + (column - 1)]);
+        graph().points()[raw * max_column + (column - 1)]->AddNextPoint(point);
       }
 
-      nodemap().AddNode(node);
+      graph().AddPoint(point);
     }
   }
   return 0;
 }
 
 void GridStage::Finalize() {
-  nodemap().Clear();
+  graph().Clear();
 }
 

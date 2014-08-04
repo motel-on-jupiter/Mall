@@ -10,7 +10,7 @@
 #define GLM_COLOR
 #include "util/def/ColorDef.h"
 
-NodeWalker::NodeWalker(const WalkNode &start) :
+NodeWalker::NodeWalker(const Waypoint &start) :
   RectangleEntity(start.pos(), glm::vec2(5.0f, 5.0f)), goal_(nullptr), arrived_(true) {
 }
 
@@ -41,36 +41,36 @@ void NodeWalker::DrawApproach(const glm::vec2 &window_size) {
   }
 }
 
-void NodeWalker::SelectNextGoal(const WalkNode *current_goal) {
+void NodeWalker::SelectNextGoal(const Waypoint *current_goal) {
   UNUSED(current_goal);
 }
 
-NodeGraphWalker::NodeGraphWalker(const WalkNode &start, const WalkNodeGraph &graph) :
-  NodeWalker(start), graph_(graph), travelnodelist_(nullptr), finalgoal_(nullptr) {
+NodeGraphWalker::NodeGraphWalker(const Waypoint &start, const WaypointGraph &graph) :
+  NodeWalker(start), graph_(graph), travellist_(nullptr), finalgoal_(nullptr) {
   SetGoal(&start);
 }
 
 NodeGraphWalker::~NodeGraphWalker() {
-  delete travelnodelist_;
+  delete travellist_;
 }
 
-int NodeGraphWalker::BuildTravelNodeList(const WalkNode *finalgoal) {
-  std::vector<const WalkNode *> listbuf;
-  std::vector<const WalkNode *> *minlist = nullptr;
-  if (BuildTravelNodeListImpl(goal(), finalgoal, listbuf, &minlist) < 0) {
-    LOGGER.Error("Failed to deep-copy braedcrumbs as the minimun length node list");
+int NodeGraphWalker::BuildTravelList(const Waypoint *finalgoal) {
+  std::vector<const Waypoint *> listbuf;
+  std::vector<const Waypoint *> *minlist = nullptr;
+  if (BuildTravelListImpl(goal(), finalgoal, listbuf, &minlist) < 0) {
+    LOGGER.Error("Failed to deep-copy braedcrumbs as the minimun length list");
     delete minlist;
     return -1;
   }
-  delete travelnodelist_;
-  travelnodelist_ = minlist;
+  delete travellist_;
+  travellist_ = minlist;
   return 0;
 }
 
-int NodeGraphWalker::UpdateFinalGoal(const WalkNode *finalgoal) {
+int NodeGraphWalker::UpdateFinalGoal(const Waypoint *finalgoal) {
   if ((finalgoal != nullptr) && (goal() != nullptr)) {
-    if (BuildTravelNodeList(finalgoal) < 0) {
-      LOGGER.Error("Failed to build the travel node list");
+    if (BuildTravelList(finalgoal) < 0) {
+      LOGGER.Error("Failed to build the travel list");
       return -1;
     }
   }
@@ -89,23 +89,23 @@ void NodeGraphWalker::DrawApproach(const glm::vec2 &window_size) {
   }
 }
 
-void NodeGraphWalker::SelectNextGoal(const WalkNode *current_goal) {
+void NodeGraphWalker::SelectNextGoal(const Waypoint *current_goal) {
   UNUSED(current_goal);
 
-  if ((travelnodelist_ != NULL) && (travelnodelist_->size() != 0)) {
-    SetGoal(travelnodelist_->front());
-    travelnodelist_->erase(travelnodelist_->begin());
+  if ((travellist_ != NULL) && (travellist_->size() != 0)) {
+    SetGoal(travellist_->front());
+    travellist_->erase(travellist_->begin());
   }
 }
 
-RandomNodeGraphWalker::RandomNodeGraphWalker(const WalkNode &start, const WalkNodeGraph &graph) :
+RandomNodeGraphWalker::RandomNodeGraphWalker(const Waypoint &start, const WaypointGraph &graph) :
   NodeWalker(start), graph_(graph) {
 
 }
 
-void RandomNodeGraphWalker::SelectNextGoal(const WalkNode *current_goal) {
+void RandomNodeGraphWalker::SelectNextGoal(const Waypoint *current_goal) {
   if (current_goal != nullptr) {
-    int nodeidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(current_goal->nextnodes().size())));
-    SetGoal(current_goal->nextnodes()[nodeidx]);
+    int idx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(current_goal->nextpoints().size())));
+    SetGoal(current_goal->nextpoints()[idx]);
   }
 }

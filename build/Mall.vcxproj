@@ -14,10 +14,10 @@
     <ClCompile Include="..\src\main.cc" />
     <ClCompile Include="..\src\mall\actor\Entity.cc" />
     <ClCompile Include="..\src\mall\actor\NodeWalker.cc" />
-    <ClCompile Include="..\src\mall\actor\WalkNode.cc" />
     <ClCompile Include="..\src\mall\MallGame.cc" />
     <ClCompile Include="..\src\mall\MallMain.cc" />
     <ClCompile Include="..\src\mall\stage\Stage.cc" />
+    <ClCompile Include="..\src\navigation\Waypoint.cc" />
     <ClCompile Include="..\src\pch\precompile.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -52,10 +52,10 @@
   <ItemGroup>
     <ClInclude Include="..\src\mall\actor\Entity.h" />
     <ClInclude Include="..\src\mall\actor\NodeWalker.h" />
-    <ClInclude Include="..\src\mall\actor\WalkNode.h" />
     <ClInclude Include="..\src\mall\MallGame.h" />
     <ClInclude Include="..\src\mall\MallMain.h" />
     <ClInclude Include="..\src\mall\stage\Stage.h" />
+    <ClInclude Include="..\src\navigation\Waypoint.h" />
     <ClInclude Include="..\src\pch\precompile.h" />
     <ClInclude Include="..\src\util\config\ini.h" />
     <ClInclude Include="..\src\util\config\reader\GLINIReader.h" />

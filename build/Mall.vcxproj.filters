@@ -40,6 +40,9 @@
     <Filter Include="src\mall\stage">
       <UniqueIdentifier>{a466db48-a280-43bc-952f-8a08f2aa38f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\navigation">
+      <UniqueIdentifier>{2e092d5a-9299-4c75-88bf-2bc65a1906a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\pch\precompile.cc">
@@ -112,9 +115,6 @@
     <ClCompile Include="..\src\mall\actor\Entity.cc">
       <Filter>src\mall\actor</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mall\actor\WalkNode.cc">
-      <Filter>src\mall\actor</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mall\actor\NodeWalker.cc">
       <Filter>src\mall\actor</Filter>
     </ClCompile>
@@ -126,6 +126,9 @@
     </ClCompile>
     <ClCompile Include="..\src\mall\stage\Stage.cc">
       <Filter>src\mall\stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\navigation\Waypoint.cc">
+      <Filter>src\navigation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,9 +222,6 @@
     <ClInclude Include="..\src\mall\actor\Entity.h">
       <Filter>src\mall\actor</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\actor\WalkNode.h">
-      <Filter>src\mall\actor</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\mall\actor\NodeWalker.h">
       <Filter>src\mall\actor</Filter>
     </ClInclude>
@@ -230,6 +230,9 @@
     </ClInclude>
     <ClInclude Include="..\src\mall\stage\Stage.h">
       <Filter>src\mall\stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\navigation\Waypoint.h">
+      <Filter>src\navigation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
