@@ -5,7 +5,7 @@
 #include <cassert>
 #include <boost/foreach.hpp>
 
-inline int NodeMapWalker::BuildTravelNodeListImpl(const WalkNode *curnode, const WalkNode *finalgoal, std::vector<const WalkNode *> &breadcrumbs, std::vector<const WalkNode *> **minlist) {
+inline int NodeGraphWalker::BuildTravelNodeListImpl(const WalkNode *curnode, const WalkNode *finalgoal, std::vector<const WalkNode *> &breadcrumbs, std::vector<const WalkNode *> **minlist) {
   assert(minlist != nullptr);
 
   // For short circuit

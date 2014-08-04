@@ -22,10 +22,10 @@ private:
   std::vector<WalkNode *> nextnodes_;
 };
 
-class WalkNodeMap {
+class WalkNodeGraph {
  public:
-  WalkNodeMap();
-  ~WalkNodeMap();
+  WalkNodeGraph();
+  ~WalkNodeGraph();
 
   int Initialize(const glm::vec2 &window_size);
   void Finalize();

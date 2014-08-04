@@ -46,11 +46,11 @@ int GridStage::Initialize(const glm::vec2 &window_size) {
       }
 
       if (raw != 0) {
-        node->AddNextNode(const_nodemap().nodes()[(raw - 1) * max_column + column]);
+        node->AddNextNode(const_graph().nodes()[(raw - 1) * max_column + column]);
         nodemap().nodes()[(raw - 1) * max_column + column]->AddNextNode(node);
       }
       if (column != 0) {
-        node->AddNextNode(const_nodemap().nodes()[raw * max_column + (column - 1)]);
+        node->AddNextNode(const_graph().nodes()[raw * max_column + (column - 1)]);
         nodemap().nodes()[raw * max_column + (column - 1)]->AddNextNode(node);
       }
 

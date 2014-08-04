@@ -45,16 +45,16 @@ void NodeWalker::SelectNextGoal(const WalkNode *current_goal) {
   UNUSED(current_goal);
 }
 
-NodeMapWalker::NodeMapWalker(const WalkNode &start, const WalkNodeMap &nodemap) :
-  NodeWalker(start), nodemap_(nodemap), travelnodelist_(nullptr), finalgoal_(nullptr) {
+NodeGraphWalker::NodeGraphWalker(const WalkNode &start, const WalkNodeGraph &graph) :
+  NodeWalker(start), graph_(graph), travelnodelist_(nullptr), finalgoal_(nullptr) {
   SetGoal(&start);
 }
 
-NodeMapWalker::~NodeMapWalker() {
+NodeGraphWalker::~NodeGraphWalker() {
   delete travelnodelist_;
 }
 
-int NodeMapWalker::BuildTravelNodeList(const WalkNode *finalgoal) {
+int NodeGraphWalker::BuildTravelNodeList(const WalkNode *finalgoal) {
   std::vector<const WalkNode *> listbuf;
   std::vector<const WalkNode *> *minlist = nullptr;
   if (BuildTravelNodeListImpl(goal(), finalgoal, listbuf, &minlist) < 0) {
@@ -67,7 +67,7 @@ int NodeMapWalker::BuildTravelNodeList(const WalkNode *finalgoal) {
   return 0;
 }
 
-int NodeMapWalker::UpdateFinalGoal(const WalkNode *finalgoal) {
+int NodeGraphWalker::UpdateFinalGoal(const WalkNode *finalgoal) {
   if ((finalgoal != nullptr) && (goal() != nullptr)) {
     if (BuildTravelNodeList(finalgoal) < 0) {
       LOGGER.Error("Failed to build the travel node list");
@@ -78,7 +78,7 @@ int NodeMapWalker::UpdateFinalGoal(const WalkNode *finalgoal) {
   return 0;
 }
 
-void NodeMapWalker::DrawApproach(const glm::vec2 &window_size) {
+void NodeGraphWalker::DrawApproach(const glm::vec2 &window_size) {
   NodeWalker::DrawApproach(window_size);
   if (finalgoal_ != nullptr) {
     glColor3fv(glm::value_ptr(kRedColor));
@@ -89,7 +89,7 @@ void NodeMapWalker::DrawApproach(const glm::vec2 &window_size) {
   }
 }
 
-void NodeMapWalker::SelectNextGoal(const WalkNode *current_goal) {
+void NodeGraphWalker::SelectNextGoal(const WalkNode *current_goal) {
   UNUSED(current_goal);
 
   if ((travelnodelist_ != NULL) && (travelnodelist_->size() != 0)) {
@@ -98,12 +98,12 @@ void NodeMapWalker::SelectNextGoal(const WalkNode *current_goal) {
   }
 }
 
-RandomNodeMapWalker::RandomNodeMapWalker(const WalkNode &start, const WalkNodeMap &nodemap) :
-  NodeWalker(start), nodemap_(nodemap) {
+RandomNodeGraphWalker::RandomNodeGraphWalker(const WalkNode &start, const WalkNodeGraph &graph) :
+  NodeWalker(start), graph_(graph) {
 
 }
 
-void RandomNodeMapWalker::SelectNextGoal(const WalkNode *current_goal) {
+void RandomNodeGraphWalker::SelectNextGoal(const WalkNode *current_goal) {
   if (current_goal != nullptr) {
     int nodeidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(current_goal->nextnodes().size())));
     SetGoal(current_goal->nextnodes()[nodeidx]);

@@ -15,17 +15,17 @@ void WalkNode::AddNextNode(WalkNode *node) {
   nextnodes_.push_back(node);
 }
 
-WalkNodeMap::WalkNodeMap() : nodes_() {
+WalkNodeGraph::WalkNodeGraph() : nodes_() {
 }
 
-WalkNodeMap::~WalkNodeMap() {
+WalkNodeGraph::~WalkNodeGraph() {
 }
 
-void WalkNodeMap::AddNode(WalkNode *node) {
+void WalkNodeGraph::AddNode(WalkNode *node) {
   nodes_.push_back(node);
 }
 
-void WalkNodeMap::Clear() {
+void WalkNodeGraph::Clear() {
   BOOST_FOREACH (auto node, nodes_) {
     delete node;
   }
@@ -33,7 +33,7 @@ void WalkNodeMap::Clear() {
 }
 
 
-const WalkNode *WalkNodeMap::CalcNearestNode(const glm::vec2 &pos) const {
+const WalkNode *WalkNodeGraph::CalcNearestNode(const glm::vec2 &pos) const {
   const WalkNode *nearest = nullptr;
   float nearest_len = FLT_MAX;
   BOOST_FOREACH (auto node, nodes_) {

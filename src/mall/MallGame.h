@@ -24,7 +24,7 @@ class MallGame {
 
   bool initialized_;
   GridStage stage_;
-  std::vector<NodeMapWalker *> walkers_;
+  std::vector<NodeGraphWalker *> walkers_;
 };
 
 #endif /* MALLGAME_H_ */

@@ -31,10 +31,10 @@ int MallGame::Initialize(const glm::vec2 &window_size) {
 
   stage_.Initialize(window_size);
   for (int i=0; i<kNumWalkWalkers; ++i) {
-    unsigned int startnodeidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_nodemap().nodes().size())));
-    NodeMapWalker *walker = new NodeMapWalker(*(stage_.const_nodemap().nodes()[startnodeidx]), stage_.const_nodemap());
-    unsigned int goalnodeidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_nodemap().nodes().size())));
-    walker->UpdateFinalGoal(stage_.const_nodemap().nodes()[goalnodeidx]);
+    unsigned int startnodeidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().nodes().size())));
+    NodeGraphWalker *walker = new NodeGraphWalker(*(stage_.const_graph().nodes()[startnodeidx]), stage_.const_graph());
+    unsigned int goalnodeidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().nodes().size())));
+    walker->UpdateFinalGoal(stage_.const_graph().nodes()[goalnodeidx]);
     walkers_.push_back(walker);
   }
 
@@ -108,7 +108,7 @@ int MallGame::OnMouseButtonDown(Uint8 button, Sint32 x, Sint32 y, glm::vec2 wind
     Sint32 maxx = static_cast<Sint32>(window_size.x) - 1;
     Sint32 maxy = static_cast<Sint32>(window_size.y) - 1;
     if (x != 0 && y != 0 && x != maxx && y != maxy) {
-      const WalkNode *node = stage_.const_nodemap().CalcNearestNode(glm::vec2(x, y));
+      const WalkNode *node = stage_.const_graph().CalcNearestNode(glm::vec2(x, y));
       walkers_[0]->UpdateFinalGoal(node);
     }
   }

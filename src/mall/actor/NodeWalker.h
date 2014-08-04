@@ -31,10 +31,10 @@ class NodeWalker : public RectangleEntity {
   bool arrived_;
 };
 
-class NodeMapWalker : public NodeWalker, private boost::noncopyable {
+class NodeGraphWalker : public NodeWalker, private boost::noncopyable {
 public:
-  NodeMapWalker(const WalkNode &start, const WalkNodeMap &nodemap);
-  virtual ~NodeMapWalker();
+  NodeGraphWalker(const WalkNode &start, const WalkNodeGraph &graph);
+  virtual ~NodeGraphWalker();
 
   int UpdateFinalGoal(const WalkNode *finalgoal);
   virtual void DrawApproach(const glm::vec2 &window_size);
@@ -46,14 +46,14 @@ private:
   int BuildTravelNodeListImpl(const WalkNode *node, const WalkNode *finalgoal, std::vector<const WalkNode *> &breadcrumbs, std::vector<const WalkNode *> **minlist);
   int BuildTravelNodeList(const WalkNode *finalgoal);
 
-  const WalkNodeMap &nodemap_;
+  const WalkNodeGraph &graph_;
   std::vector<const WalkNode *> *travelnodelist_;
   const WalkNode *finalgoal_;
 };
 
-class RandomNodeMapWalker : public NodeWalker, private boost::noncopyable {
+class RandomNodeGraphWalker : public NodeWalker, private boost::noncopyable {
 public:
-  RandomNodeMapWalker(const WalkNode &start, const WalkNodeMap &nodemap);
+  RandomNodeGraphWalker(const WalkNode &start, const WalkNodeGraph &graph);
 
   virtual void SelectNextGoal(const WalkNode *current_goal);
 
@@ -61,7 +61,7 @@ protected:
   virtual bool arrived() const { return NodeWalker::arrived(); }
 
 private:
-  const WalkNodeMap &nodemap_;
+  const WalkNodeGraph &graph_;
 };
 
 #include "mall/actor/NodeWalker.inl"
