@@ -2,17 +2,17 @@
  * Copyright (C) 2014 The Motel On Jupiter
  */
 
-#ifndef NODEWALKER_H_
-#define NODEWALKER_H_
+#ifndef WALKER_H_
+#define WALKER_H_
 
 #include <boost/noncopyable.hpp>
 #include "mall/actor/Entity.h"
 #include "navigation/Waypoint.h"
 
-class NodeWalker : public RectangleEntity {
+class SimpleWalker : public RectangleEntity {
  public:
-  NodeWalker(const Waypoint &start);
-  virtual ~NodeWalker() {}
+  SimpleWalker(const Waypoint &start);
+  virtual ~SimpleWalker() {}
 
   virtual void Update();
   void SetGoal(const Waypoint *goal) { goal_ = goal; arrived_ = false; }
@@ -30,10 +30,10 @@ class NodeWalker : public RectangleEntity {
   bool arrived_;
 };
 
-class NodeGraphWalker : public NodeWalker, private boost::noncopyable {
+class Walker : public SimpleWalker, private boost::noncopyable {
 public:
-  NodeGraphWalker(const Waypoint &start, const WaypointGraph &graph);
-  virtual ~NodeGraphWalker();
+  Walker(const Waypoint &start, const WaypointGraph &graph);
+  virtual ~Walker();
 
   int UpdateFinalGoal(const Waypoint *finalgoal);
   virtual void DrawApproach(const glm::vec2 &window_size);
@@ -50,19 +50,19 @@ private:
   const Waypoint *finalgoal_;
 };
 
-class RandomNodeGraphWalker : public NodeWalker, private boost::noncopyable {
+class RandomWalker : public SimpleWalker, private boost::noncopyable {
 public:
-  RandomNodeGraphWalker(const Waypoint &start, const WaypointGraph &graph);
+  RandomWalker(const Waypoint &start, const WaypointGraph &graph);
 
   virtual void SelectNextGoal(const Waypoint *current_goal);
 
 protected:
-  virtual bool arrived() const { return NodeWalker::arrived(); }
+  virtual bool arrived() const { return SimpleWalker::arrived(); }
 
 private:
   const WaypointGraph &graph_;
 };
 
-#include "mall/actor/NodeWalker.inl"
+#include "mall/actor/Walker.inl"
 
-#endif /* NODEWALKER_H_ */
+#endif /* WALKER_H_ */

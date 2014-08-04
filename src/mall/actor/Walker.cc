@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2014 The Motel On Jupiter
  */
-#include "mall/actor/NodeWalker.h"
+#include "mall/actor/Walker.h"
 
 #include <GL/glew.h>
 
@@ -10,11 +10,11 @@
 #define GLM_COLOR
 #include "util/def/ColorDef.h"
 
-NodeWalker::NodeWalker(const Waypoint &start) :
+SimpleWalker::SimpleWalker(const Waypoint &start) :
   RectangleEntity(start.pos(), glm::vec2(5.0f, 5.0f)), goal_(nullptr), arrived_(true) {
 }
 
-void NodeWalker::Update() {
+void SimpleWalker::Update() {
   if (arrived_) {
     SelectNextGoal(goal_);
     return;
@@ -31,7 +31,7 @@ void NodeWalker::Update() {
   }
 }
 
-void NodeWalker::DrawApproach(const glm::vec2 &window_size) {
+void SimpleWalker::DrawApproach(const glm::vec2 &window_size) {
   if (goal_ != nullptr) {
     glColor3fv(glm::value_ptr(kYellowColor));
     glBegin(GL_LINE_LOOP);
@@ -41,20 +41,20 @@ void NodeWalker::DrawApproach(const glm::vec2 &window_size) {
   }
 }
 
-void NodeWalker::SelectNextGoal(const Waypoint *current_goal) {
+void SimpleWalker::SelectNextGoal(const Waypoint *current_goal) {
   UNUSED(current_goal);
 }
 
-NodeGraphWalker::NodeGraphWalker(const Waypoint &start, const WaypointGraph &graph) :
-  NodeWalker(start), graph_(graph), travellist_(nullptr), finalgoal_(nullptr) {
+Walker::Walker(const Waypoint &start, const WaypointGraph &graph) :
+  SimpleWalker(start), graph_(graph), travellist_(nullptr), finalgoal_(nullptr) {
   SetGoal(&start);
 }
 
-NodeGraphWalker::~NodeGraphWalker() {
+Walker::~Walker() {
   delete travellist_;
 }
 
-int NodeGraphWalker::BuildTravelList(const Waypoint *finalgoal) {
+int Walker::BuildTravelList(const Waypoint *finalgoal) {
   std::vector<const Waypoint *> listbuf;
   std::vector<const Waypoint *> *minlist = nullptr;
   if (BuildTravelListImpl(goal(), finalgoal, listbuf, &minlist) < 0) {
@@ -67,7 +67,7 @@ int NodeGraphWalker::BuildTravelList(const Waypoint *finalgoal) {
   return 0;
 }
 
-int NodeGraphWalker::UpdateFinalGoal(const Waypoint *finalgoal) {
+int Walker::UpdateFinalGoal(const Waypoint *finalgoal) {
   if ((finalgoal != nullptr) && (goal() != nullptr)) {
     if (BuildTravelList(finalgoal) < 0) {
       LOGGER.Error("Failed to build the travel list");
@@ -78,8 +78,8 @@ int NodeGraphWalker::UpdateFinalGoal(const Waypoint *finalgoal) {
   return 0;
 }
 
-void NodeGraphWalker::DrawApproach(const glm::vec2 &window_size) {
-  NodeWalker::DrawApproach(window_size);
+void Walker::DrawApproach(const glm::vec2 &window_size) {
+  SimpleWalker::DrawApproach(window_size);
   if (finalgoal_ != nullptr) {
     glColor3fv(glm::value_ptr(kRedColor));
     glBegin(GL_LINE_LOOP);
@@ -89,7 +89,7 @@ void NodeGraphWalker::DrawApproach(const glm::vec2 &window_size) {
   }
 }
 
-void NodeGraphWalker::SelectNextGoal(const Waypoint *current_goal) {
+void Walker::SelectNextGoal(const Waypoint *current_goal) {
   UNUSED(current_goal);
 
   if ((travellist_ != NULL) && (travellist_->size() != 0)) {
@@ -98,12 +98,12 @@ void NodeGraphWalker::SelectNextGoal(const Waypoint *current_goal) {
   }
 }
 
-RandomNodeGraphWalker::RandomNodeGraphWalker(const Waypoint &start, const WaypointGraph &graph) :
-  NodeWalker(start), graph_(graph) {
+RandomWalker::RandomWalker(const Waypoint &start, const WaypointGraph &graph) :
+  SimpleWalker(start), graph_(graph) {
 
 }
 
-void RandomNodeGraphWalker::SelectNextGoal(const Waypoint *current_goal) {
+void RandomWalker::SelectNextGoal(const Waypoint *current_goal) {
   if (current_goal != nullptr) {
     int idx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(current_goal->nextpoints().size())));
     SetGoal(current_goal->nextpoints()[idx]);

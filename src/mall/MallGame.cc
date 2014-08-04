@@ -32,7 +32,7 @@ int MallGame::Initialize(const glm::vec2 &window_size) {
   stage_.Initialize(window_size);
   for (int i=0; i<kNumWalkWalkers; ++i) {
     unsigned int startidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
-    NodeGraphWalker *walker = new NodeGraphWalker(*(stage_.const_graph().points()[startidx]), stage_.const_graph());
+    Walker *walker = new Walker(*(stage_.const_graph().points()[startidx]), stage_.const_graph());
     unsigned int goalnodeidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
     walker->UpdateFinalGoal(stage_.const_graph().points()[goalnodeidx]);
     walkers_.push_back(walker);

@@ -1,10 +1,8 @@
 /**
  * Copyright (C) 2014 The Motel On Jupiter
  */
-#include "mall/actor/NodeWalker.h"
-
+#include "mall/actor/Entity.h"
 #include <GL/glew.h>
-
 #define GLM_COLOR
 #include "util/def/ColorDef.h"
 

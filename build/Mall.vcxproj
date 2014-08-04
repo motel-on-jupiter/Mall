@@ -13,7 +13,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\main.cc" />
     <ClCompile Include="..\src\mall\actor\Entity.cc" />
-    <ClCompile Include="..\src\mall\actor\NodeWalker.cc" />
+    <ClCompile Include="..\src\mall\actor\Walker.cc" />
     <ClCompile Include="..\src\mall\MallGame.cc" />
     <ClCompile Include="..\src\mall\MallMain.cc" />
     <ClCompile Include="..\src\mall\stage\Stage.cc" />
@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\mall\actor\Entity.h" />
-    <ClInclude Include="..\src\mall\actor\NodeWalker.h" />
+    <ClInclude Include="..\src\mall\actor\Walker.h" />
     <ClInclude Include="..\src\mall\MallGame.h" />
     <ClInclude Include="..\src\mall\MallMain.h" />
     <ClInclude Include="..\src\mall\stage\Stage.h" />
@@ -74,6 +74,9 @@
     <ClInclude Include="..\src\util\wrapper\crtdbg_wrap.h" />
     <ClInclude Include="..\src\util\wrapper\glgraphics_wrap.h" />
     <ClInclude Include="..\src\util\wrapper\glm_wrap.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\mall\actor\Walker.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1AA04D48-AD99-4B2A-8058-B840FC91770A}</ProjectGuid>
