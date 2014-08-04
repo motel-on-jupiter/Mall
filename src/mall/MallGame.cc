@@ -14,7 +14,7 @@ const int MallGame::kNumWalkWalkers = 1;
 
 MallGame::MallGame() :
     initialized_(false),
-    nodemap_(),
+    stage_(),
     walkers_() {
 }
 
@@ -29,12 +29,12 @@ MallGame::~MallGame() {
 int MallGame::Initialize(const glm::vec2 &window_size) {
   LOGGER.Info("Set up the game");
 
-  nodemap_.Initialize(window_size);
+  stage_.Initialize(window_size);
   for (int i=0; i<kNumWalkWalkers; ++i) {
-    unsigned int startnodeidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(nodemap_.nodes().size())));
-    NodeMapWalker *walker = new NodeMapWalker(*(nodemap_.nodes()[startnodeidx]), nodemap_);
-    unsigned int goalnodeidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(nodemap_.nodes().size())));
-    walker->UpdateFinalGoal(nodemap_.nodes()[goalnodeidx]);
+    unsigned int startnodeidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(stage_.nodemap().nodes().size())));
+    NodeMapWalker *walker = new NodeMapWalker(*(stage_.nodemap().nodes()[startnodeidx]), stage_.nodemap());
+    unsigned int goalnodeidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(stage_.nodemap().nodes().size())));
+    walker->UpdateFinalGoal(stage_.nodemap().nodes()[goalnodeidx]);
     walkers_.push_back(walker);
   }
 
@@ -57,7 +57,7 @@ void MallGame::Finalize() {
   BOOST_FOREACH (auto walker, walkers_) {
     delete(walker);
   }
-  nodemap_.Finalize();
+  stage_.Finalize();
 
   initialized_ = false;
 
@@ -92,7 +92,7 @@ int MallGame::Draw(glm::vec2 window_size) {
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  nodemap_.Draw(window_size);
+  stage_.Draw(window_size);
   BOOST_FOREACH (auto walker, walkers_) {
     walker->Draw(window_size);
 #ifdef _DEBUG
@@ -108,7 +108,7 @@ int MallGame::OnMouseButtonDown(Uint8 button, Sint32 x, Sint32 y, glm::vec2 wind
     Sint32 maxx = static_cast<Sint32>(window_size.x) - 1;
     Sint32 maxy = static_cast<Sint32>(window_size.y) - 1;
     if (x != 0 && y != 0 && x != maxx && y != maxy) {
-      const WalkNode *node = nodemap_.CalcNearestNode(glm::vec2(x, y));
+      const WalkNode *node = stage_.nodemap().CalcNearestNode(glm::vec2(x, y));
       walkers_[0]->UpdateFinalGoal(node);
     }
   }

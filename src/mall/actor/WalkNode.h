@@ -6,18 +6,19 @@
 #define WALKNODE_H_
 
 #include <vector>
-#include "mall/actor/Entity.h"
 
-class WalkNode : public PointEntity {
+class WalkNode {
 public:
   WalkNode(const glm::vec2 &pos);
   virtual ~WalkNode() {}
 
   void addNextNode(WalkNode *node);
 
+  const glm::vec2& pos() const { return pos_; }
   const std::vector<WalkNode*>& nextnodes() const { return nextnodes_; }
 
 private:
+  glm::vec2 pos_;
   std::vector<WalkNode *> nextnodes_;
 };
 
@@ -30,8 +31,7 @@ class WalkNodeMap {
 
   int Initialize(const glm::vec2 &window_size);
   void Finalize();
-  void Draw(const glm::vec2 &window_size);
-  const WalkNode *CalcNearestNode(const glm::vec2 &pos);
+  const WalkNode *CalcNearestNode (const glm::vec2 &pos) const ;
 
   const std::vector<WalkNode*>& nodes() const { return nodes_; }
 

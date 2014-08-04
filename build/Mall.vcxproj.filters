@@ -37,6 +37,9 @@
     <Filter Include="src\mall\actor">
       <UniqueIdentifier>{be309a10-42a5-41c7-8941-c88dcad634df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\mall\stage">
+      <UniqueIdentifier>{a466db48-a280-43bc-952f-8a08f2aa38f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\pch\precompile.cc">
@@ -120,6 +123,9 @@
     </ClCompile>
     <ClCompile Include="..\src\util\wrapper\atb_wrap.cc">
       <Filter>src\util\wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mall\stage\Stage.cc">
+      <Filter>src\mall\stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="..\src\util\wrapper\atb_wrap.h">
       <Filter>src\util\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\stage\Stage.h">
+      <Filter>src\mall\stage</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

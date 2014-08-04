@@ -8,7 +8,7 @@
 #include "util/logging/Logger.h"
 
 WalkNode::WalkNode(const glm::vec2 &pos) :
-  PointEntity(pos), nextnodes_() {
+  pos_(pos), nextnodes_() {
 }
 
 void WalkNode::addNextNode(WalkNode *node) {
@@ -56,13 +56,7 @@ void WalkNodeMap::Finalize() {
   }
 }
 
-void WalkNodeMap::Draw(const glm::vec2 &window_size) {
-  BOOST_FOREACH (auto node, nodes_) {
-    node->Draw(window_size);
-  }
-}
-
-const WalkNode *WalkNodeMap::CalcNearestNode(const glm::vec2 &pos) {
+const WalkNode *WalkNodeMap::CalcNearestNode(const glm::vec2 &pos) const {
   const WalkNode *nearest = nullptr;
   float nearest_len = FLT_MAX;
   BOOST_FOREACH (auto node, nodes_) {

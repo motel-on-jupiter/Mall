@@ -17,6 +17,7 @@
     <ClCompile Include="..\src\mall\actor\WalkNode.cc" />
     <ClCompile Include="..\src\mall\MallGame.cc" />
     <ClCompile Include="..\src\mall\MallMain.cc" />
+    <ClCompile Include="..\src\mall\stage\Stage.cc" />
     <ClCompile Include="..\src\pch\precompile.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -54,6 +55,7 @@
     <ClInclude Include="..\src\mall\actor\WalkNode.h" />
     <ClInclude Include="..\src\mall\MallGame.h" />
     <ClInclude Include="..\src\mall\MallMain.h" />
+    <ClInclude Include="..\src\mall\stage\Stage.h" />
     <ClInclude Include="..\src\pch\precompile.h" />
     <ClInclude Include="..\src\util\config\ini.h" />
     <ClInclude Include="..\src\util\config\reader\GLINIReader.h" />

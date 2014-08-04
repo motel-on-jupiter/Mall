@@ -6,7 +6,7 @@
 #define MALLGAME_H_
 
 #include "mall/actor/NodeWalker.h"
-#include "mall/actor/WalkNode.h"
+#include "mall/stage/Stage.h"
 
 class MallGame {
  public:
@@ -23,7 +23,7 @@ class MallGame {
   static const int MallGame::kNumWalkWalkers;
 
   bool initialized_;
-  WalkNodeMap nodemap_;
+  Stage stage_;
   std::vector<NodeMapWalker *> walkers_;
 };
 
