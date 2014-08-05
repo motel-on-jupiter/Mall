@@ -20,13 +20,14 @@ public:
   virtual ~Walker() {}
 
   void Update();
-  int Reroute(const Waypoint &terminus);
-  void DrawApproach(const glm::vec2 &window_size);
+  void Reroute(const Waypoint &terminus);
+  void Draw(const glm::vec2 &window_size);
   WalkerStatus CheckStatus() const;
 
 private:
   Navigator navi_;
   const Waypoint *goal_;
+  bool reached_;
 };
 
 #endif /* WALKER_H_ */

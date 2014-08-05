@@ -7,6 +7,7 @@
 
 #include <cassert>
 #include <deque>
+#include <future>
 #include <boost/foreach.hpp>
 #include <boost/noncopyable.hpp>
 #include "navigation/Waypoint.h"
@@ -17,19 +18,23 @@ public:
   virtual ~Navigator();
 
   const Waypoint *NextGoal();
-  int UpdateRoute(const Waypoint &origin, const Waypoint &terminus);
+  void Reroute(const Waypoint &origin, const Waypoint &terminus);
+  const Waypoint *GetTerminus() const;
 
-  const Waypoint *terminus() const { return terminus_; }
+  bool rerouting() const { return rerouting_; }
 
 private:
-  int BuildRoute(const Waypoint *transfer, const Waypoint *terminus, std::deque<const Waypoint *> &traceroute, std::deque<const Waypoint *> &bestroute);
+  static int BuildRouteImpl(const Waypoint *transfer, const Waypoint *terminus, std::deque<const Waypoint *> &traceroute, std::deque<const Waypoint *> &bestroute);
+  static int BuildRoute(const Waypoint *transfer, const Waypoint *terminus, std::deque<const Waypoint *> *route);
 
   const WaypointGraph &graph_;
-  std::deque<const Waypoint *> route_;
-  const Waypoint *terminus_;
+  std::deque<const Waypoint *> routepath_;
+  std::future<int> reroute_;
+  bool rerouting_;
+  std::deque<const Waypoint *> reroutepath_;
 };
 
-inline int Navigator::BuildRoute(const Waypoint *transfer, const Waypoint *terminus, std::deque<const Waypoint *> &traceroute, std::deque<const Waypoint *> &bestroute) {
+inline int Navigator::BuildRouteImpl(const Waypoint *transfer, const Waypoint *terminus, std::deque<const Waypoint *> &traceroute, std::deque<const Waypoint *> &bestroute) {
   // For short circuit
   if ((bestroute.size() != 0) && (traceroute.size() + 2 >= bestroute.size())) {
     return 0;
@@ -56,7 +61,7 @@ inline int Navigator::BuildRoute(const Waypoint *transfer, const Waypoint *termi
 
     // Walk the next nodes
     traceroute.push_back(transfer);
-    if (BuildRoute(nextpoint, terminus, traceroute, bestroute) < 0) {
+    if (BuildRouteImpl(nextpoint, terminus, traceroute, bestroute) < 0) {
       return -1;
     }
     traceroute.pop_back();
