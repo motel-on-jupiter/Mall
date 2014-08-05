@@ -10,12 +10,19 @@
 
 class Walker : public RectangleEntity {
 public:
+  enum WalkerStatus {
+    kWalkerStandBy,
+    kWalkerMoving,
+    kWalkerRerouting,
+  };
+
   Walker(const WaypointGraph &graph, const Waypoint &origin, const Waypoint &terminus);
   virtual ~Walker() {}
 
   void Update();
   int Reroute(const Waypoint &terminus);
   void DrawApproach(const glm::vec2 &window_size);
+  WalkerStatus CheckStatus() const;
 
 private:
   Navigator navi_;

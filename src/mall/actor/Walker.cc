@@ -15,6 +15,7 @@ Walker::Walker(const WaypointGraph &graph, const Waypoint &origin, const Waypoin
   int ret = navi_.UpdateRoute(origin, terminus);
   if (ret < 0) {
     LOGGER.Warn("Failed to build the walker route (ret: %d)", ret);
+    return;
   }
 }
 
@@ -27,7 +28,7 @@ void Walker::Update() {
   }
   if (glm::distance(pos(), goal_->pos()) <= 1.0f) {
     set_pos(goal_->pos());
-    goal_ = nullptr;
+    goal_ = navi_.NextGoal();
   } else {
     set_pos(pos() + glm::normalize(goal_->pos() - pos()));
   }
@@ -52,4 +53,11 @@ void Walker::DrawApproach(const glm::vec2 &window_size) {
     glVertex2f(navi_.terminus()->pos().x / window_size.x * 2.0f - 1.0f, navi_.terminus()->pos().y / window_size.y * 2.0f - 1.0f);
     glEnd();
   }
+}
+
+Walker::WalkerStatus Walker::CheckStatus() const {
+  if (goal_ == nullptr) {
+    return kWalkerStandBy;
+  }
+  return kWalkerMoving;
 }
