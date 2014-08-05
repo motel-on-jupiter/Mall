@@ -5,12 +5,15 @@
 #ifndef ENTITY_H_
 #define ENTITY_H_
 
+#define GLM_COLOR
+#include "util/def/ColorDef.h"
+
 class Entity {
  public:
   Entity(const glm::vec2 &pos, const glm::vec2 &scale);
   virtual ~Entity() {}
 
-  virtual void Draw(const glm::vec2 &window_size) = 0;
+  virtual void Draw(const glm::vec2 &window_size, const glm::vec3 &color) = 0;
 
   glm::vec2 pos() const { return pos_; }
   void set_pos(const glm::vec2 &pos) { pos_ = pos; }
@@ -27,7 +30,8 @@ class PointEntity : public Entity {
   PointEntity(const glm::vec2 &pos);
   virtual ~PointEntity() {}
 
-  virtual void Draw(const glm::vec2 &window_size);
+  virtual void Draw(const glm::vec2 &window_size,
+                    const glm::vec3 &color = kWhiteColor);
 };
 
 class RectangleEntity : public Entity {
@@ -35,7 +39,8 @@ class RectangleEntity : public Entity {
   RectangleEntity(const glm::vec2 &pos, const glm::vec2 &scale);
   virtual ~RectangleEntity() {}
 
-  virtual void Draw(const glm::vec2 &window_size);
+  virtual void Draw(const glm::vec2 &window_size,
+                    const glm::vec3 &color = kWhiteColor);
 };
 
 #endif /* ENTITY_H_ */
