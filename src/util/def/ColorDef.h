@@ -23,6 +23,9 @@ COLOR_DEF(Aqua,    0x00, 0xFF, 0xFF)
 
 #ifdef GLM_COLOR
 
+#ifndef COLORDEF_GLMCOLOR_H_
+#define COLORDEF_GLMCOLOR_H_
+
 #define COLOR_DEF( _name, _r, _g, _b) \
 static const glm::vec3 k##_name##Color = glm::vec3(static_cast<float>(_r) / 255.0f, \
                                                    static_cast<float>(_g) / 255.0f, \
@@ -30,6 +33,8 @@ static const glm::vec3 k##_name##Color = glm::vec3(static_cast<float>(_r) / 255.
 #include "util/def/ColorDef.h"
 #undef COLOR_DEF
 
-#endif
+#endif /* COLORDEF_GLMCOLOR_H_ */
+
+#endif /* GLM_COLOR */
 
 #endif /* COLOR_DEF */
