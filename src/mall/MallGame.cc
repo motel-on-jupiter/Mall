@@ -31,10 +31,17 @@ int MallGame::Initialize(const glm::vec2 &window_size) {
 
   stage_.Initialize(window_size);
   for (int i=0; i<kNumWalkWalkers; ++i) {
-    unsigned int startidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
-    Walker *walker = new Walker(*(stage_.const_graph().points()[startidx]), stage_.const_graph());
-    unsigned int goalnodeidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
-    walker->UpdateFinalGoal(stage_.const_graph().points()[goalnodeidx]);
+    unsigned int originidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
+    unsigned int terminusidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
+    Walker *walker = new Walker(stage_.const_graph(), *(stage_.const_graph().points()[originidx]), *(stage_.const_graph().points()[terminusidx]));
+    if (walker == nullptr) {
+      LOGGER.Error("Failed to create the walker object (idx: %d)", i);
+      BOOST_FOREACH (auto walker, walkers_) {
+        delete walker;
+      }
+      walkers_.clear();
+      return -1;
+    }
     walkers_.push_back(walker);
   }
 
@@ -55,7 +62,7 @@ void MallGame::Finalize() {
   LOGGER.Info("Clean up the game");
 
   BOOST_FOREACH (auto walker, walkers_) {
-    delete(walker);
+    delete walker;
   }
   stage_.Finalize();
 
@@ -108,8 +115,8 @@ int MallGame::OnMouseButtonDown(Uint8 button, Sint32 x, Sint32 y, glm::vec2 wind
     Sint32 maxx = static_cast<Sint32>(window_size.x) - 1;
     Sint32 maxy = static_cast<Sint32>(window_size.y) - 1;
     if (x != 0 && y != 0 && x != maxx && y != maxy) {
-      const Waypoint *node = stage_.const_graph().CalcNearestPoint(glm::vec2(x, y));
-      walkers_[0]->UpdateFinalGoal(node);
+      const Waypoint *terminus = stage_.const_graph().CalcNearestPoint(glm::vec2(x, y));
+      walkers_[0]->Reroute(*terminus);
     }
   }
   return 0;

@@ -130,6 +130,9 @@
     <ClCompile Include="..\src\mall\actor\Walker.cc">
       <Filter>src\mall\actor</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\navigation\Navigator.cc">
+      <Filter>src\navigation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\pch\precompile.h">
@@ -234,10 +237,8 @@
     <ClInclude Include="..\src\mall\actor\Walker.h">
       <Filter>src\mall\actor</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\src\mall\actor\Walker.inl">
-      <Filter>src\mall\actor</Filter>
-    </None>
+    <ClInclude Include="..\src\navigation\Navigator.h">
+      <Filter>src\navigation</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
