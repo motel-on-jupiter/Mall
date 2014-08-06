@@ -23,6 +23,18 @@ void Stage::Draw(const glm::vec2 &window_size) {
                point->pos().y / window_size.y * 2.0f - 1.0f);
   }
   glEnd();
+  glBegin(GL_LINES);
+  BOOST_FOREACH(const Waypoint *point, graph_.points()) {
+    BOOST_FOREACH(const Waypoint *nextpoint, point->nextpoints()) {
+      glm::vec2 start = glm::vec2(point->pos().x / window_size.x * 2.0f - 1.0f,
+                                  point->pos().y / window_size.y * 2.0f - 1.0f);
+      glm::vec2 next = glm::vec2(nextpoint->pos().x / window_size.x * 2.0f - 1.0f,
+                                 nextpoint->pos().y / window_size.y * 2.0f - 1.0f);
+      glVertex2fv(glm::value_ptr(start));
+      glVertex2fv(glm::value_ptr(start + (next - start) * 0.4f));
+    }
+  }
+  glEnd();
 }
 
 const float GridStage::kGridInterval = 70.0f;
