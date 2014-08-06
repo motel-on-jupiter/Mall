@@ -36,7 +36,7 @@ private:
 
 inline int Navigator::BuildRouteImpl(const Waypoint *transfer, const Waypoint *terminus, std::deque<const Waypoint *> &traceroute, std::deque<const Waypoint *> &bestroute) {
   // For short circuit
-  if ((bestroute.size() != 0) && (traceroute.size() + 2 >= bestroute.size())) {
+  if ((bestroute.size() != 0) && (traceroute.size() + 3 >= bestroute.size())) {
     return 0;
   }
 
@@ -51,8 +51,9 @@ inline int Navigator::BuildRouteImpl(const Waypoint *transfer, const Waypoint *t
     // Check whether this node is goal or not
     if (nextpoint == terminus) {
       if ((bestroute.size() == 0) ||
-          (traceroute.size() + 2 < bestroute.size())) {
+          (traceroute.size() + 3 < bestroute.size())) {
         bestroute = traceroute;
+        bestroute.push_back(transfer);
         bestroute.push_back(nextpoint);
         bestroute.push_back(terminus);
       }
