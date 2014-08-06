@@ -13,6 +13,17 @@ void Waypoint::AddNextPoint(Waypoint *point) {
   nextpoints_.push_back(point);
 }
 
+int Waypoint::RemoveNextPoint(Waypoint *point) {
+  for (auto it = nextpoints_.begin(); it != nextpoints_.end(); ++it) {
+    if (*it != point) {
+      continue;
+    }
+    nextpoints_.erase(it);
+    return 0;
+  }
+  return 1;
+}
+
 WaypointGraph::WaypointGraph() : points_() {
 }
 

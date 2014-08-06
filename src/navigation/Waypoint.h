@@ -13,6 +13,7 @@ public:
   virtual ~Waypoint() {}
 
   void AddNextPoint(Waypoint *point);
+  int RemoveNextPoint(Waypoint *point);
 
   const glm::vec2& pos() const { return pos_; }
   const std::vector<Waypoint*>& nextpoints() const { return nextpoints_; }
