@@ -23,7 +23,7 @@ class MallGame {
   static const int MallGame::kNumWalkWalkers;
 
   bool initialized_;
-  GridStage stage_;
+  RoughGridStage stage_;
   std::vector<Walker *> walkers_;
 };
 

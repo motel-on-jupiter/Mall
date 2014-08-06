@@ -10,7 +10,7 @@
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
-const int MallGame::kNumWalkWalkers = 1;
+const int MallGame::kNumWalkWalkers = 5;
 
 MallGame::MallGame() :
     initialized_(false),
@@ -80,6 +80,10 @@ void MallGame::Update(float elapsed_time) {
 
   BOOST_FOREACH (auto walker, walkers_) {
     (*walker).Update();
+    if ((*walker).CheckStatus() == Walker::kWalkerStandBy) {
+      unsigned int terminusidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
+      (*walker).Reroute(*(stage_.const_graph().points()[terminusidx]));
+    }
   }
 
   return;

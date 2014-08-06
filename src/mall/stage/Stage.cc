@@ -64,3 +64,21 @@ void GridStage::Finalize() {
   graph().Clear();
 }
 
+RoughGridStage::RoughGridStage() : GridStage() {
+}
+
+RoughGridStage::~RoughGridStage() {
+}
+
+int RoughGridStage::Initialize(const glm::vec2 &window_size) {
+  int ret = GridStage::Initialize(window_size);
+  if (ret < 0) {
+    return ret;
+  }
+  for (auto it = graph().points().begin();
+       it != graph().points().end();
+       ++it) {
+    (*it)->RemoveNextPoint((*it)->nextpoints()[rand() % (*it)->nextpoints().size()]);
+  }
+  return 0;
+}

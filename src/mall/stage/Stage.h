@@ -37,5 +37,12 @@ class GridStage : public Stage {
   virtual void Finalize();
 };
 
+class RoughGridStage : public GridStage {
+ public:
+  RoughGridStage();
+  virtual ~RoughGridStage();
+
+  virtual int Initialize(const glm::vec2 &window_size);
+};
 
 #endif /* STAGE_H_ */
