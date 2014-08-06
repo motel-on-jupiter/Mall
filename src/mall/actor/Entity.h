@@ -34,6 +34,15 @@ class PointEntity : public Entity {
                     const glm::vec3 &color = kWhiteColor);
 };
 
+class TriangleEntity : public Entity {
+ public:
+  TriangleEntity(const glm::vec2 &pos, const glm::vec2 &scale);
+  virtual ~TriangleEntity() {}
+
+  virtual void Draw(const glm::vec2 &window_size,
+                    const glm::vec3 &color = kWhiteColor);
+};
+
 class RectangleEntity : public Entity {
  public:
   RectangleEntity(const glm::vec2 &pos, const glm::vec2 &scale);

@@ -21,13 +21,29 @@ void PointEntity::Draw(const glm::vec2 &window_size, const glm::vec3 &color) {
   glEnd();
 }
 
+TriangleEntity::TriangleEntity(const glm::vec2 &pos, const glm::vec2 &scale) :
+  Entity(pos, scale) {
+}
+
+void TriangleEntity::Draw(const glm::vec2 &window_size, const glm::vec3 &color) {
+  glColor3fv(glm::value_ptr(color));
+  glBegin(GL_LINE_LOOP);
+  glVertex2f(pos().x / window_size.x * 2.0f - 1.0f,
+             (pos().y - scale().y / 2.0f) / window_size.y * 2.0f - 1.0f);
+  glVertex2f((pos().x - scale().x / 2.0f) / window_size.x * 2.0f - 1.0f,
+             (pos().y + scale().y / 2.0f) / window_size.y * 2.0f - 1.0f);
+  glVertex2f((pos().x + scale().x / 2.0f) / window_size.x * 2.0f - 1.0f,
+             (pos().y + scale().y / 2.0f) / window_size.y * 2.0f - 1.0f);
+  glEnd();
+}
+
 RectangleEntity::RectangleEntity(const glm::vec2 &pos, const glm::vec2 &scale) :
   Entity(pos, scale) {
 }
 
 void RectangleEntity::Draw(const glm::vec2 &window_size, const glm::vec3 &color) {
   glColor3fv(glm::value_ptr(color));
-  glBegin(GL_QUADS);
+  glBegin(GL_LINE_LOOP);
   glVertex2f((pos().x - scale().x / 2.0f) / window_size.x * 2.0f - 1.0f,
              (pos().y - scale().y / 2.0f) / window_size.y * 2.0f - 1.0f);
   glVertex2f((pos().x - scale().x / 2.0f) / window_size.x * 2.0f - 1.0f,
