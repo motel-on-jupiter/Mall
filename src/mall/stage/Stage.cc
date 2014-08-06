@@ -38,8 +38,8 @@ int GridStage::Initialize(const glm::vec2 &window_size) {
   int max_column = static_cast<int>(window_size.y / kGridInterval);
   for (int raw = 0; raw < max_raw; ++raw) {
     for (int column = 0; column < max_column; ++column) {
-      Waypoint *point = new Waypoint(glm::vec2(kGridInterval * static_cast<float>(raw),
-                                               kGridInterval * static_cast<float>(column)));
+      Waypoint *point = new Waypoint(glm::vec2(kGridInterval * (static_cast<float>(raw) + 0.5f),
+                                               kGridInterval * (static_cast<float>(column) + 0.5f)));
       if (point == nullptr) {
         LOGGER.Error("Failed to allocate the waypoint object");
         return -1;
