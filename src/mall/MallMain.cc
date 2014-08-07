@@ -80,12 +80,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
   TwDefine(tw_def.str().c_str());
 
   // Initialize the game
-  int ret = game.Initialize(glm::vec2(kWindowWidth, kWindowHeight));
-  if (ret < 0) {
-    LOGGER.Error("Failed to initialize the game (ret: %d)", ret);
-    MallCleanUp();
-    return -1;
-  }
+  game.Initialize();
 
   // Execute the mainloop
   next_time = SDL_GetTicks() + kGameLoopInterval;
@@ -106,6 +101,9 @@ int MallMain(int argc, char *argv[], const char *config_path) {
         case SDL_KEYDOWN:
           if (event.key.keysym.sym == SDLK_ESCAPE) {
             escape_loop = true;
+          } else {
+            game.OnKeyboardDown(event.key.keysym.sym,
+                                glm::vec2(kWindowWidth, kWindowHeight));
           }
           break;
         case SDL_MOUSEBUTTONDOWN:
@@ -123,7 +121,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
 
     // Draw the objects
     if (!skip_draw) {
-      ret = game.Draw(glm::vec2(kWindowWidth, kWindowHeight));
+      int ret = game.Draw(glm::vec2(kWindowWidth, kWindowHeight));
       if (ret < 0) {
         LOGGER.Error("Failed to draw the game objects (ret: %d)", ret);
         loop_stat = -1;

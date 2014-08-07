@@ -44,10 +44,11 @@ class MallGame {
   MallGame();
   ~MallGame();
 
-  int Initialize(const glm::vec2 &window_size);
+  void Initialize();
   void Finalize();
   void Update(float elapsed_time);
   int Draw(glm::vec2 window_size);
+  int OnKeyboardDown(SDL_Keycode key, glm::vec2 window_size);
   int OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size);
 
  private:

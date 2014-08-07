@@ -27,8 +27,6 @@ GridWalkingCase::~GridWalkingCase() {
 }
 
 int GridWalkingCase::Initialize(const glm::vec2 &window_size) {
-  LOGGER.Info("Set up the game");
-
   stage_.Initialize(window_size);
   for (int i=0; i<kNumWalkWalkers; ++i) {
     unsigned int originidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
@@ -58,8 +56,6 @@ void GridWalkingCase::Finalize() {
     LOGGER.Notice("Ignored the duplicate call to finalize game");
     return;
   }
-
-  LOGGER.Info("Clean up the game");
 
   BOOST_FOREACH (auto walker, walkers_) {
     delete walker;
@@ -116,8 +112,8 @@ int GridWalkingCase::OnMouseButtonDown(unsigned char button, int x, int y, glm::
 
   if (button == 1) {
 #if 0
-    int maxx = static_cast<Sint32>(window_size.x) - 1;
-    int maxy = static_cast<Sint32>(window_size.y) - 1;
+    int maxx = static_cast<int>(window_size.x) - 1;
+    int maxy = static_cast<int>(window_size.y) - 1;
     if (x != 0 && y != 0 && x != maxx && y != maxy) {
       const Waypoint *terminus = stage_.const_graph().CalcNearestPoint(glm::vec2(x, y));
       walkers_[0]->Reroute(*terminus);
@@ -152,9 +148,7 @@ MallGame::~MallGame() {
   Finalize();
 }
 
-int MallGame::Initialize(const glm::vec2 &window_size) {
-  gamecase_ = new GridWalkingCase();
-  return gamecase_->Initialize(window_size);
+void MallGame::Initialize() {
 }
 
 void MallGame::Finalize() {
@@ -175,14 +169,34 @@ void MallGame::Update(float elapsed_time) {
 
 int MallGame::Draw(glm::vec2 window_size) {
   if (gamecase_ == nullptr) {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     return 0;
   }
   return gamecase_->Draw(window_size);
 }
 
-int MallGame::OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size) {
-  if (gamecase_ == nullptr) {
-    return 0;
+int MallGame::OnKeyboardDown(SDL_Keycode key, glm::vec2 window_size) {
+  if ((gamecase_ == nullptr) && (key == SDLK_1)) {
+    LOGGER.Info("Set up the GridWalking case");
+    gamecase_ = new GridWalkingCase();
+    int ret = gamecase_->Initialize(window_size);
+    if (ret < 0) {
+      LOGGER.Error("Failed to initialize the game case");
+      return -1;
+    }
   }
-  return gamecase_->OnMouseButtonDown(button, x, y, window_size);
+  if ((gamecase_ != nullptr) && (key == SDLK_0)) {
+    LOGGER.Info("Clean up the game-case");
+    gamecase_->Finalize();
+    delete gamecase_;
+    gamecase_ = nullptr;
+  }
+  return 0;
+}
+
+int MallGame::OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size) {
+  if (gamecase_ != nullptr) {
+    return gamecase_->OnMouseButtonDown(button, x, y, window_size);
+  }
+  return 0;
 }
