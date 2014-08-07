@@ -30,7 +30,7 @@ class Entity {
 
 class PointEntity : public Entity {
  public:
-  PointEntity(const glm::vec2 &pos, const glm::vec2 &scale);
+  PointEntity(const glm::vec2 &pos, float scale);
   virtual ~PointEntity() {}
 
   virtual void Draw(const glm::vec2 &window_size,

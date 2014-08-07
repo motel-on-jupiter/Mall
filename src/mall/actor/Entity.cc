@@ -9,13 +9,13 @@ Entity::Entity(const glm::vec2 &pos, float rot, const glm::vec2 &scale) :
   pos_(pos), rot_(rot), scale_(scale){
 }
 
-PointEntity::PointEntity(const glm::vec2 &pos, const glm::vec2 &scale) :
-  Entity(pos, 0.0f, scale) {
+PointEntity::PointEntity(const glm::vec2 &pos, float scale) :
+  Entity(pos, 0.0f, glm::vec2(scale)) {
 }
 
 void PointEntity::Draw(const glm::vec2 &window_size, const glm::vec3 &color) {
   glColor3fv(glm::value_ptr(color));
-  glPointSize(0.1f);
+  glPointSize(scale().x);
   glBegin(GL_POINTS);
   glVertex2f(pos().x / window_size.x * 2.0f - 1.0f,
              pos().y / window_size.y * 2.0f - 1.0f);
