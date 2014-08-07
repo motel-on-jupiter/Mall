@@ -11,7 +11,7 @@
 #include "util/def/ColorDef.h"
 
 Walker::Walker(const WaypointGraph &graph, const Waypoint &origin, const Waypoint &terminus) :
-  RectangleEntity(origin.pos(), glm::vec2(5.0f, 5.0f)),
+  RectangleEntity(origin.pos(), 0.0f, glm::vec2(5.0f, 5.0f)),
   navi_(graph), goal_(&origin), reached_(true) {
   navi_.Reroute(origin, terminus);
 }
@@ -38,13 +38,15 @@ void Walker::Reroute(const Waypoint &terminus) {
 }
 
 void Walker::Draw(const glm::vec2 &window_size) {
+  glm::vec3 color;
   if (CheckStatus() == kWalkerRerouting) {
-    RectangleEntity::Draw(window_size, kYellowColor);
+    color = kYellowColor;
   } else if (CheckStatus() == kWalkerMoving) {
-    RectangleEntity::Draw(window_size, kGreenColor);
+    color = kGreenColor;
   } else {
-    RectangleEntity::Draw(window_size, kBlueColor);
+    color = kBlueColor;
   }
+  RectangleEntity::Draw(window_size, color);
 
   if (goal_ != nullptr) {
     glColor3fv(glm::value_ptr(kYellowColor));

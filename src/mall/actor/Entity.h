@@ -10,24 +10,27 @@
 
 class Entity {
  public:
-  Entity(const glm::vec2 &pos, const glm::vec2 &scale);
+  Entity(const glm::vec2 &pos, float rot, const glm::vec2 &scale);
   virtual ~Entity() {}
 
   virtual void Draw(const glm::vec2 &window_size, const glm::vec3 &color) = 0;
 
   glm::vec2 pos() const { return pos_; }
   void set_pos(const glm::vec2 &pos) { pos_ = pos; }
+  float rot() const { return rot_; }
+  void set_rot(float rot) { rot_ = rot; }
   glm::vec2 scale() const { return scale_; }
   void set_scale(const glm::vec2 &scale) { scale_ = scale; }
 
  private:
   glm::vec2 pos_;
+  float rot_;
   glm::vec2 scale_;
 };
 
 class PointEntity : public Entity {
  public:
-  PointEntity(const glm::vec2 &pos);
+  PointEntity(const glm::vec2 &pos, const glm::vec2 &scale);
   virtual ~PointEntity() {}
 
   virtual void Draw(const glm::vec2 &window_size,
@@ -36,7 +39,7 @@ class PointEntity : public Entity {
 
 class TriangleEntity : public Entity {
  public:
-  TriangleEntity(const glm::vec2 &pos, const glm::vec2 &scale);
+  TriangleEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale);
   virtual ~TriangleEntity() {}
 
   virtual void Draw(const glm::vec2 &window_size,
@@ -45,7 +48,7 @@ class TriangleEntity : public Entity {
 
 class RectangleEntity : public Entity {
  public:
-  RectangleEntity(const glm::vec2 &pos, const glm::vec2 &scale);
+  RectangleEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale);
   virtual ~RectangleEntity() {}
 
   virtual void Draw(const glm::vec2 &window_size,
