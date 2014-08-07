@@ -10,15 +10,15 @@
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
-const int MallGame::kNumWalkWalkers = 5;
+const int GridWalkingCase::kNumWalkWalkers = 5;
 
-MallGame::MallGame() :
+GridWalkingCase::GridWalkingCase() :
     initialized_(false),
     stage_(),
     walkers_() {
 }
 
-MallGame::~MallGame() {
+GridWalkingCase::~GridWalkingCase() {
   if (initialized_) {
     if (!Logger::is_destroyed()) {
       LOGGER.Warn("Need to finalize the game");
@@ -26,7 +26,7 @@ MallGame::~MallGame() {
   }
 }
 
-int MallGame::Initialize(const glm::vec2 &window_size) {
+int GridWalkingCase::Initialize(const glm::vec2 &window_size) {
   LOGGER.Info("Set up the game");
 
   stage_.Initialize(window_size);
@@ -53,7 +53,7 @@ int MallGame::Initialize(const glm::vec2 &window_size) {
   return 0;
 }
 
-void MallGame::Finalize() {
+void GridWalkingCase::Finalize() {
   if (!initialized_) {
     LOGGER.Notice("Ignored the duplicate call to finalize game");
     return;
@@ -71,7 +71,7 @@ void MallGame::Finalize() {
   return;
 }
 
-void MallGame::Update(float elapsed_time) {
+void GridWalkingCase::Update(float elapsed_time) {
   UNUSED(elapsed_time);
 
   if (!initialized_) {
@@ -89,7 +89,7 @@ void MallGame::Update(float elapsed_time) {
   return;
 }
 
-int MallGame::Draw(glm::vec2 window_size) {
+int GridWalkingCase::Draw(glm::vec2 window_size) {
   if (!initialized_) {
     return 1;
   }
@@ -111,14 +111,78 @@ int MallGame::Draw(glm::vec2 window_size) {
   return 0;
 }
 
-int MallGame::OnMouseButtonDown(Uint8 button, Sint32 x, Sint32 y, glm::vec2 window_size) {
+int GridWalkingCase::OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size) {
+  UNUSED(window_size);
+
   if (button == 1) {
-    Sint32 maxx = static_cast<Sint32>(window_size.x) - 1;
-    Sint32 maxy = static_cast<Sint32>(window_size.y) - 1;
+#if 0
+    int maxx = static_cast<Sint32>(window_size.x) - 1;
+    int maxy = static_cast<Sint32>(window_size.y) - 1;
     if (x != 0 && y != 0 && x != maxx && y != maxy) {
       const Waypoint *terminus = stage_.const_graph().CalcNearestPoint(glm::vec2(x, y));
       walkers_[0]->Reroute(*terminus);
     }
+#endif
+    Walker *nearest_walker = nullptr;
+    float nearest_dist = 0.0f;
+    BOOST_FOREACH (auto walker, walkers_) {
+      float dist = glm::length(glm::vec2(x, y) - walker->pos());
+      if ((nearest_walker == nullptr) || (dist < nearest_dist)) {
+        nearest_walker = walker;
+        nearest_dist = dist;
+      }
+    }
+    if (nearest_dist < 10.0f) {
+      LOGGER.Info("name: %s, sex: %d, age: %d, height: %d, weight: %d",
+                  nearest_walker->property().name(),
+                  nearest_walker->property().sex(),
+                  nearest_walker->property().age(),
+                  nearest_walker->property().height(),
+                  nearest_walker->property().weight());
+    }
   }
   return 0;
+}
+
+MallGame::MallGame() :
+  gamecase_(nullptr) {
+}
+
+MallGame::~MallGame() {
+  Finalize();
+}
+
+int MallGame::Initialize(const glm::vec2 &window_size) {
+  gamecase_ = new GridWalkingCase();
+  return gamecase_->Initialize(window_size);
+}
+
+void MallGame::Finalize() {
+  if (gamecase_ == nullptr) {
+    return;
+  }
+  gamecase_->Finalize();
+  delete gamecase_;
+  gamecase_ = nullptr;
+}
+
+void MallGame::Update(float elapsed_time) {
+  if (gamecase_ == nullptr) {
+    return;
+  }
+  gamecase_->Update(elapsed_time);
+}
+
+int MallGame::Draw(glm::vec2 window_size) {
+  if (gamecase_ == nullptr) {
+    return 0;
+  }
+  return gamecase_->Draw(window_size);
+}
+
+int MallGame::OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size) {
+  if (gamecase_ == nullptr) {
+    return 0;
+  }
+  return gamecase_->OnMouseButtonDown(button, x, y, window_size);
 }
