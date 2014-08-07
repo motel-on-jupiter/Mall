@@ -75,7 +75,7 @@ void Logger::Debugv(const char *format, va_list args) {
 void Logger::Info(const char *format, ...) {
   va_list args;
   va_start(args, format);
-  Emit(kInfo, format, args);
+  Emitv(kInfo, format, args);
   va_end(args);
 }
 
