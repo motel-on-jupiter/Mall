@@ -10,6 +10,8 @@
 #define GLM_COLOR
 #include "util/def/ColorDef.h"
 
+const char *WalkerProperty::kDefaultName = "Smith";
+
 Walker::Walker(const WaypointGraph &graph, const Waypoint &origin, const Waypoint &terminus) :
   RectangleEntity(origin.pos(), 0.0f, glm::vec2(5.0f, 5.0f)),
   navi_(graph), goal_(&origin), reached_(true) {
