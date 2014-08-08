@@ -20,14 +20,14 @@ BridgeStage::~BridgeStage() {
 }
 
 const glm::vec2 BridgeStage::kWaypointPositionTbl[] = {
-  glm::vec2(0.0f, 0.2f),
   glm::vec2(1.0f, 0.2f),
-  glm::vec2(1.0f, 0.3f),
+  glm::vec2(0.0f, 0.2f),
   glm::vec2(0.0f, 0.3f),
-  glm::vec2(0.0f, 0.7f),
+  glm::vec2(1.0f, 0.3f),
   glm::vec2(1.0f, 0.7f),
-  glm::vec2(1.0f, 0.8f),
+  glm::vec2(0.0f, 0.7f),
   glm::vec2(0.0f, 0.8f),
+  glm::vec2(1.0f, 0.8f),
 };
 
 int BridgeStage::Initialize(const glm::vec2 &window_size) {
@@ -41,7 +41,7 @@ int BridgeStage::Initialize(const glm::vec2 &window_size) {
     graph().AddPoint(point);
   }
   for (int i=0; i<ARRAYSIZE(kWaypointPositionTbl) / 2; ++i) {
-    graph().points()[i * 2 + 1]->AddNextPoint(graph().points()[i * 2]);
+    graph().points()[i * 2]->AddNextPoint(graph().points()[i * 2 + 1]);
   }
   return 0;
 }
@@ -51,7 +51,7 @@ void BridgeStage::Finalize() {
 }
 
 BridgeTrafficCase::BridgeTrafficCase() :
-    initialized_(false), stage_() {
+    initialized_(false), stage_(), walkers_() {
 }
 
 BridgeTrafficCase::~BridgeTrafficCase() {
@@ -64,6 +64,11 @@ BridgeTrafficCase::~BridgeTrafficCase() {
 
 int BridgeTrafficCase::Initialize(const glm::vec2 &window_size) {
   stage_.Initialize(window_size);
+  for (unsigned int i=0; i<stage_.const_graph().points().size() / 2; ++i) {
+    walkers_.push_back(new Walker(stage_.const_graph(),
+                                  *(stage_.const_graph().points()[i * 2]),
+                                  *(stage_.const_graph().points()[i * 2 + 1])));
+  }
 
   glDisable(GL_LIGHTING);
   glDisable(GL_LIGHT0);
@@ -77,6 +82,10 @@ void BridgeTrafficCase::Finalize() {
     LOGGER.Notice("Ignored the duplicate call to finalize game");
     return;
   }
+  BOOST_FOREACH(Walker *walker, walkers_) {
+    delete walker;
+  }
+  walkers_.clear();
   stage_.Finalize();
   initialized_ = false;
   return;
@@ -84,6 +93,9 @@ void BridgeTrafficCase::Finalize() {
 
 void BridgeTrafficCase::Update(float elapsed_time) {
   UNUSED(elapsed_time);
+  BOOST_FOREACH(Walker *walker, walkers_) {
+    walker->Update();
+  }
   return;
 }
 
@@ -104,6 +116,9 @@ int BridgeTrafficCase::Draw(glm::vec2 window_size) {
   glLoadIdentity();
 
   stage_.Draw(window_size);
+  BOOST_FOREACH(Walker *walker, walkers_) {
+    walker->Draw(window_size);
+  }
   return 0;
 }
 

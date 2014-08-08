@@ -5,6 +5,8 @@
 #ifndef BRIDGETRAFFICCASE_H_
 #define BRIDGETRAFFICCASE_H_
 
+#include <vector>
+#include "mall/actor/Walker.h"
 #include "mall/MallGame.h"
 #include "mall/MallStage.h"
 
@@ -34,6 +36,7 @@ class BridgeTrafficCase : public MallGameCaseInterface {
  private:
   bool initialized_;
   BridgeStage stage_;
+  std::vector<Walker *> walkers_;
 };
 
 #endif /* BRIDGETRAFFICCASE_H_ */
