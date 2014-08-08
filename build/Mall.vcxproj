@@ -14,9 +14,11 @@
     <ClCompile Include="..\src\main.cc" />
     <ClCompile Include="..\src\mall\actor\Entity.cc" />
     <ClCompile Include="..\src\mall\actor\Walker.cc" />
+    <ClCompile Include="..\src\mall\case\BridgeTrafficCase.cc" />
+    <ClCompile Include="..\src\mall\case\GridWalkingCase.cc" />
     <ClCompile Include="..\src\mall\MallGame.cc" />
     <ClCompile Include="..\src\mall\MallMain.cc" />
-    <ClCompile Include="..\src\mall\stage\Stage.cc" />
+    <ClCompile Include="..\src\mall\MallStage.cc" />
     <ClCompile Include="..\src\navigation\Navigator.cc" />
     <ClCompile Include="..\src\navigation\Waypoint.cc" />
     <ClCompile Include="..\src\pch\precompile.cc">
@@ -53,9 +55,11 @@
   <ItemGroup>
     <ClInclude Include="..\src\mall\actor\Entity.h" />
     <ClInclude Include="..\src\mall\actor\Walker.h" />
+    <ClInclude Include="..\src\mall\case\BridgeTrafficCase.h" />
+    <ClInclude Include="..\src\mall\case\GridWalkingCase.h" />
     <ClInclude Include="..\src\mall\MallGame.h" />
     <ClInclude Include="..\src\mall\MallMain.h" />
-    <ClInclude Include="..\src\mall\stage\Stage.h" />
+    <ClInclude Include="..\src\mall\MallStage.h" />
     <ClInclude Include="..\src\navigation\Navigator.h" />
     <ClInclude Include="..\src\navigation\Waypoint.h" />
     <ClInclude Include="..\src\pch\precompile.h" />

@@ -37,11 +37,11 @@
     <Filter Include="src\mall\actor">
       <UniqueIdentifier>{be309a10-42a5-41c7-8941-c88dcad634df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\mall\stage">
-      <UniqueIdentifier>{a466db48-a280-43bc-952f-8a08f2aa38f5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\navigation">
       <UniqueIdentifier>{2e092d5a-9299-4c75-88bf-2bc65a1906a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mall\case">
+      <UniqueIdentifier>{69ff90b9-122c-4a54-b248-31ccd47d7540}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -121,9 +121,6 @@
     <ClCompile Include="..\src\util\wrapper\atb_wrap.cc">
       <Filter>src\util\wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mall\stage\Stage.cc">
-      <Filter>src\mall\stage</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\navigation\Waypoint.cc">
       <Filter>src\navigation</Filter>
     </ClCompile>
@@ -132,6 +129,15 @@
     </ClCompile>
     <ClCompile Include="..\src\navigation\Navigator.cc">
       <Filter>src\navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mall\case\BridgeTrafficCase.cc">
+      <Filter>src\mall\case</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mall\case\GridWalkingCase.cc">
+      <Filter>src\mall\case</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mall\MallStage.cc">
+      <Filter>src\mall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -228,9 +234,6 @@
     <ClInclude Include="..\src\util\wrapper\atb_wrap.h">
       <Filter>src\util\wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\stage\Stage.h">
-      <Filter>src\mall\stage</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\navigation\Waypoint.h">
       <Filter>src\navigation</Filter>
     </ClInclude>
@@ -239,6 +242,15 @@
     </ClInclude>
     <ClInclude Include="..\src\navigation\Navigator.h">
       <Filter>src\navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\case\BridgeTrafficCase.h">
+      <Filter>src\mall\case</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\case\GridWalkingCase.h">
+      <Filter>src\mall\case</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\MallStage.h">
+      <Filter>src\mall</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
