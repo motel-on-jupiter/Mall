@@ -2,12 +2,56 @@
  * Copyright (C) 2014 The Motel On Jupiter
  */
 #include "BridgeTrafficCase.h"
+
+#include <vector>
 #include <GL/glew.h>
+#include <boost/foreach.hpp>
+
+#include "navigation/Waypoint.h"
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
+BridgeStage::BridgeStage() : MallStage() {
+
+}
+
+BridgeStage::~BridgeStage() {
+
+}
+
+const glm::vec2 BridgeStage::kWaypointPositionTbl[] = {
+  glm::vec2(0.0f, 0.2f),
+  glm::vec2(1.0f, 0.2f),
+  glm::vec2(1.0f, 0.3f),
+  glm::vec2(0.0f, 0.3f),
+  glm::vec2(0.0f, 0.7f),
+  glm::vec2(1.0f, 0.7f),
+  glm::vec2(1.0f, 0.8f),
+  glm::vec2(0.0f, 0.8f),
+};
+
+int BridgeStage::Initialize(const glm::vec2 &window_size) {
+  for (int i=0; i<ARRAYSIZE(kWaypointPositionTbl); ++i) {
+    Waypoint *point = new Waypoint(window_size * kWaypointPositionTbl[i]);
+    if (point == nullptr) {
+      LOGGER.Error("Failed to allocate the waypoint object (idx: %d)", i);
+      graph().Clear();
+      return -1;
+    }
+    graph().AddPoint(point);
+  }
+  for (int i=0; i<ARRAYSIZE(kWaypointPositionTbl) / 2; ++i) {
+    graph().points()[i * 2 + 1]->AddNextPoint(graph().points()[i * 2]);
+  }
+  return 0;
+}
+
+void BridgeStage::Finalize() {
+  graph().Clear();
+}
+
 BridgeTrafficCase::BridgeTrafficCase() :
-    initialized_(false) {
+    initialized_(false), stage_() {
 }
 
 BridgeTrafficCase::~BridgeTrafficCase() {
@@ -19,7 +63,7 @@ BridgeTrafficCase::~BridgeTrafficCase() {
 }
 
 int BridgeTrafficCase::Initialize(const glm::vec2 &window_size) {
-  UNUSED(window_size);
+  stage_.Initialize(window_size);
 
   glDisable(GL_LIGHTING);
   glDisable(GL_LIGHT0);
@@ -33,6 +77,7 @@ void BridgeTrafficCase::Finalize() {
     LOGGER.Notice("Ignored the duplicate call to finalize game");
     return;
   }
+  stage_.Finalize();
   initialized_ = false;
   return;
 }
@@ -57,6 +102,8 @@ int BridgeTrafficCase::Draw(glm::vec2 window_size) {
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
+
+  stage_.Draw(window_size);
   return 0;
 }
 

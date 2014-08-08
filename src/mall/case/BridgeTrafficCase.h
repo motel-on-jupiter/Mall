@@ -6,6 +6,19 @@
 #define BRIDGETRAFFICCASE_H_
 
 #include "mall/MallGame.h"
+#include "mall/MallStage.h"
+
+class BridgeStage : public MallStage {
+ public:
+  BridgeStage();
+  virtual ~BridgeStage();
+
+  virtual int Initialize(const glm::vec2 &window_size);
+  virtual void Finalize();
+
+ private:
+  static const glm::vec2 kWaypointPositionTbl[];
+};
 
 class BridgeTrafficCase : public MallGameCaseInterface {
  public:
@@ -20,6 +33,7 @@ class BridgeTrafficCase : public MallGameCaseInterface {
 
  private:
   bool initialized_;
+  BridgeStage stage_;
 };
 
 #endif /* BRIDGETRAFFICCASE_H_ */
