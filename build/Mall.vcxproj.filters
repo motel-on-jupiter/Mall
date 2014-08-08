@@ -133,10 +133,10 @@
     <ClCompile Include="..\src\mall\MallStage.cc">
       <Filter>src\mall</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mall\scene\BridgeTrafficScene.cc">
+    <ClCompile Include="..\src\mall\scene\BridgeScene.cc">
       <Filter>src\mall\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mall\scene\GridWalkingScene.cc">
+    <ClCompile Include="..\src\mall\scene\GridScene.cc">
       <Filter>src\mall\scene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -246,10 +246,10 @@
     <ClInclude Include="..\src\mall\MallStage.h">
       <Filter>src\mall</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\scene\BridgeTrafficScene.h">
+    <ClInclude Include="..\src\mall\scene\BridgeScene.h">
       <Filter>src\mall\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\scene\GridWalkingScene.h">
+    <ClInclude Include="..\src\mall\scene\GridScene.h">
       <Filter>src\mall\scene</Filter>
     </ClInclude>
   </ItemGroup>

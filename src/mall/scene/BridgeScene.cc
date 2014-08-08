@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2014 The Motel On Jupiter
  */
-#include "BridgeTrafficScene.h"
+#include "BridgeScene.h"
 
 #include <vector>
 #include <GL/glew.h>
@@ -50,11 +50,11 @@ void BridgeStage::Finalize() {
   graph().Clear();
 }
 
-BridgeTrafficScene::BridgeTrafficScene() :
+BridgeScene::BridgeScene() :
     initialized_(false), stage_(), walkers_() {
 }
 
-BridgeTrafficScene::~BridgeTrafficScene() {
+BridgeScene::~BridgeScene() {
   if (initialized_) {
     if (!Logger::is_destroyed()) {
       LOGGER.Warn("Need to finalize the game");
@@ -62,7 +62,7 @@ BridgeTrafficScene::~BridgeTrafficScene() {
   }
 }
 
-int BridgeTrafficScene::Initialize(const glm::vec2 &window_size) {
+int BridgeScene::Initialize(const glm::vec2 &window_size) {
   stage_.Initialize(window_size);
   for (unsigned int i=0; i<stage_.const_graph().points().size() / 2; ++i) {
     walkers_.push_back(new Walker(stage_.const_graph(),
@@ -77,7 +77,7 @@ int BridgeTrafficScene::Initialize(const glm::vec2 &window_size) {
   return 0;
 }
 
-void BridgeTrafficScene::Finalize() {
+void BridgeScene::Finalize() {
   if (!initialized_) {
     LOGGER.Notice("Ignored the duplicate call to finalize game");
     return;
@@ -91,7 +91,7 @@ void BridgeTrafficScene::Finalize() {
   return;
 }
 
-void BridgeTrafficScene::Update(float elapsed_time) {
+void BridgeScene::Update(float elapsed_time) {
   UNUSED(elapsed_time);
   BOOST_FOREACH(Walker *walker, walkers_) {
     walker->Update();
@@ -99,7 +99,7 @@ void BridgeTrafficScene::Update(float elapsed_time) {
   return;
 }
 
-int BridgeTrafficScene::Draw(glm::vec2 window_size) {
+int BridgeScene::Draw(glm::vec2 window_size) {
   UNUSED(window_size);
 
   if (!initialized_) {
@@ -122,7 +122,7 @@ int BridgeTrafficScene::Draw(glm::vec2 window_size) {
   return 0;
 }
 
-int BridgeTrafficScene::OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size) {
+int BridgeScene::OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size) {
   UNUSED(button);
   UNUSED(x);
   UNUSED(y);
