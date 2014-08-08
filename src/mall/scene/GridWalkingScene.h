@@ -2,8 +2,8 @@
  * Copyright (C) 2014 The Motel On Jupiter
  */
 
-#ifndef GRIDWALKINGCASE_H_
-#define GRIDWALKINGCASE_H_
+#ifndef GRIDWALKINGSCENE_H_
+#define GRIDWALKINGSCENE_H_
 
 #include "mall/MallGame.h"
 #include "mall/MallStage.h"
@@ -29,10 +29,10 @@ class RoughGridStage : public GridStage {
   virtual int Initialize(const glm::vec2 &window_size);
 };
 
-class GridWalkingCase : public MallGameCaseInterface {
+class GridWalkingScene : public MallGameSceneInterface {
  public:
-  GridWalkingCase();
-  ~GridWalkingCase();
+  GridWalkingScene();
+  ~GridWalkingScene();
 
   int Initialize(const glm::vec2 &window_size);
   void Finalize();
@@ -48,4 +48,4 @@ class GridWalkingCase : public MallGameCaseInterface {
   std::vector<Walker *> walkers_;
 };
 
-#endif /* GRIDWALKINGCASE_H_ */
+#endif /* GRIDWALKINGSCENE_H_ */

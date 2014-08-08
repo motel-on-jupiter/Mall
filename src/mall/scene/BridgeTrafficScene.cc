@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2014 The Motel On Jupiter
  */
-#include "BridgeTrafficCase.h"
+#include "BridgeTrafficScene.h"
 
 #include <vector>
 #include <GL/glew.h>
@@ -50,11 +50,11 @@ void BridgeStage::Finalize() {
   graph().Clear();
 }
 
-BridgeTrafficCase::BridgeTrafficCase() :
+BridgeTrafficScene::BridgeTrafficScene() :
     initialized_(false), stage_(), walkers_() {
 }
 
-BridgeTrafficCase::~BridgeTrafficCase() {
+BridgeTrafficScene::~BridgeTrafficScene() {
   if (initialized_) {
     if (!Logger::is_destroyed()) {
       LOGGER.Warn("Need to finalize the game");
@@ -62,7 +62,7 @@ BridgeTrafficCase::~BridgeTrafficCase() {
   }
 }
 
-int BridgeTrafficCase::Initialize(const glm::vec2 &window_size) {
+int BridgeTrafficScene::Initialize(const glm::vec2 &window_size) {
   stage_.Initialize(window_size);
   for (unsigned int i=0; i<stage_.const_graph().points().size() / 2; ++i) {
     walkers_.push_back(new Walker(stage_.const_graph(),
@@ -77,7 +77,7 @@ int BridgeTrafficCase::Initialize(const glm::vec2 &window_size) {
   return 0;
 }
 
-void BridgeTrafficCase::Finalize() {
+void BridgeTrafficScene::Finalize() {
   if (!initialized_) {
     LOGGER.Notice("Ignored the duplicate call to finalize game");
     return;
@@ -91,7 +91,7 @@ void BridgeTrafficCase::Finalize() {
   return;
 }
 
-void BridgeTrafficCase::Update(float elapsed_time) {
+void BridgeTrafficScene::Update(float elapsed_time) {
   UNUSED(elapsed_time);
   BOOST_FOREACH(Walker *walker, walkers_) {
     walker->Update();
@@ -99,7 +99,7 @@ void BridgeTrafficCase::Update(float elapsed_time) {
   return;
 }
 
-int BridgeTrafficCase::Draw(glm::vec2 window_size) {
+int BridgeTrafficScene::Draw(glm::vec2 window_size) {
   UNUSED(window_size);
 
   if (!initialized_) {
@@ -122,7 +122,7 @@ int BridgeTrafficCase::Draw(glm::vec2 window_size) {
   return 0;
 }
 
-int BridgeTrafficCase::OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size) {
+int BridgeTrafficScene::OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size) {
   UNUSED(button);
   UNUSED(x);
   UNUSED(y);

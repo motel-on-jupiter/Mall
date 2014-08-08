@@ -2,8 +2,8 @@
  * Copyright (C) 2014 The Motel On Jupiter
  */
 
-#ifndef BRIDGETRAFFICCASE_H_
-#define BRIDGETRAFFICCASE_H_
+#ifndef BRIDGETRAFFICSCENE_H_
+#define BRIDGETRAFFICSCENE_H_
 
 #include <vector>
 #include "mall/actor/Walker.h"
@@ -22,10 +22,10 @@ class BridgeStage : public MallStage {
   static const glm::vec2 kWaypointPositionTbl[];
 };
 
-class BridgeTrafficCase : public MallGameCaseInterface {
+class BridgeTrafficScene : public MallGameSceneInterface {
  public:
-  BridgeTrafficCase();
-  ~BridgeTrafficCase();
+  BridgeTrafficScene();
+  ~BridgeTrafficScene();
 
   int Initialize(const glm::vec2 &window_size);
   void Finalize();
@@ -39,4 +39,4 @@ class BridgeTrafficCase : public MallGameCaseInterface {
   std::vector<Walker *> walkers_;
 };
 
-#endif /* BRIDGETRAFFICCASE_H_ */
+#endif /* BRIDGETRAFFICSCENE_H_ */

@@ -40,8 +40,8 @@
     <Filter Include="src\navigation">
       <UniqueIdentifier>{2e092d5a-9299-4c75-88bf-2bc65a1906a2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\mall\case">
-      <UniqueIdentifier>{69ff90b9-122c-4a54-b248-31ccd47d7540}</UniqueIdentifier>
+    <Filter Include="src\mall\scene">
+      <UniqueIdentifier>{1d106df7-ee78-4f12-adfd-0339722a2b92}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -130,14 +130,14 @@
     <ClCompile Include="..\src\navigation\Navigator.cc">
       <Filter>src\navigation</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mall\case\BridgeTrafficCase.cc">
-      <Filter>src\mall\case</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mall\case\GridWalkingCase.cc">
-      <Filter>src\mall\case</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mall\MallStage.cc">
       <Filter>src\mall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mall\scene\BridgeTrafficScene.cc">
+      <Filter>src\mall\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mall\scene\GridWalkingScene.cc">
+      <Filter>src\mall\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -243,14 +243,14 @@
     <ClInclude Include="..\src\navigation\Navigator.h">
       <Filter>src\navigation</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\case\BridgeTrafficCase.h">
-      <Filter>src\mall\case</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mall\case\GridWalkingCase.h">
-      <Filter>src\mall\case</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\mall\MallStage.h">
       <Filter>src\mall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\scene\BridgeTrafficScene.h">
+      <Filter>src\mall\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\scene\GridWalkingScene.h">
+      <Filter>src\mall\scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

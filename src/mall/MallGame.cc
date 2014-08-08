@@ -3,8 +3,8 @@
  */
 #include "MallGame.h"
 #include <GL/glew.h>
-#include "mall/case/BridgeTrafficCase.h"
-#include "mall/case/GridWalkingCase.h"
+#include "mall/scene/BridgeTrafficScene.h"
+#include "mall/scene/GridWalkingScene.h"
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
@@ -48,10 +48,10 @@ int MallGame::OnKeyboardDown(SDL_Keycode key, glm::vec2 window_size) {
     if ((key == SDLK_1) || (key == SDLK_2)) {
       if (key == SDLK_1) {
         LOGGER.Info("Set up GridWalkingCase");
-        gamecase_ = new GridWalkingCase();
+        gamecase_ = new GridWalkingScene();
       } else {
         LOGGER.Info("Set up BridgeTrafficCase");
-        gamecase_ = new BridgeTrafficCase();
+        gamecase_ = new BridgeTrafficScene();
       }
       int ret = gamecase_->Initialize(window_size);
       if (ret < 0) {

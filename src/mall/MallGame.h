@@ -5,10 +5,10 @@
 #ifndef MALLGAME_H_
 #define MALLGAME_H_
 
-class MallGameCaseInterface {
+class MallGameSceneInterface {
  public:
-  MallGameCaseInterface() {}
-  virtual ~MallGameCaseInterface() {}
+  MallGameSceneInterface() {}
+  virtual ~MallGameSceneInterface() {}
 
   virtual int Initialize(const glm::vec2 &window_size) = 0;
   virtual void Finalize() = 0;
@@ -30,7 +30,7 @@ class MallGame {
   int OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size);
 
  private:
-  MallGameCaseInterface *gamecase_;
+  MallGameSceneInterface *gamecase_;
 };
 
 #endif /* MALLGAME_H_ */

@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2014 The Motel On Jupiter
  */
-#include "GridWalkingCase.h"
+#include "GridWalkingScene.h"
 
 #include <boost/foreach.hpp>
 #include <GL/glew.h>
@@ -11,7 +11,7 @@
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
-const int GridWalkingCase::kNumWalkWalkers = 5;
+const int GridWalkingScene::kNumWalkWalkers = 5;
 
 const float GridStage::kGridInterval = 70.0f;
 
@@ -71,13 +71,13 @@ int RoughGridStage::Initialize(const glm::vec2 &window_size) {
   return 0;
 }
 
-GridWalkingCase::GridWalkingCase() :
+GridWalkingScene::GridWalkingScene() :
     initialized_(false),
     stage_(),
     walkers_() {
 }
 
-GridWalkingCase::~GridWalkingCase() {
+GridWalkingScene::~GridWalkingScene() {
   if (initialized_) {
     if (!Logger::is_destroyed()) {
       LOGGER.Warn("Need to finalize the game");
@@ -85,7 +85,7 @@ GridWalkingCase::~GridWalkingCase() {
   }
 }
 
-int GridWalkingCase::Initialize(const glm::vec2 &window_size) {
+int GridWalkingScene::Initialize(const glm::vec2 &window_size) {
   stage_.Initialize(window_size);
   for (int i=0; i<kNumWalkWalkers; ++i) {
     unsigned int originidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
@@ -110,7 +110,7 @@ int GridWalkingCase::Initialize(const glm::vec2 &window_size) {
   return 0;
 }
 
-void GridWalkingCase::Finalize() {
+void GridWalkingScene::Finalize() {
   if (!initialized_) {
     LOGGER.Notice("Ignored the duplicate call to finalize game");
     return;
@@ -126,7 +126,7 @@ void GridWalkingCase::Finalize() {
   return;
 }
 
-void GridWalkingCase::Update(float elapsed_time) {
+void GridWalkingScene::Update(float elapsed_time) {
   UNUSED(elapsed_time);
 
   if (!initialized_) {
@@ -144,7 +144,7 @@ void GridWalkingCase::Update(float elapsed_time) {
   return;
 }
 
-int GridWalkingCase::Draw(glm::vec2 window_size) {
+int GridWalkingScene::Draw(glm::vec2 window_size) {
   if (!initialized_) {
     return 1;
   }
@@ -166,7 +166,7 @@ int GridWalkingCase::Draw(glm::vec2 window_size) {
   return 0;
 }
 
-int GridWalkingCase::OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size) {
+int GridWalkingScene::OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size) {
   UNUSED(window_size);
 
   if (button == 1) {
