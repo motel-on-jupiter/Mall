@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 The Motel On Jupiter
+ * Copyright (C) 2014 The Motel on Jupiter
  */
 #include "MallMain.h"
 
@@ -13,7 +13,7 @@
 #include "util/macro_util.h"
 #include "util/wrapper/glgraphics_wrap.h"
 
-static const std::string kWindowCaption = "Mall - The Motel On Jupiter";
+static const std::string kWindowCaption = "Mall - The Motel on Jupiter";
 static const Uint32 kWindowWidth = 800;
 static const Uint32 kWindowHeight = 600;
 static const Uint32 kFPS = 30;
