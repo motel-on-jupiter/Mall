@@ -10,9 +10,6 @@
     <Filter Include="src\util">
       <UniqueIdentifier>{a0c53f76-0fdf-4770-b5bb-deed13f008a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\util\graphics">
-      <UniqueIdentifier>{dc40cc3a-a96a-40bd-b10e-df8945e0650e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\util\logging">
       <UniqueIdentifier>{535fb364-4fd2-431a-a7ee-81db418e4d4d}</UniqueIdentifier>
     </Filter>
@@ -48,9 +45,6 @@
     <ClCompile Include="..\src\pch\precompile.cc">
       <Filter>src\pch</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\util\graphics\glot.cc">
-      <Filter>src\util\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\util\logging\emitter\PipeLogEmitter.cc">
       <Filter>src\util\logging\emitter</Filter>
     </ClCompile>
@@ -92,9 +86,6 @@
     </ClCompile>
     <ClCompile Include="..\src\util\logging\emitter\PipeLogEmitter.cc">
       <Filter>src\util\logging\emitter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\util\graphics\shader_utils.cc">
-      <Filter>src\util\graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\util\config\reader\GLINIReader.cpp">
       <Filter>src\util\config\reader</Filter>
@@ -144,9 +135,6 @@
     <ClInclude Include="..\src\pch\precompile.h">
       <Filter>src\pch</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\util\graphics\glot.h">
-      <Filter>src\util\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\util\logging\emitter\PipeLogEmitter.h">
       <Filter>src\util\logging\emitter</Filter>
     </ClInclude>
@@ -206,9 +194,6 @@
     </ClInclude>
     <ClInclude Include="..\src\util\logging\emitter\PipeLogEmitter.h">
       <Filter>src\util\logging\emitter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\graphics\shader_utils.h">
-      <Filter>src\util\graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\util\config\ini.h">
       <Filter>src\util\config</Filter>

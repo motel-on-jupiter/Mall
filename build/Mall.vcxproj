@@ -37,8 +37,6 @@
     </ClCompile>
     <ClCompile Include="..\src\util\config\reader\GLINIReader.cpp" />
     <ClCompile Include="..\src\util\config\reader\INIReader.cpp" />
-    <ClCompile Include="..\src\util\graphics\glot.cc" />
-    <ClCompile Include="..\src\util\graphics\shader_utils.cc" />
     <ClCompile Include="..\src\util\logging\emitter\DebuggerConsoleLogEmitter.cc" />
     <ClCompile Include="..\src\util\logging\emitter\FileLogEmitter.cc" />
     <ClCompile Include="..\src\util\logging\emitter\LogEmitter.cc" />
@@ -66,8 +64,6 @@
     <ClInclude Include="..\src\util\config\ini.h" />
     <ClInclude Include="..\src\util\config\reader\GLINIReader.h" />
     <ClInclude Include="..\src\util\config\reader\INIReader.h" />
-    <ClInclude Include="..\src\util\graphics\glot.h" />
-    <ClInclude Include="..\src\util\graphics\shader_utils.h" />
     <ClInclude Include="..\src\util\logging\emitter\DebuggerConsoleLogEmitter.h" />
     <ClInclude Include="..\src\util\logging\emitter\FileLogEmitter.h" />
     <ClInclude Include="..\src\util\logging\emitter\LogEmitter.h" />
