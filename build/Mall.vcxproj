@@ -109,19 +109,17 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\src;C:\Work\Lib\SDL\SDL2-2.0.3\include;C:\Work\Lib\SDL_image\SDL2_image-2.0.0\include;C:\Work\Lib\glew\glew-1.9.0\include;C:\Work\Lib\boost\boost_1_55_0\include;C:\Work\Lib\freeglut\freeglut-2.8.1\include;C:\Work\Lib\glm\glm-0.9.5.2\include;C:\Work\Lib\AntTweakBar\AntTweakBar-1.16\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)..\bin\$(Platform)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(Platform)_$(Configuration)</TargetName>
-    <LibraryPath>C:\Work\Lib\SDL\SDL2-2.0.3\lib\x86;C:\Work\Lib\SDL_image\SDL2_image-2.0.0\lib\x86;C:\Work\Lib\glew\glew-1.9.0\lib;C:\Work\Lib\freeglut\freeglut-2.8.1\lib\x86\Debug;C:\Work\Lib\AntTweakBar\AntTweakBar-1.16\lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\src;C:\Work\Lib\SDL\SDL2-2.0.3\include;C:\Work\Lib\SDL_image\SDL2_image-2.0.0\include;C:\Work\Lib\glew\glew-1.9.0\include;C:\Work\Lib\boost\boost_1_55_0\include;C:\Work\Lib\freeglut\freeglut-2.8.1\include;C:\Work\Lib\glm\glm-0.9.5.2\include;C:\Work\Lib\SPARK\SPARK-2-r377\include;C:\Work\Lib\AntTweakBar\AntTweakBar-1.16\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)..\bin\$(Platform)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(Platform)_$(Configuration)</TargetName>
-    <LibraryPath>C:\Work\Lib\SDL\SDL2-2.0.3\lib\x86;C:\Work\Lib\SDL_image\SDL2_image-2.0.0\lib\x86;C:\Work\Lib\glew\glew-1.9.0\lib;C:\Work\Lib\freeglut\freeglut-2.8.1\lib\x86\Debug;C:\Work\Lib\SPARK\SPARK-2-r377\lib\dynamic;C:\Work\Lib\AntTweakBar\AntTweakBar-1.16\lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+    <IncludePath>$(SolutionDir)..\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -139,11 +137,13 @@
       <AdditionalOptions>/Zm360 %(AdditionalOptions)</AdditionalOptions>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>C:\Work\Lib\SDL\SDL2-2.0.3\include;C:\Work\Lib\SDL_image\SDL2_image-2.0.0\include;C:\Work\Lib\glew\glew-1.9.0\include;C:\Work\Lib\boost\boost_1_55_0\include;C:\Work\Lib\freeglut\freeglut-2.8.1\include;C:\Work\Lib\glm\glm-0.9.5.2\include;C:\Work\Lib\AntTweakBar\AntTweakBar-1.16\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;glew32d.lib;freeglut.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Work\Lib\SDL\SDL2-2.0.3\lib\x86;C:\Work\Lib\SDL_image\SDL2_image-2.0.0\lib\x86;C:\Work\Lib\glew\glew-1.9.0\lib;C:\Work\Lib\freeglut\freeglut-2.8.1\lib\x86;C:\Work\Lib\AntTweakBar\AntTweakBar-1.16\lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>(if not exist $(OutputPath) mkdir $(OutputPath)) &amp; copy /Y C:\Work\Lib\SPARK\SPARK-2-r377\lib\dynamic\SPARK_debug.dll $(OutputPath)\SPARK_debug.dll &amp; copy /Y C:\Work\Lib\SPARK\SPARK-2-r377\lib\dynamic\SPARK_GL_debug.dll $(OutputPath)\SPARK_GL_debug.dll &amp; copy /Y C:\Work\Lib\freeglut\freeglut-2.8.1\lib\x86\Debug\freeglut.dll $(OutputPath)\freeglut.dll &amp; copy /Y C:\Work\Lib\glew\glew-1.9.0\bin\glew32d.dll $(OutputPath)\glew32d.dll &amp; copy /Y C:\Work\Lib\AntTweakBar\AntTweakBar-1.16\lib\AntTweakBar.dll $(OutputPath)\AntTweakBar.dll</Command>
@@ -166,6 +166,7 @@
       <SmallerTypeCheck>false</SmallerTypeCheck>
       <DisableSpecificWarnings>4127;4530</DisableSpecificWarnings>
       <AdditionalOptions>/Zm360 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Work\Lib\SDL\SDL2-2.0.3\include;C:\Work\Lib\SDL_image\SDL2_image-2.0.0\include;C:\Work\Lib\glew\glew-1.9.0\include;C:\Work\Lib\boost\boost_1_55_0\include;C:\Work\Lib\freeglut\freeglut-2.8.1\include;C:\Work\Lib\glm\glm-0.9.5.2\include;C:\Work\Lib\AntTweakBar\AntTweakBar-1.16\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -173,6 +174,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;glew32d.lib;freeglut.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Work\Lib\SDL\SDL2-2.0.3\lib\x86;C:\Work\Lib\SDL_image\SDL2_image-2.0.0\lib\x86;C:\Work\Lib\glew\glew-1.9.0\lib;C:\Work\Lib\freeglut\freeglut-2.8.1\lib\x86;C:\Work\Lib\AntTweakBar\AntTweakBar-1.16\lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>(if not exist $(OutputPath) mkdir $(OutputPath)) &amp; copy /Y C:\Work\Lib\SPARK\SPARK-2-r377\lib\dynamic\SPARK.dll $(OutputPath)\SPARK.dll &amp; copy /Y C:\Work\Lib\SPARK\SPARK-2-r377\lib\dynamic\SPARK_GL.dll $(OutputPath)\SPARK_GL.dll &amp; copy /Y C:\Work\Lib\freeglut\freeglut-2.8.1\lib\x86\freeglut.dll $(OutputPath)\freeglut.dll &amp; copy /Y C:\Work\Lib\glew\glew-1.9.0\bin\glew32.dll $(OutputPath)\glew32.dll &amp; copy /Y C:\Work\Lib\AntTweakBar\AntTweakBar-1.16\lib\AntTweakBar.dll $(OutputPath)\AntTweakBar.dll</Command>
