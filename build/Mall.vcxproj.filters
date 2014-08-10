@@ -130,7 +130,7 @@
     <ClCompile Include="..\src\mall\scene\GridScene.cc">
       <Filter>src\mall\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\util\wrapper\glgraphics_wrap.cc">
+    <ClCompile Include="..\src\util\wrapper\sdl_wrap.cc">
       <Filter>src\util\wrapper</Filter>
     </ClCompile>
   </ItemGroup>
@@ -239,6 +239,9 @@
     </ClInclude>
     <ClInclude Include="..\src\mall\scene\GridScene.h">
       <Filter>src\mall\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\wrapper\sdl_wrap.h">
+      <Filter>src\util\wrapper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

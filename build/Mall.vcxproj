@@ -45,7 +45,7 @@
     <ClCompile Include="..\src\util\logging\Logger.cc" />
     <ClCompile Include="..\src\util\system\FPSCounter.cc" />
     <ClCompile Include="..\src\util\wrapper\atb_wrap.cc" />
-    <ClCompile Include="..\src\util\wrapper\glgraphics_wrap.cc" />
+    <ClCompile Include="..\src\util\wrapper\sdl_wrap.cc" />
     <ClCompile Include="..\src\util\wrapper\TwEventSDL20.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -77,6 +77,7 @@
     <ClInclude Include="..\src\util\wrapper\crtdbg_wrap.h" />
     <ClInclude Include="..\src\util\wrapper\glgraphics_wrap.h" />
     <ClInclude Include="..\src\util\wrapper\glm_wrap.h" />
+    <ClInclude Include="..\src\util\wrapper\sdl_wrap.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1AA04D48-AD99-4B2A-8058-B840FC91770A}</ProjectGuid>
