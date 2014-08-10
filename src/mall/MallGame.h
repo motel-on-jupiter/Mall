@@ -10,7 +10,7 @@ class MallGameSceneInterface {
   MallGameSceneInterface() {}
   virtual ~MallGameSceneInterface() {}
 
-  virtual int Initialize(const glm::vec2 &window_size) = 0;
+  virtual int Initialize(const glm::vec2 &stage_size) = 0;
   virtual void Finalize() = 0;
   virtual void Update(float elapsed_time) = 0;
   virtual int Draw(glm::vec2 window_size) = 0;

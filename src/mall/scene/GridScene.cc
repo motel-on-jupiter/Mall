@@ -21,9 +21,16 @@ GridStage::GridStage() : MallStage() {
 GridStage::~GridStage() {
 }
 
-int GridStage::Initialize(const glm::vec2 &window_size) {
-  int max_raw = static_cast<int>(window_size.x / kGridInterval);
-  int max_column = static_cast<int>(window_size.y / kGridInterval);
+int GridStage::Initialize(const glm::vec2 &size) {
+  // Call the base-class method
+  int ret = MallStage::Initialize(size);
+  if (ret != 0) {
+    return ret;
+  }
+
+  // Create the way-points
+  int max_raw = static_cast<int>(size.x / kGridInterval);
+  int max_column = static_cast<int>(size.y / kGridInterval);
   for (int raw = 0; raw < max_raw; ++raw) {
     for (int column = 0; column < max_column; ++column) {
       Waypoint *point = new Waypoint(glm::vec2(kGridInterval * (static_cast<float>(raw) + 0.5f),
@@ -58,8 +65,8 @@ RoughGridStage::RoughGridStage() : GridStage() {
 RoughGridStage::~RoughGridStage() {
 }
 
-int RoughGridStage::Initialize(const glm::vec2 &window_size) {
-  int ret = GridStage::Initialize(window_size);
+int RoughGridStage::Initialize(const glm::vec2 &size) {
+  int ret = GridStage::Initialize(size);
   if (ret < 0) {
     return ret;
   }
@@ -85,8 +92,8 @@ GridScene::~GridScene() {
   }
 }
 
-int GridScene::Initialize(const glm::vec2 &window_size) {
-  stage_.Initialize(window_size);
+int GridScene::Initialize(const glm::vec2 &stage_size) {
+  stage_.Initialize(stage_size);
   for (int i=0; i<kNumWalkWalkers; ++i) {
     unsigned int originidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
     unsigned int terminusidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
@@ -158,7 +165,7 @@ int GridScene::Draw(glm::vec2 window_size) {
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  stage_.Draw(window_size);
+  stage_.Draw();
   BOOST_FOREACH (auto walker, walkers_) {
     walker->Draw(window_size);
   }

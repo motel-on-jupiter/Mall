@@ -30,9 +30,16 @@ const glm::vec2 BridgeStage::kWaypointPositionTbl[] = {
   glm::vec2(1.0f, 0.8f),
 };
 
-int BridgeStage::Initialize(const glm::vec2 &window_size) {
+int BridgeStage::Initialize(const glm::vec2 &size) {
+  // Call the base-class method
+  int ret = MallStage::Initialize(size);
+  if (ret != 0) {
+    return ret;
+  }
+
+  // Create the way-points
   for (int i=0; i<ARRAYSIZE(kWaypointPositionTbl); ++i) {
-    Waypoint *point = new Waypoint(window_size * kWaypointPositionTbl[i]);
+    Waypoint *point = new Waypoint(size * kWaypointPositionTbl[i]);
     if (point == nullptr) {
       LOGGER.Error("Failed to allocate the waypoint object (idx: %d)", i);
       graph().Clear();
@@ -62,8 +69,8 @@ BridgeScene::~BridgeScene() {
   }
 }
 
-int BridgeScene::Initialize(const glm::vec2 &window_size) {
-  stage_.Initialize(window_size);
+int BridgeScene::Initialize(const glm::vec2 &stage_size) {
+  stage_.Initialize(stage_size);
   for (unsigned int i=0; i<stage_.const_graph().points().size() / 2; ++i) {
     walkers_.push_back(new Walker(stage_.const_graph(),
                                   *(stage_.const_graph().points()[i * 2]),
@@ -115,7 +122,7 @@ int BridgeScene::Draw(glm::vec2 window_size) {
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  stage_.Draw(window_size);
+  stage_.Draw();
   BOOST_FOREACH(Walker *walker, walkers_) {
     walker->Draw(window_size);
   }

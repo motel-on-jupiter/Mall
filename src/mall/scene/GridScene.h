@@ -17,7 +17,7 @@ class GridStage : public MallStage {
   GridStage();
   virtual ~GridStage();
 
-  virtual int Initialize(const glm::vec2 &window_size);
+  virtual int Initialize(const glm::vec2 &size);
   virtual void Finalize();
 };
 
@@ -26,7 +26,7 @@ class RoughGridStage : public GridStage {
   RoughGridStage();
   virtual ~RoughGridStage();
 
-  virtual int Initialize(const glm::vec2 &window_size);
+  virtual int Initialize(const glm::vec2 &size);
 };
 
 class GridScene : public MallGameSceneInterface {
@@ -34,7 +34,7 @@ class GridScene : public MallGameSceneInterface {
   GridScene();
   ~GridScene();
 
-  int Initialize(const glm::vec2 &window_size);
+  int Initialize(const glm::vec2 &stage_size);
   void Finalize();
   void Update(float elapsed_time);
   int Draw(glm::vec2 window_size);

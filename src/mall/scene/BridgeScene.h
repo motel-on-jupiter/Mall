@@ -15,7 +15,7 @@ class BridgeStage : public MallStage {
   BridgeStage();
   virtual ~BridgeStage();
 
-  virtual int Initialize(const glm::vec2 &window_size);
+  virtual int Initialize(const glm::vec2 &size);
   virtual void Finalize();
 
  private:
@@ -27,7 +27,7 @@ class BridgeScene : public MallGameSceneInterface {
   BridgeScene();
   ~BridgeScene();
 
-  int Initialize(const glm::vec2 &window_size);
+  int Initialize(const glm::vec2 &stage_size);
   void Finalize();
   void Update(float elapsed_time);
   int Draw(glm::vec2 window_size);
