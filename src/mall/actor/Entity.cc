@@ -13,8 +13,7 @@ PointEntity::PointEntity(const glm::vec2 &pos, float scale) :
   Entity(pos, 0.0f, glm::vec2(scale)) {
 }
 
-void PointEntity::Draw(const glm::vec2 &window_size, const glm::vec3 &color) {
-  glColor3fv(glm::value_ptr(color));
+void PointEntity::Draw(const glm::vec2 &window_size) {
   glPointSize(scale().x);
   glBegin(GL_POINTS);
   glVertex2f(pos().x / window_size.x * 2.0f - 1.0f,
@@ -26,8 +25,7 @@ TriangleEntity::TriangleEntity(const glm::vec2 &pos, float rot, const glm::vec2 
   Entity(pos, rot, scale) {
 }
 
-void TriangleEntity::Draw(const glm::vec2 &window_size, const glm::vec3 &color) {
-  glColor3fv(glm::value_ptr(color));
+void TriangleEntity::Draw(const glm::vec2 &window_size) {
   glBegin(GL_LINE_LOOP);
   glm::vec2 offset = glm::rotate(scale() * glm::vec2(0.0f, -0.5f), rot());
   glVertex2fv(glm::value_ptr((pos() + offset) / window_size * 2.0f - 1.0f));
@@ -42,8 +40,7 @@ RectangleEntity::RectangleEntity(const glm::vec2 &pos, float rot, const glm::vec
   Entity(pos, rot, scale) {
 }
 
-void RectangleEntity::Draw(const glm::vec2 &window_size, const glm::vec3 &color) {
-  glColor3fv(glm::value_ptr(color));
+void RectangleEntity::Draw(const glm::vec2 &window_size) {
   glBegin(GL_LINE_LOOP);
   glm::vec2 offset = glm::rotate(scale() * -0.5f, rot());
   glVertex2fv(glm::value_ptr((pos() + offset) / window_size * 2.0f - 1.0f));

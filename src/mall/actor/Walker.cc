@@ -42,13 +42,13 @@ void Walker::Reroute(const Waypoint &terminus) {
 void Walker::Draw(const glm::vec2 &window_size) {
   glm::vec3 color;
   if (CheckStatus() == kWalkerRerouting) {
-    color = kYellowColor;
+    glColor3fv(glm::value_ptr(kYellowColor));
   } else if (CheckStatus() == kWalkerMoving) {
-    color = kGreenColor;
+    glColor3fv(glm::value_ptr(kGreenColor));
   } else {
-    color = kBlueColor;
+    glColor3fv(glm::value_ptr(kBlueColor));
   }
-  RectangleEntity::Draw(window_size, color);
+  RectangleEntity::Draw(window_size);
 
   if (goal_ != nullptr) {
     glColor3fv(glm::value_ptr(kYellowColor));
