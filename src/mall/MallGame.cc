@@ -70,9 +70,10 @@ int MallGame::OnKeyboardDown(SDL_Keycode key, glm::vec2 window_size) {
   return 0;
 }
 
-int MallGame::OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size) {
+int MallGame::OnMouseButtonDown(unsigned char button, int x, int y, const glm::vec2 &window_size) {
   if (gamecase_ != nullptr) {
-    return gamecase_->OnMouseButtonDown(button, x, y, window_size);
+    auto abs_cursor_pos = glm::vec2(static_cast<float>(x), static_cast<float>(y));
+    return gamecase_->OnMouseButtonDown(button, abs_cursor_pos / window_size);
   }
   return 0;
 }

@@ -67,7 +67,7 @@ RoughGridStage::~RoughGridStage() {
 
 int RoughGridStage::Initialize(const glm::vec2 &size) {
   int ret = GridStage::Initialize(size);
-  if (ret < 0) {
+  if (ret != 0) {
     return ret;
   }
   for (auto it = graph().points().begin();
@@ -93,7 +93,14 @@ GridScene::~GridScene() {
 }
 
 int GridScene::Initialize(const glm::vec2 &stage_size) {
-  stage_.Initialize(stage_size);
+  // Initialize the stage
+  int ret = stage_.Initialize(stage_size);
+  if (ret != 0) {
+    LOGGER.Error("Failed to initialize the stage");
+    return -1;
+  }
+
+  // Create the walkers
   for (int i=0; i<kNumWalkWalkers; ++i) {
     unsigned int originidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
     unsigned int terminusidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
@@ -109,11 +116,12 @@ int GridScene::Initialize(const glm::vec2 &stage_size) {
     walkers_.push_back(walker);
   }
 
+  // Update the OpenGL flags
   glDisable(GL_LIGHTING);
   glDisable(GL_LIGHT0);
 
+  // Update the flag
   initialized_ = true;
-
   return 0;
 }
 
@@ -173,22 +181,12 @@ int GridScene::Draw(glm::vec2 window_size) {
   return 0;
 }
 
-int GridScene::OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size) {
-  UNUSED(window_size);
-
+int GridScene::OnMouseButtonDown(unsigned char button, const glm::vec2 &cursor_pos) {
   if (button == 1) {
-#if 0
-    int maxx = static_cast<int>(window_size.x) - 1;
-    int maxy = static_cast<int>(window_size.y) - 1;
-    if (x != 0 && y != 0 && x != maxx && y != maxy) {
-      const Waypoint *terminus = stage_.const_graph().CalcNearestPoint(glm::vec2(x, y));
-      walkers_[0]->Reroute(*terminus);
-    }
-#endif
     Walker *nearest_walker = nullptr;
     float nearest_dist = 0.0f;
     BOOST_FOREACH (auto walker, walkers_) {
-      float dist = glm::length(glm::vec2(x, y) - walker->pos());
+      float dist = glm::length(cursor_pos * stage_.size() - walker->pos());
       if ((nearest_walker == nullptr) || (dist < nearest_dist)) {
         nearest_walker = walker;
         nearest_dist = dist;

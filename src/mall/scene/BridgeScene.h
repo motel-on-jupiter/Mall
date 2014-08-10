@@ -31,7 +31,7 @@ class BridgeScene : public MallGameSceneInterface {
   void Finalize();
   void Update(float elapsed_time);
   int Draw(glm::vec2 window_size);
-  int OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size);
+  int OnMouseButtonDown(unsigned char button, const glm::vec2 &cursor_pos);
 
  private:
   bool initialized_;

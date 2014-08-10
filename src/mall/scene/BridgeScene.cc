@@ -70,16 +70,25 @@ BridgeScene::~BridgeScene() {
 }
 
 int BridgeScene::Initialize(const glm::vec2 &stage_size) {
-  stage_.Initialize(stage_size);
+  // Initialize the stage
+  int ret = stage_.Initialize(stage_size);
+  if (ret != 0) {
+    LOGGER.Error("Failed to initialize the stage");
+    return -1;
+  }
+
+  // Create the walkers
   for (unsigned int i=0; i<stage_.const_graph().points().size() / 2; ++i) {
     walkers_.push_back(new Walker(stage_.const_graph(),
                                   *(stage_.const_graph().points()[i * 2]),
                                   *(stage_.const_graph().points()[i * 2 + 1])));
   }
 
+  // Update the OpenGL flags
   glDisable(GL_LIGHTING);
   glDisable(GL_LIGHT0);
 
+  // Update the flags
   initialized_ = true;
   return 0;
 }
@@ -129,10 +138,8 @@ int BridgeScene::Draw(glm::vec2 window_size) {
   return 0;
 }
 
-int BridgeScene::OnMouseButtonDown(unsigned char button, int x, int y, glm::vec2 window_size) {
+int BridgeScene::OnMouseButtonDown(unsigned char button, const glm::vec2 &cursor_pos) {
   UNUSED(button);
-  UNUSED(x);
-  UNUSED(y);
-  UNUSED(window_size);
+  UNUSED(cursor_pos);
   return 0;
 }
