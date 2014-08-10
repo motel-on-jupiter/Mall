@@ -7,6 +7,7 @@
 
 #include <SDL.h>
 #include <SDL_opengl.h>
+#include <SDL_ttf.h>
 
 #include "mall/MallGame.h"
 #include "util/logging/Logger.h"
@@ -35,16 +36,23 @@ int MallMain(int argc, char *argv[], const char *config_path) {
 
   LOGGER.Info("Set up the application");
 
-  // initialize SDL
+  // Initialize SDL
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     LOGGER.Error("Failed to initialize SDL video system (errmsg: %s)", SDL_GetError());
     return -1;
   }
 
-  // enable double buffering
+  // Initialize TTF font drawing library
+  if (TTF_Init() != 0) {
+    LOGGER.Error("Failed to initialize SDL_ttf (errmsg: %s)", TTF_GetError());
+    MallCleanUp();
+    return -1;
+  }
+
+  // Enable double buffering
   SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-  // create window
+  // Create the window
   window = SDL_CreateWindow(kWindowCaption.c_str(), SDL_WINDOWPOS_CENTERED,
                             SDL_WINDOWPOS_CENTERED, kWindowWidth, kWindowHeight,
                             SDL_WINDOW_OPENGL);
@@ -54,7 +62,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     return -1;
   }
 
-  // create OpenGL context
+  // Create OpenGL context
   context = SDL_GL_CreateContext(window);
   if (context == nullptr) {
     LOGGER.Error("Failed to create SDL context for OpenGL (errmsg: %s)", SDL_GetError());
@@ -164,5 +172,6 @@ static void MallCleanUp() {
   if (window != nullptr) {
     SDL_DestroyWindow(window);
   }
+  TTF_Quit();
   SDL_Quit();
 }
