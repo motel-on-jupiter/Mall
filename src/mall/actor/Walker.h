@@ -62,6 +62,7 @@ private:
   const Waypoint *goal_;
   bool reached_;
   WalkerProperty property_;
+  float speed_;
 };
 
 #endif /* WALKER_H_ */

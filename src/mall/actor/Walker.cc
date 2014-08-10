@@ -14,7 +14,7 @@ const char *WalkerProperty::kDefaultName = "Smith";
 
 Walker::Walker(const WaypointGraph &graph, const Waypoint &origin, const Waypoint &terminus) :
   TriangleEntity(origin.pos(), 0.0f, glm::vec2(15.0f, 10.0f), true),
-  navi_(graph), goal_(&origin), reached_(true) {
+  navi_(graph), goal_(&origin), reached_(true), property_(), speed_(1.0f) {
   navi_.Reroute(origin, terminus);
 }
 
@@ -32,7 +32,7 @@ void Walker::Update() {
     goal_ = goal;
   } else {
     glm::vec2 movedir = glm::normalize(goal_->pos() - pos());
-    set_pos(pos() + movedir);
+    set_pos(pos() + movedir * speed_);
     set_rot(glm::atan(movedir.y, movedir.x) + glm::radians(90.0f));
   }
 }
