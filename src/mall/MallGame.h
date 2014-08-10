@@ -5,6 +5,8 @@
 #ifndef MALLGAME_H_
 #define MALLGAME_H_
 
+#include <SDL_ttf.h>
+
 class MallGameSceneInterface {
  public:
   MallGameSceneInterface() {}
@@ -31,6 +33,7 @@ class MallGame {
 
  private:
   MallGameSceneInterface *gamecase_;
+  TTF_Font *font_;
 };
 
 #endif /* MALLGAME_H_ */

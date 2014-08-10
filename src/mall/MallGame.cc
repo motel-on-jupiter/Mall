@@ -2,14 +2,18 @@
  * Copyright (C) 2014 The Motel on Jupiter
  */
 #include "MallGame.h"
+
 #include <GL/glew.h>
+#include <SDL_surface.h>
+#include <SDL_ttf.h>
+#include <SDL_video.h>
+
 #include "mall/scene/BridgeScene.h"
 #include "mall/scene/GridScene.h"
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
-MallGame::MallGame() :
-  gamecase_(nullptr) {
+MallGame::MallGame() : gamecase_(nullptr), font_(nullptr) {
 }
 
 MallGame::~MallGame() {
@@ -17,15 +21,20 @@ MallGame::~MallGame() {
 }
 
 void MallGame::Initialize() {
+  // Load font
+  font_ = TTF_OpenFont("share/ipag00303/ipag.ttf", 24);
 }
 
 void MallGame::Finalize() {
-  if (gamecase_ == nullptr) {
-    return;
+  if (gamecase_ != nullptr) {
+    gamecase_->Finalize();
+    delete gamecase_;
+    gamecase_ = nullptr;
   }
-  gamecase_->Finalize();
-  delete gamecase_;
-  gamecase_ = nullptr;
+  if (font_ != nullptr) {
+    TTF_CloseFont(font_);
+    font_ = nullptr;
+  }
 }
 
 void MallGame::Update(float elapsed_time) {
