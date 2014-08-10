@@ -38,18 +38,30 @@ class PointEntity : public Entity {
 
 class TriangleEntity : public Entity {
  public:
-  TriangleEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale);
+  TriangleEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale, bool fill);
   virtual ~TriangleEntity() {}
 
   virtual void Draw();
+
+  bool fill() const { return fill_; }
+  void set_fill(bool fill) { fill_ = fill; }
+
+ private:
+  bool fill_;
 };
 
 class RectangleEntity : public Entity {
  public:
-  RectangleEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale);
+  RectangleEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale, bool fill);
   virtual ~RectangleEntity() {}
 
   virtual void Draw();
+
+  bool fill() const { return fill_; }
+  void set_fill(bool fill) { fill_ = fill; }
+
+ private:
+  bool fill_;
 };
 
 #endif /* ENTITY_H_ */

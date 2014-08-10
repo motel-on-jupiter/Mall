@@ -13,7 +13,7 @@
 const char *WalkerProperty::kDefaultName = "Smith";
 
 Walker::Walker(const WaypointGraph &graph, const Waypoint &origin, const Waypoint &terminus) :
-  TriangleEntity(origin.pos(), 0.0f, glm::vec2(15.0f, 10.0f)),
+  TriangleEntity(origin.pos(), 0.0f, glm::vec2(15.0f, 10.0f), true),
   navi_(graph), goal_(&origin), reached_(true) {
   navi_.Reroute(origin, terminus);
 }
