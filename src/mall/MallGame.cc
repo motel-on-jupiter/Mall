@@ -36,11 +36,19 @@ void MallGame::Update(float elapsed_time) {
 }
 
 int MallGame::Draw(glm::vec2 window_size) {
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
   if (gamecase_ == nullptr) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     return 0;
   }
-  return gamecase_->Draw(window_size);
+
+  glPushMatrix();
+  glMatrixMode(GL_PROJECTION | GL_MODELVIEW);
+  glLoadIdentity();
+  glOrtho(-1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 1.0f);
+  int ret = gamecase_->Draw(window_size);
+  glPopMatrix();
+  return ret;
 }
 
 int MallGame::OnKeyboardDown(SDL_Keycode key, glm::vec2 window_size) {

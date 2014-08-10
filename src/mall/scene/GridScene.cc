@@ -163,21 +163,10 @@ int GridScene::Draw(glm::vec2 window_size) {
   if (!initialized_) {
     return 1;
   }
-
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  glOrtho(-1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 1.0f);
-
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
-
   stage_.Draw();
   BOOST_FOREACH (auto walker, walkers_) {
     walker->Draw(window_size);
   }
-
   return 0;
 }
 
