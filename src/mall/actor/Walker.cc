@@ -13,7 +13,7 @@
 const char *WalkerProperty::kDefaultName = "Smith";
 
 Walker::Walker(const WaypointGraph &graph, const Waypoint &origin, const Waypoint &terminus) :
-  RectangleEntity(origin.pos(), 0.0f, glm::vec2(5.0f, 5.0f)),
+  TriangleEntity(origin.pos(), 0.0f, glm::vec2(15.0f, 10.0f)),
   navi_(graph), goal_(&origin), reached_(true) {
   navi_.Reroute(origin, terminus);
 }
@@ -31,7 +31,9 @@ void Walker::Update() {
     reached_ = false;
     goal_ = goal;
   } else {
-    set_pos(pos() + glm::normalize(goal_->pos() - pos()));
+    glm::vec2 movedir = glm::normalize(goal_->pos() - pos());
+    set_pos(pos() + movedir);
+    set_rot(glm::atan(movedir.y, movedir.x) + glm::radians(90.0f));
   }
 }
 
@@ -48,7 +50,7 @@ void Walker::Draw() {
   } else {
     glColor3fv(glm::value_ptr(kBlueColor));
   }
-  RectangleEntity::Draw();
+  TriangleEntity::Draw();
 
   if (goal_ != nullptr) {
     glColor3fv(glm::value_ptr(kYellowColor));

@@ -39,7 +39,7 @@ class WalkerProperty {
   unsigned char weight_;
 };
 
-class Walker : public RectangleEntity {
+class Walker : public TriangleEntity {
 public:
   enum WalkerStatus {
     kWalkerStandBy,
