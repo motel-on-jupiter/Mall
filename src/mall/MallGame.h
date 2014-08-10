@@ -32,7 +32,7 @@ class MallGame {
   int OnMouseButtonDown(unsigned char button, int x, int y, const glm::vec2 &window_size);
 
  private:
-  MallGameSceneInterface *gamecase_;
+  MallGameSceneInterface *scene_;
   TTF_Font *font_;
 };
 
