@@ -24,7 +24,7 @@ class MallGame {
   MallGame();
   ~MallGame();
 
-  void Initialize();
+  int Initialize();
   void Finalize();
   int Update(float elapsed_time);
   int Draw(const glm::vec2 &window_size);

@@ -20,9 +20,15 @@ MallGame::~MallGame() {
   Finalize();
 }
 
-void MallGame::Initialize() {
+int MallGame::Initialize() {
   // Load font
   font_ = TTF_OpenFont("share/ipag00303/ipag.ttf", 24);
+  if (font_ == nullptr) {
+    LOGGER.Error("Failed to open font with SDL_ttf (errmsg: %s)",
+                 TTF_GetError());
+    return -1;
+  }
+  return 0;
 }
 
 void MallGame::Finalize() {

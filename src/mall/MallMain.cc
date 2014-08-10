@@ -88,7 +88,11 @@ int MallMain(int argc, char *argv[], const char *config_path) {
   TwDefine(tw_def.str().c_str());
 
   // Initialize the game
-  game.Initialize();
+  if (game.Initialize() != 0) {
+    LOGGER.Error("Failed to initialize the game objects");
+    MallCleanUp();
+    return -1;
+  }
 
   // Execute the mainloop
   next_time = SDL_GetTicks() + kGameLoopInterval;
