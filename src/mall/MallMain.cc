@@ -125,7 +125,12 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     }
 
     // Update the game
-    game.Update(0.0f);
+    int ret = game.Update(0.0f);
+    if (ret < 0) {
+      LOGGER.Error("Failed to update the game objects (ret: %d)", ret);
+      loop_stat = -1;
+      break;
+    }
 
     // Draw the objects
     if (!skip_draw) {

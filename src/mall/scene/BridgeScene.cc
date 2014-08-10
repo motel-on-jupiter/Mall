@@ -79,9 +79,18 @@ int BridgeScene::Initialize(const glm::vec2 &stage_size) {
 
   // Create the walkers
   for (unsigned int i=0; i<stage_.const_graph().points().size() / 2; ++i) {
-    walkers_.push_back(new Walker(stage_.const_graph(),
-                                  *(stage_.const_graph().points()[i * 2]),
-                                  *(stage_.const_graph().points()[i * 2 + 1])));
+    Walker *walker = new Walker(stage_.const_graph(),
+                                *(stage_.const_graph().points()[i * 2]),
+                                *(stage_.const_graph().points()[i * 2 + 1]));
+    if (walker == nullptr) {
+      LOGGER.Error("Failed to create the walker");
+      BOOST_FOREACH(Walker *walker, walkers_) {
+        delete walker;
+      }
+      walkers_.clear();
+      return -1;
+    }
+    walkers_.push_back(walker);
   }
 
   // Update the OpenGL flags
@@ -107,12 +116,42 @@ void BridgeScene::Finalize() {
   return;
 }
 
-void BridgeScene::Update(float elapsed_time) {
+int BridgeScene::Update(float elapsed_time) {
   UNUSED(elapsed_time);
-  BOOST_FOREACH(Walker *walker, walkers_) {
-    walker->Update();
+
+  if (!initialized_) {
+    return 1;
   }
-  return;
+
+  int status = 0;
+
+  // Generate new walker
+  for (unsigned int i=0; i<stage_.const_graph().points().size() / 2; ++i) {
+    if (glm::linearRand(0.0f, 100.0f) < 1.0f) {
+      Walker *walker = new Walker(stage_.const_graph(),
+                                  *(stage_.const_graph().points()[i * 2]),
+                                  *(stage_.const_graph().points()[i * 2 + 1]));
+      if (walker == nullptr) {
+        LOGGER.Error("Failed to create the walker");
+        status = -1;
+        break;
+      } else {
+        walkers_.push_back(walker);
+      }
+    }
+  }
+
+  // Update the walkers
+  for(auto it = walkers_.begin(); it != walkers_.end(); ++it) {
+    Walker *walker = *it;
+    walker->Update();
+    if (walker->CheckStatus() == Walker::kWalkerStandBy) {
+      delete walker;
+      it = walkers_.erase(it);
+    }
+  }
+
+  return status;
 }
 
 int BridgeScene::Draw() {

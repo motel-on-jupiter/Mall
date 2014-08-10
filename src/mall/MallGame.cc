@@ -37,11 +37,11 @@ void MallGame::Finalize() {
   }
 }
 
-void MallGame::Update(float elapsed_time) {
+int MallGame::Update(float elapsed_time) {
   if (scene_ == nullptr) {
-    return;
+    return 2;
   }
-  scene_->Update(elapsed_time);
+  return scene_->Update(elapsed_time);
 }
 
 int MallGame::Draw(const glm::vec2 &window_size) {

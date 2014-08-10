@@ -141,11 +141,11 @@ void GridScene::Finalize() {
   return;
 }
 
-void GridScene::Update(float elapsed_time) {
+int GridScene::Update(float elapsed_time) {
   UNUSED(elapsed_time);
 
   if (!initialized_) {
-    return;
+    return 1;
   }
 
   BOOST_FOREACH (auto walker, walkers_) {
@@ -156,7 +156,7 @@ void GridScene::Update(float elapsed_time) {
     }
   }
 
-  return;
+  return 0;
 }
 
 int GridScene::Draw() {
