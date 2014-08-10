@@ -115,13 +115,13 @@ void BridgeScene::Update(float elapsed_time) {
   return;
 }
 
-int BridgeScene::Draw(glm::vec2 window_size) {
+int BridgeScene::Draw() {
   if (!initialized_) {
     return 1;
   }
   stage_.Draw();
   BOOST_FOREACH(Walker *walker, walkers_) {
-    walker->Draw(window_size);
+    walker->Draw();
   }
   return 0;
 }

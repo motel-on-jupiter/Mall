@@ -35,18 +35,20 @@ void MallGame::Update(float elapsed_time) {
   gamecase_->Update(elapsed_time);
 }
 
-int MallGame::Draw(glm::vec2 window_size) {
+int MallGame::Draw(const glm::vec2 &window_size) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   if (gamecase_ == nullptr) {
     return 0;
   }
 
+  // Load the orthographic projection matrix
   glPushMatrix();
   glMatrixMode(GL_PROJECTION | GL_MODELVIEW);
   glLoadIdentity();
-  glOrtho(-1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 1.0f);
-  int ret = gamecase_->Draw(window_size);
+  glOrtho(0.0, static_cast<GLdouble>(window_size.x),
+          static_cast<GLdouble>(window_size.y), 0.0, -1.0, 1.0);
+  int ret = gamecase_->Draw();
   glPopMatrix();
   return ret;
 }

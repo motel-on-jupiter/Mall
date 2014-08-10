@@ -4,6 +4,7 @@
 
 #include "MallStage.h"
 #include <boost/foreach.hpp>
+#include <glm/gtx/compatibility.hpp>
 #define GLM_COLOR
 #include "util/def/ColorDef.h"
 
@@ -23,19 +24,14 @@ void MallStage::Draw() {
   glPointSize(0.1f);
   glBegin(GL_POINTS);
   BOOST_FOREACH(auto point, graph_.points()) {
-    glVertex2f(point->pos().x / size_.x * 2.0f - 1.0f,
-               point->pos().y / size_.y * 2.0f - 1.0f);
+    glVertex2fv(glm::value_ptr(point->pos()));
   }
   glEnd();
   glBegin(GL_LINES);
   BOOST_FOREACH(const Waypoint *point, graph_.points()) {
     BOOST_FOREACH(const Waypoint *nextpoint, point->nextpoints()) {
-      glm::vec2 start = glm::vec2(point->pos().x / size_.x * 2.0f - 1.0f,
-                                  point->pos().y / size_.y * 2.0f - 1.0f);
-      glm::vec2 next = glm::vec2(nextpoint->pos().x / size_.x * 2.0f - 1.0f,
-                                 nextpoint->pos().y / size_.y * 2.0f - 1.0f);
-      glVertex2fv(glm::value_ptr(start));
-      glVertex2fv(glm::value_ptr(start + (next - start) * 0.4f));
+      glVertex2fv(glm::value_ptr(point->pos()));
+      glVertex2fv(glm::value_ptr(glm::lerp(point->pos(), nextpoint->pos(), 0.4f)));
     }
   }
   glEnd();

@@ -159,13 +159,13 @@ void GridScene::Update(float elapsed_time) {
   return;
 }
 
-int GridScene::Draw(glm::vec2 window_size) {
+int GridScene::Draw() {
   if (!initialized_) {
     return 1;
   }
   stage_.Draw();
   BOOST_FOREACH (auto walker, walkers_) {
-    walker->Draw(window_size);
+    walker->Draw();
   }
   return 0;
 }

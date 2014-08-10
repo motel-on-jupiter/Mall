@@ -13,11 +13,10 @@ PointEntity::PointEntity(const glm::vec2 &pos, float scale) :
   Entity(pos, 0.0f, glm::vec2(scale)) {
 }
 
-void PointEntity::Draw(const glm::vec2 &window_size) {
+void PointEntity::Draw() {
   glPointSize(scale().x);
   glBegin(GL_POINTS);
-  glVertex2f(pos().x / window_size.x * 2.0f - 1.0f,
-             pos().y / window_size.y * 2.0f - 1.0f);
+  glVertex2fv(glm::value_ptr(pos()));
   glEnd();
 }
 
@@ -25,14 +24,11 @@ TriangleEntity::TriangleEntity(const glm::vec2 &pos, float rot, const glm::vec2 
   Entity(pos, rot, scale) {
 }
 
-void TriangleEntity::Draw(const glm::vec2 &window_size) {
+void TriangleEntity::Draw() {
   glBegin(GL_LINE_LOOP);
-  glm::vec2 offset = glm::rotate(scale() * glm::vec2(0.0f, -0.5f), rot());
-  glVertex2fv(glm::value_ptr((pos() + offset) / window_size * 2.0f - 1.0f));
-  offset = glm::rotate(glm::vec2(scale() * glm::vec2(-0.5f, 0.5f)), rot());
-  glVertex2fv(glm::value_ptr((pos() + offset) / window_size * 2.0f - 1.0f));
-  offset = glm::rotate(glm::vec2(scale() * glm::vec2(0.5f, 0.5f)), rot());
-  glVertex2fv(glm::value_ptr((pos() + offset) / window_size * 2.0f - 1.0f));
+  glVertex2fv(glm::value_ptr(pos() + glm::rotate(scale() * glm::vec2(0.0f, -0.5f), rot())));
+  glVertex2fv(glm::value_ptr(pos() + glm::rotate(glm::vec2(scale() * glm::vec2(-0.5f, 0.5f)), rot())));
+  glVertex2fv(glm::value_ptr(pos() + glm::rotate(glm::vec2(scale() * glm::vec2(0.5f, 0.5f)), rot())));
   glEnd();
 }
 
@@ -40,15 +36,11 @@ RectangleEntity::RectangleEntity(const glm::vec2 &pos, float rot, const glm::vec
   Entity(pos, rot, scale) {
 }
 
-void RectangleEntity::Draw(const glm::vec2 &window_size) {
+void RectangleEntity::Draw() {
   glBegin(GL_LINE_LOOP);
-  glm::vec2 offset = glm::rotate(scale() * -0.5f, rot());
-  glVertex2fv(glm::value_ptr((pos() + offset) / window_size * 2.0f - 1.0f));
-  offset = glm::rotate(scale() * glm::vec2(-0.5f, 0.5f), rot());
-  glVertex2fv(glm::value_ptr((pos() + offset) / window_size * 2.0f - 1.0f));
-  offset = glm::rotate(scale() * 0.5f, rot());
-  glVertex2fv(glm::value_ptr((pos() + offset) / window_size * 2.0f - 1.0f));
-  offset = glm::rotate(scale() * glm::vec2(0.5f, -0.5f), rot());
-  glVertex2fv(glm::value_ptr((pos() + offset) / window_size * 2.0f - 1.0f));
+  glVertex2fv(glm::value_ptr(pos() + glm::rotate(scale() * -0.5f, rot())));
+  glVertex2fv(glm::value_ptr(pos() + glm::rotate(scale() * glm::vec2(-0.5f, 0.5f), rot())));
+  glVertex2fv(glm::value_ptr(pos() + glm::rotate(scale() * 0.5f, rot())));
+  glVertex2fv(glm::value_ptr(pos() + glm::rotate(scale() * glm::vec2(0.5f, -0.5f), rot())));
   glEnd();
 }

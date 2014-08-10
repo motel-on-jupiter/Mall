@@ -52,7 +52,7 @@ public:
 
   void Update();
   void Reroute(const Waypoint &terminus);
-  void Draw(const glm::vec2 &window_size);
+  void Draw();
   WalkerStatus CheckStatus() const;
 
   const WalkerProperty &property() const { return property_; }

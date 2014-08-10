@@ -13,7 +13,7 @@ class MallGameSceneInterface {
   virtual int Initialize(const glm::vec2 &stage_size) = 0;
   virtual void Finalize() = 0;
   virtual void Update(float elapsed_time) = 0;
-  virtual int Draw(glm::vec2 window_size) = 0;
+  virtual int Draw() = 0;
   virtual int OnMouseButtonDown(unsigned char button, const glm::vec2 &cursor_pos) = 0;
 };
 
@@ -25,7 +25,7 @@ class MallGame {
   void Initialize();
   void Finalize();
   void Update(float elapsed_time);
-  int Draw(glm::vec2 window_size);
+  int Draw(const glm::vec2 &window_size);
   int OnKeyboardDown(SDL_Keycode key, glm::vec2 window_size);
   int OnMouseButtonDown(unsigned char button, int x, int y, const glm::vec2 &window_size);
 

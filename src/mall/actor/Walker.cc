@@ -39,7 +39,7 @@ void Walker::Reroute(const Waypoint &terminus) {
   navi_.Reroute(*goal_, terminus);
 }
 
-void Walker::Draw(const glm::vec2 &window_size) {
+void Walker::Draw() {
   glm::vec3 color;
   if (CheckStatus() == kWalkerRerouting) {
     glColor3fv(glm::value_ptr(kYellowColor));
@@ -48,21 +48,21 @@ void Walker::Draw(const glm::vec2 &window_size) {
   } else {
     glColor3fv(glm::value_ptr(kBlueColor));
   }
-  RectangleEntity::Draw(window_size);
+  RectangleEntity::Draw();
 
   if (goal_ != nullptr) {
     glColor3fv(glm::value_ptr(kYellowColor));
     glBegin(GL_LINE_LOOP);
-    glVertex2f(pos().x / window_size.x * 2.0f - 1.0f, pos().y / window_size.y * 2.0f - 1.0f);
-    glVertex2f(goal_->pos().x / window_size.x * 2.0f - 1.0f, goal_->pos().y / window_size.y * 2.0f - 1.0f);
+    glVertex2fv(glm::value_ptr(pos()));
+    glVertex2fv(glm::value_ptr(goal_->pos()));
     glEnd();
   }
   const Waypoint *terminus = navi_.GetTerminus();
   if (terminus != nullptr) {
     glColor3fv(glm::value_ptr(kRedColor));
     glBegin(GL_LINE_LOOP);
-    glVertex2f(pos().x / window_size.x * 2.0f - 1.0f, pos().y / window_size.y * 2.0f - 1.0f);
-    glVertex2f(terminus->pos().x / window_size.x * 2.0f - 1.0f, terminus->pos().y / window_size.y * 2.0f - 1.0f);
+    glVertex2fv(glm::value_ptr(pos()));
+    glVertex2fv(glm::value_ptr(terminus->pos()));
     glEnd();
   }
 }
