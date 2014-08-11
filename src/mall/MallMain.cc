@@ -18,8 +18,10 @@ static const std::string kWindowCaption = "Mall - The Motel on Jupiter";
 static const Uint32 kWindowWidth = 800;
 static const Uint32 kWindowHeight = 600;
 static const Uint32 kFPS = 30;
+static const glm::vec2 kStageSize = glm::vec2(20, 15);
 
 static const Uint32 kGameLoopInterval = 1000 / kFPS;
+static const float kGameLoopIntervalSec = 1.0f / kFPS;
 
 static SDL_Window *window = nullptr;
 static SDL_GLContext context = nullptr;
@@ -88,7 +90,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
   TwDefine(tw_def.str().c_str());
 
   // Initialize the game
-  if (game.Initialize() != 0) {
+  if (game.Initialize(kStageSize) != 0) {
     LOGGER.Error("Failed to initialize the game objects");
     MallCleanUp();
     return -1;
@@ -114,8 +116,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
           if (event.key.keysym.sym == SDLK_ESCAPE) {
             escape_loop = true;
           } else {
-            game.OnKeyboardDown(event.key.keysym.sym,
-                                glm::vec2(kWindowWidth, kWindowHeight));
+            game.OnKeyboardDown(event.key.keysym.sym);
           }
           break;
         case SDL_MOUSEBUTTONDOWN:
@@ -129,7 +130,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     }
 
     // Update the game
-    int ret = game.Update(0.0f);
+    int ret = game.Update(kGameLoopIntervalSec);
     if (ret < 0) {
       LOGGER.Error("Failed to update the game objects (ret: %d)", ret);
       loop_stat = -1;

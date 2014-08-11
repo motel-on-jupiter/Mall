@@ -20,14 +20,14 @@ BridgeStage::~BridgeStage() {
 }
 
 const glm::vec2 BridgeStage::kWaypointPositionTbl[] = {
-  glm::vec2(1.0f, 0.2f),
-  glm::vec2(0.0f, 0.2f),
-  glm::vec2(0.0f, 0.3f),
-  glm::vec2(1.0f, 0.3f),
-  glm::vec2(1.0f, 0.7f),
-  glm::vec2(0.0f, 0.7f),
-  glm::vec2(0.0f, 0.8f),
-  glm::vec2(1.0f, 0.8f),
+  glm::vec2(20.0f, 3.0f),
+  glm::vec2(0.0f, 3.0f),
+  glm::vec2(0.0f, 4.0f),
+  glm::vec2(20.0f, 4.0f),
+  glm::vec2(20.0f, 11.0f),
+  glm::vec2(0.0f, 11.0f),
+  glm::vec2(0.0f, 12.0f),
+  glm::vec2(20.0f, 12.0f),
 };
 
 int BridgeStage::Initialize(const glm::vec2 &size) {
@@ -39,7 +39,7 @@ int BridgeStage::Initialize(const glm::vec2 &size) {
 
   // Create the way-points
   for (int i=0; i<ARRAYSIZE(kWaypointPositionTbl); ++i) {
-    Waypoint *point = new Waypoint(size * kWaypointPositionTbl[i]);
+    Waypoint *point = new Waypoint(kWaypointPositionTbl[i]);
     if (point == nullptr) {
       LOGGER.Error("Failed to allocate the waypoint object (idx: %d)", i);
       graph().Clear();
@@ -144,7 +144,7 @@ int BridgeScene::Update(float elapsed_time) {
   // Update the walkers
   for(auto it = walkers_.begin(); it != walkers_.end(); ++it) {
     Walker *walker = *it;
-    walker->Update();
+    walker->Update(elapsed_time);
     if (walker->CheckStatus() == Walker::kWalkerStandBy) {
       delete walker;
       it = walkers_.erase(it);

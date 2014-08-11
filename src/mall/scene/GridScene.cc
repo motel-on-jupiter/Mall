@@ -13,7 +13,7 @@
 
 const int GridScene::kNumWalkWalkers = 5;
 
-const float GridStage::kGridInterval = 70.0f;
+const float GridStage::kGridInterval = 2.0f;
 
 GridStage::GridStage() : MallStage() {
 }
@@ -149,10 +149,10 @@ int GridScene::Update(float elapsed_time) {
   }
 
   BOOST_FOREACH (auto walker, walkers_) {
-    (*walker).Update();
-    if ((*walker).CheckStatus() == Walker::kWalkerStandBy) {
+    walker->Update(elapsed_time);
+    if (walker->CheckStatus() == Walker::kWalkerStandBy) {
       unsigned int terminusidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
-      (*walker).Reroute(*(stage_.const_graph().points()[terminusidx]));
+      walker->Reroute(*(stage_.const_graph().points()[terminusidx]));
     }
   }
 

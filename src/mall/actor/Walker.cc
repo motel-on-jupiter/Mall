@@ -12,14 +12,19 @@
 
 const char *WalkerProperty::kDefaultName = "Smith";
 
-Walker::Walker(const WaypointGraph &graph, const Waypoint &origin, const Waypoint &terminus) :
-  TriangleEntity(origin.pos(), 0.0f, glm::vec2(15.0f, 10.0f), true),
-  navi_(graph), goal_(&origin), reached_(true), property_(), speed_(1.0f) {
+Walker::Walker(const WaypointGraph &graph, const Waypoint &origin,
+               const Waypoint &terminus) :
+  RectangleEntity(origin.pos(), 0.0f, glm::vec2(0.5f, 0.2f), true),
+  navi_(graph),
+  goal_(&origin),
+  reached_(true),
+  property_(),
+  speed_(5.0f * 1000.0f / 60.0f / 60.0f) {
   navi_.Reroute(origin, terminus);
 }
 
-void Walker::Update() {
-  if (glm::distance(pos(), goal_->pos()) <= 1.0f) {
+void Walker::Update(float elapsed_time) {
+  if (glm::distance(pos(), goal_->pos()) <= 0.1f) {
     set_pos(goal_->pos());
     reached_ = true;
   }
@@ -32,7 +37,7 @@ void Walker::Update() {
     goal_ = goal;
   } else {
     glm::vec2 movedir = glm::normalize(goal_->pos() - pos());
-    set_pos(pos() + movedir * speed_);
+    set_pos(pos() + movedir * speed_ * elapsed_time);
     set_rot(glm::atan(movedir.y, movedir.x) + glm::radians(90.0f));
   }
 }
@@ -50,7 +55,7 @@ void Walker::Draw() {
   } else {
     glColor3fv(glm::value_ptr(kBlueColor));
   }
-  TriangleEntity::Draw();
+  RectangleEntity::Draw();
 
   if (goal_ != nullptr) {
     glColor3fv(glm::value_ptr(kYellowColor));

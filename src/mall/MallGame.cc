@@ -20,7 +20,10 @@ MallGame::~MallGame() {
   Finalize();
 }
 
-int MallGame::Initialize() {
+int MallGame::Initialize(const glm::vec2 &stage_size) {
+  // Set the parameter
+  stagesize_ = stage_size;
+
   // Load font
   font_ = TTF_OpenFont("share/ipag00303/ipag.ttf", 24);
   if (font_ == nullptr) {
@@ -59,16 +62,18 @@ int MallGame::Draw(const glm::vec2 &window_size) {
 
   // Load the orthographic projection matrix
   glPushMatrix();
-  glMatrixMode(GL_PROJECTION | GL_MODELVIEW);
+  glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   glOrtho(0.0, static_cast<GLdouble>(window_size.x),
           static_cast<GLdouble>(window_size.y), 0.0, -1.0, 1.0);
+  glMatrixMode(GL_MODELVIEW);
+  glLoadMatrixf(glm::value_ptr(glm::scale(glm::vec3(40.0f, 40.0f, 1.0f))));
   int ret = scene_->Draw();
   glPopMatrix();
   return ret;
 }
 
-int MallGame::OnKeyboardDown(SDL_Keycode key, glm::vec2 window_size) {
+int MallGame::OnKeyboardDown(SDL_Keycode key) {
   if (scene_ == nullptr) {
     if ((key == SDLK_1) || (key == SDLK_2)) {
       if (key == SDLK_1) {
@@ -78,7 +83,7 @@ int MallGame::OnKeyboardDown(SDL_Keycode key, glm::vec2 window_size) {
         LOGGER.Info("Set up BridgeScene");
         scene_ = new BridgeScene();
       }
-      int ret = scene_->Initialize(window_size);
+      int ret = scene_->Initialize(stagesize_);
       if (ret < 0) {
         LOGGER.Error("Failed to initialize the game case");
         return -1;

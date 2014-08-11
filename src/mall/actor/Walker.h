@@ -39,7 +39,7 @@ class WalkerProperty {
   unsigned char weight_;
 };
 
-class Walker : public TriangleEntity {
+class Walker : public RectangleEntity {
 public:
   enum WalkerStatus {
     kWalkerStandBy,
@@ -50,7 +50,7 @@ public:
   Walker(const WaypointGraph &graph, const Waypoint &origin, const Waypoint &terminus);
   virtual ~Walker() {}
 
-  void Update();
+  void Update(float elapsed_time);
   void Reroute(const Waypoint &terminus);
   void Draw();
   WalkerStatus CheckStatus() const;

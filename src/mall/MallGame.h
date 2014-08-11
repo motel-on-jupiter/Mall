@@ -24,15 +24,16 @@ class MallGame {
   MallGame();
   ~MallGame();
 
-  int Initialize();
+  int Initialize(const glm::vec2 &stage_size);
   void Finalize();
   int Update(float elapsed_time);
   int Draw(const glm::vec2 &window_size);
-  int OnKeyboardDown(SDL_Keycode key, glm::vec2 window_size);
+  int OnKeyboardDown(SDL_Keycode key);
   int OnMouseButtonDown(unsigned char button, int x, int y, const glm::vec2 &window_size);
 
  private:
   MallGameSceneInterface *scene_;
+  glm::vec2 stagesize_;
   TTF_Font *font_;
 };
 
