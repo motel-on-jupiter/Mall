@@ -133,6 +133,9 @@
     <ClCompile Include="..\src\util\wrapper\sdl_wrap.cc">
       <Filter>src\util\wrapper</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mall\scene\ConvenienceStoreScene.cc">
+      <Filter>src\mall\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\pch\precompile.h">
@@ -242,6 +245,9 @@
     </ClInclude>
     <ClInclude Include="..\src\util\wrapper\sdl_wrap.h">
       <Filter>src\util\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\scene\ConvenienceStoreScene.h">
+      <Filter>src\mall\scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

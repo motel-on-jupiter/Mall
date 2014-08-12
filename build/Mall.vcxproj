@@ -18,6 +18,7 @@
     <ClCompile Include="..\src\mall\MallMain.cc" />
     <ClCompile Include="..\src\mall\MallStage.cc" />
     <ClCompile Include="..\src\mall\scene\BridgeScene.cc" />
+    <ClCompile Include="..\src\mall\scene\ConvenienceStoreScene.cc" />
     <ClCompile Include="..\src\mall\scene\GridScene.cc" />
     <ClCompile Include="..\src\navigation\Navigator.cc" />
     <ClCompile Include="..\src\navigation\Waypoint.cc" />
@@ -58,6 +59,7 @@
     <ClInclude Include="..\src\mall\MallMain.h" />
     <ClInclude Include="..\src\mall\MallStage.h" />
     <ClInclude Include="..\src\mall\scene\BridgeScene.h" />
+    <ClInclude Include="..\src\mall\scene\ConvenienceStoreScene.h" />
     <ClInclude Include="..\src\mall\scene\GridScene.h" />
     <ClInclude Include="..\src\navigation\Navigator.h" />
     <ClInclude Include="..\src\navigation\Waypoint.h" />

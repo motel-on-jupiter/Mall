@@ -9,6 +9,7 @@
 #include <SDL_video.h>
 
 #include "mall/scene/BridgeScene.h"
+#include "mall/scene/ConvenienceStoreScene.h"
 #include "mall/scene/GridScene.h"
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
@@ -75,13 +76,16 @@ int MallGame::Draw(const glm::vec2 &window_size) {
 
 int MallGame::OnKeyboardDown(SDL_Keycode key) {
   if (scene_ == nullptr) {
-    if ((key == SDLK_1) || (key == SDLK_2)) {
+    if ((key == SDLK_1) || (key == SDLK_2) || (key == SDLK_3)) {
       if (key == SDLK_1) {
         LOGGER.Info("Set up GridScene");
         scene_ = new GridScene();
-      } else {
+      } else if (key == SDLK_2) {
         LOGGER.Info("Set up BridgeScene");
         scene_ = new BridgeScene();
+      } else {
+        LOGGER.Info("Set up ConvenienceStoreScene");
+        scene_ = new ConvenienceStoreScene();
       }
       int ret = scene_->Initialize(stagesize_);
       if (ret < 0) {
