@@ -8,6 +8,7 @@
 #include <boost/foreach.hpp>
 
 #include "navigation/Waypoint.h"
+#include "util/def/ColorDef.h"
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
@@ -16,7 +17,7 @@ ConvenienceStoreAttendant::ConvenienceStoreAttendant(const glm::vec2 &pos) :
 }
 
 void ConvenienceStoreAttendant::Draw() {
-  glColor3ubv(kOrange);
+  glColor3ubv(X11Color::kOrange);
   MallHuman::Draw();
 }
 

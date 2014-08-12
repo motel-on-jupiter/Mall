@@ -19,7 +19,7 @@ int MallStage::Initialize(const glm::vec2 &size) {
 }
 
 void MallStage::Draw() {
-  glColor3ubv(kWhiteColor);
+  glColor3ubv(WebColor::kWhite);
   glPointSize(0.1f);
   glBegin(GL_POINTS);
   BOOST_FOREACH(auto point, graph_.points()) {

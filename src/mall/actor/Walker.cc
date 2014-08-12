@@ -43,16 +43,16 @@ void Walker::Reroute(const Waypoint &terminus) {
 void Walker::Draw() {
   glm::vec3 color;
   if (CheckStatus() == kWalkerRerouting) {
-    glColor3ubv(kYellowColor);
+    glColor3ubv(WebColor::kYellow);
   } else if (CheckStatus() == kWalkerMoving) {
-    glColor3ubv(kGreenColor);
+    glColor3ubv(WebColor::kGreen);
   } else {
-    glColor3ubv(kBlueColor);
+    glColor3ubv(WebColor::kBlue);
   }
   RectangleEntity::Draw();
 
   if (goal_ != nullptr) {
-    glColor3ubv(kYellowColor);
+    glColor3ubv(WebColor::kYellow);
     glBegin(GL_LINE_LOOP);
     glVertex2fv(glm::value_ptr(pos()));
     glVertex2fv(glm::value_ptr(goal_->pos()));
@@ -60,7 +60,7 @@ void Walker::Draw() {
   }
   const Waypoint *terminus = navi_.GetTerminus();
   if (terminus != nullptr) {
-    glColor3ubv(kRedColor);
+    glColor3ubv(WebColor::kRed);
     glBegin(GL_LINE_LOOP);
     glVertex2fv(glm::value_ptr(pos()));
     glVertex2fv(glm::value_ptr(terminus->pos()));
