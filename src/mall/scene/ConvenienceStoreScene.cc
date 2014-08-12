@@ -16,7 +16,7 @@ ConvenienceStoreAttendant::ConvenienceStoreAttendant(const glm::vec2 &pos) :
 }
 
 void ConvenienceStoreAttendant::Draw() {
-  glColor3ub(0xFF, 0x8C, 0x00);
+  glColor3ubv(kOrange);
   MallHuman::Draw();
 }
 
