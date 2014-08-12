@@ -8,20 +8,20 @@
 #include "mall/actor/Entity.h"
 #include "navigation/Navigator.h"
 
-class WalkerProperty {
+class MallHumanProperty {
  public:
-  enum WalkerSex {
-    kWalkerMale,
-    kWalkerUndefined,
+  enum MallHumanSex {
+    kSexMale,
+    kSexFemale,
   };
 
-  WalkerProperty() : name_(kDefaultName), sex_(kWalkerMale), age_(20), height_(180), weight_(50) {}
-  ~WalkerProperty() {}
+  MallHumanProperty() : name_(kDefaultName), sex_(kSexMale), age_(20), height_(180), weight_(50) {}
+  ~MallHumanProperty() {}
 
   const char* name() const { return name_; }
   void set_name(const char* name) { name_ = name; }
-  WalkerSex sex() const { return sex_; }
-  void set_sex(WalkerSex sex) { sex_ = sex; }
+  MallHumanSex sex() const { return sex_; }
+  void set_sex(MallHumanSex sex) { sex_ = sex; }
   unsigned char age() const { return age_; }
   void set_age(unsigned char age) { age_ = age; }
   unsigned char height() const { return height_; }
@@ -33,7 +33,7 @@ class WalkerProperty {
   static const char *kDefaultName;
 
   const char *name_;
-  WalkerSex sex_;
+  MallHumanSex sex_;
   unsigned char age_;
   unsigned char height_;
   unsigned char weight_;
@@ -45,6 +45,11 @@ public:
   virtual ~MallHuman() {}
 
   virtual void Update(float elapsed_time);
+
+  const MallHumanProperty &property() const { return property_; }
+
+private:
+  MallHumanProperty property_;
 };
 
 class Walker : public MallHuman {
@@ -58,19 +63,17 @@ public:
   Walker(const WaypointGraph &graph, const Waypoint &origin, const Waypoint &terminus);
   virtual ~Walker() {}
 
-  void Update(float elapsed_time);
+  virtual void Update(float elapsed_time);
   void Reroute(const Waypoint &terminus);
-  void Draw();
+  virtual void Draw();
   WalkerStatus CheckStatus() const;
 
-  const WalkerProperty &property() const { return property_; }
   Navigator &navi() { return navi_; }
 
 private:
   Navigator navi_;
   const Waypoint *goal_;
   bool reached_;
-  WalkerProperty property_;
   float speed_;
 };
 

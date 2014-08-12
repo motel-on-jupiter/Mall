@@ -10,10 +10,11 @@
 #define GLM_COLOR
 #include "util/def/ColorDef.h"
 
-const char *WalkerProperty::kDefaultName = "Smith";
+const char *MallHumanProperty::kDefaultName = "Smith";
 
 MallHuman::MallHuman(const glm::vec2 &pos, float rot) :
-  RectangleEntity(pos, rot, glm::vec2(0.5f, 0.2f), true) {
+  RectangleEntity(pos, rot, glm::vec2(0.5f, 0.2f), true),
+  property_() {
 }
 
 void MallHuman::Update(float elapsed_time) {
@@ -26,7 +27,6 @@ Walker::Walker(const WaypointGraph &graph, const Waypoint &origin,
   navi_(graph),
   goal_(&origin),
   reached_(true),
-  property_(),
   speed_(5.0f * 1000.0f / 60.0f / 60.0f) {
   navi_.Reroute(origin, terminus);
 }
