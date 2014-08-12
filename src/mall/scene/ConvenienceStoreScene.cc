@@ -11,11 +11,19 @@
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
+ConvenienceStoreAttendant::ConvenienceStoreAttendant(const glm::vec2 &pos) :
+  MallHuman(pos, 0.0f) {
+}
+
+void ConvenienceStoreAttendant::Draw() {
+  glColor3ub(0xFF, 0x8C, 0x00);
+  MallHuman::Draw();
+}
+
 ConvenienceStoreStage::ConvenienceStoreStage() : MallStage() {
 }
 
 ConvenienceStoreStage::~ConvenienceStoreStage() {
-
 }
 
 const glm::vec2 ConvenienceStoreStage::kWaypointPositionTbl[] = {
@@ -77,7 +85,7 @@ void ConvenienceStoreStage::Finalize() {
 }
 
 ConvenienceStoreScene::ConvenienceStoreScene() :
-    initialized_(false), stage_(), walker_(nullptr) {
+    initialized_(false), stage_(), attendants_(), walker_(nullptr) {
 }
 
 ConvenienceStoreScene::~ConvenienceStoreScene() {
@@ -96,11 +104,25 @@ int ConvenienceStoreScene::Initialize(const glm::vec2 &stage_size) {
     return -1;
   }
 
+  ConvenienceStoreAttendant *attendant =
+      new ConvenienceStoreAttendant(glm::vec2(10.0f, 10.0f));
+  if (attendant == nullptr) {
+    LOGGER.Error("Failed to create 1st attendant");
+    return -1;
+  }
+  attendants_.push_back(attendant);
+  attendant = new ConvenienceStoreAttendant(glm::vec2(12.0f, 10.0f));
+  if (attendant == nullptr) {
+    LOGGER.Error("Failed to create 2nd attendant");
+    return -1;
+  }
+  attendants_.push_back(attendant);
+
   walker_ = new Walker(stage_.const_graph(),
                        *(stage_.const_graph().points()[4]),
                        *(stage_.const_graph().points()[3]));
   if (walker_ == nullptr) {
-    LOGGER.Error("Failed to initialize the walker");
+    LOGGER.Error("Failed to create a walker");
     return -1;
   }
 
@@ -118,6 +140,10 @@ void ConvenienceStoreScene::Finalize() {
     LOGGER.Notice("Ignored the duplicate call to finalize game");
     return;
   }
+  BOOST_FOREACH(auto attendant, attendants_) {
+    delete attendant;
+  }
+  attendants_.clear();
   delete walker_;
   walker_ = nullptr;
   stage_.Finalize();
@@ -130,6 +156,9 @@ int ConvenienceStoreScene::Update(float elapsed_time) {
 
   if (!initialized_) {
     return 1;
+  }
+  BOOST_FOREACH(auto attendant, attendants_) {
+    attendant->Update(elapsed_time);
   }
   walker_->Update(elapsed_time);
   if (walker_->CheckStatus() == Walker::kWalkerStandBy) {
@@ -149,6 +178,9 @@ int ConvenienceStoreScene::Draw() {
     return 1;
   }
   stage_.Draw();
+  BOOST_FOREACH(auto attendant, attendants_) {
+    attendant->Draw();
+  }
   walker_->Draw();
   return 0;
 }

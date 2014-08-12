@@ -1,7 +1,6 @@
 /**
  * Copyright (C) 2014 The Motel on Jupiter
  */
-
 #ifndef CONVENIENCESTORESCENE_H_
 #define CONVENIENCESTORESCENE_H_
 
@@ -9,6 +8,14 @@
 #include "mall/actor/Walker.h"
 #include "mall/MallGame.h"
 #include "mall/MallStage.h"
+
+class ConvenienceStoreAttendant : public MallHuman {
+ public:
+  ConvenienceStoreAttendant(const glm::vec2 &pos);
+  virtual ~ConvenienceStoreAttendant() {}
+
+  virtual void Draw();
+};
 
 class ConvenienceStoreStage : public MallStage {
  public:
@@ -36,6 +43,7 @@ class ConvenienceStoreScene : public MallGameSceneInterface {
  private:
   bool initialized_;
   ConvenienceStoreStage stage_;
+  std::vector<ConvenienceStoreAttendant *> attendants_;
   Walker *walker_;
 };
 
