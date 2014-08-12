@@ -12,9 +12,17 @@
 
 const char *WalkerProperty::kDefaultName = "Smith";
 
+MallHuman::MallHuman(const glm::vec2 &pos, float rot) :
+  RectangleEntity(pos, rot, glm::vec2(0.5f, 0.2f), true) {
+}
+
+void MallHuman::Update(float elapsed_time) {
+  UNUSED(elapsed_time);
+}
+
 Walker::Walker(const WaypointGraph &graph, const Waypoint &origin,
                const Waypoint &terminus) :
-  RectangleEntity(origin.pos(), 0.0f, glm::vec2(0.5f, 0.2f), true),
+  MallHuman(origin.pos(), 0.0f),
   navi_(graph),
   goal_(&origin),
   reached_(true),

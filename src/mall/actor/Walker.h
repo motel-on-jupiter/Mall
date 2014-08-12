@@ -39,7 +39,15 @@ class WalkerProperty {
   unsigned char weight_;
 };
 
-class Walker : public RectangleEntity {
+class MallHuman : public RectangleEntity {
+public:
+  MallHuman(const glm::vec2 &pos, float rot);
+  virtual ~MallHuman() {}
+
+  virtual void Update(float elapsed_time);
+};
+
+class Walker : public MallHuman {
 public:
   enum WalkerStatus {
     kWalkerStandBy,
@@ -56,6 +64,7 @@ public:
   WalkerStatus CheckStatus() const;
 
   const WalkerProperty &property() const { return property_; }
+  Navigator &navi() { return navi_; }
 
 private:
   Navigator navi_;
