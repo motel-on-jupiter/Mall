@@ -6,13 +6,15 @@
 #define GLM_COLOR
 #include "util/def/ColorDef.h"
 
+const float Walker::kDefaultWalkSpeed = 5.0f * 1000.0f / 60.0f / 60.0f;
+
 Walker::Walker(const WaypointGraph &graph, const Waypoint &origin,
-               const Waypoint &terminus) :
+               const Waypoint &terminus, float speed) :
   MallHuman(origin.pos(), 0.0f),
   navi_(graph),
   goal_(&origin),
   reached_(true),
-  speed_(5.0f * 1000.0f / 60.0f / 60.0f) {
+  speed_(speed) {
   navi_.Reroute(origin, terminus);
 }
 

@@ -14,8 +14,10 @@ public:
     kWalkerMoving,
     kWalkerRerouting,
   };
+  static const float kDefaultWalkSpeed;
 
-  Walker(const WaypointGraph &graph, const Waypoint &origin, const Waypoint &terminus);
+  Walker(const WaypointGraph &graph, const Waypoint &origin,
+         const Waypoint &terminus, float speed = kDefaultWalkSpeed);
   virtual ~Walker() {}
 
   virtual void Update(float elapsed_time);
