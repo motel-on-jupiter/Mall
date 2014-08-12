@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\main.cc" />
     <ClCompile Include="..\src\mall\actor\Entity.cc" />
+    <ClCompile Include="..\src\mall\actor\MallHuman.cc" />
     <ClCompile Include="..\src\mall\actor\Walker.cc" />
     <ClCompile Include="..\src\mall\MallGame.cc" />
     <ClCompile Include="..\src\mall\MallMain.cc" />
@@ -54,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\mall\actor\Entity.h" />
+    <ClInclude Include="..\src\mall\actor\MallHuman.h" />
     <ClInclude Include="..\src\mall\actor\Walker.h" />
     <ClInclude Include="..\src\mall\MallGame.h" />
     <ClInclude Include="..\src\mall\MallMain.h" />

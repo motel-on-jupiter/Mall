@@ -136,6 +136,9 @@
     <ClCompile Include="..\src\mall\scene\ConvenienceStoreScene.cc">
       <Filter>src\mall\scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mall\actor\MallHuman.cc">
+      <Filter>src\mall\actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\pch\precompile.h">
@@ -248,6 +251,9 @@
     </ClInclude>
     <ClInclude Include="..\src\mall\scene\ConvenienceStoreScene.h">
       <Filter>src\mall\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\actor\MallHuman.h">
+      <Filter>src\mall\actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

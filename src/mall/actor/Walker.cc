@@ -2,24 +2,9 @@
  * Copyright (C) 2014 The Motel on Jupiter
  */
 #include "mall/actor/Walker.h"
-
 #include <GL/glew.h>
-
-#include "util/logging/Logger.h"
-#include "util/macro_util.h"
 #define GLM_COLOR
 #include "util/def/ColorDef.h"
-
-const char *MallHumanProperty::kDefaultName = "Smith";
-
-MallHuman::MallHuman(const glm::vec2 &pos, float rot) :
-  RectangleEntity(pos, rot, glm::vec2(0.5f, 0.2f), true),
-  property_() {
-}
-
-void MallHuman::Update(float elapsed_time) {
-  UNUSED(elapsed_time);
-}
 
 Walker::Walker(const WaypointGraph &graph, const Waypoint &origin,
                const Waypoint &terminus) :
