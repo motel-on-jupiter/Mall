@@ -16,8 +16,8 @@ class MallHumanProperty {
   MallHumanProperty() : name_(kDefaultName), sex_(kSexMale), age_(20), height_(180), weight_(50) {}
   ~MallHumanProperty() {}
 
-  const char* name() const { return name_; }
-  void set_name(const char* name) { name_ = name; }
+  const char *name() const { return name_; }
+  void set_name(const char *name) { name_ = name; }
   MallHumanSex sex() const { return sex_; }
   void set_sex(MallHumanSex sex) { sex_ = sex; }
   unsigned char age() const { return age_; }
