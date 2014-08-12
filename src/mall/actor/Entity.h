@@ -1,11 +1,9 @@
 /**
  * Copyright (C) 2014 The Motel on Jupiter
  */
-
 #ifndef ENTITY_H_
 #define ENTITY_H_
 
-#define GLM_COLOR
 #include "util/def/ColorDef.h"
 
 class Entity {

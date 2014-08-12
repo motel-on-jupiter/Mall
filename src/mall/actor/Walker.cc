@@ -3,7 +3,6 @@
  */
 #include "mall/actor/Walker.h"
 #include <GL/glew.h>
-#define GLM_COLOR
 #include "util/def/ColorDef.h"
 
 const float Walker::kDefaultWalkSpeed = 5.0f * 1000.0f / 60.0f / 60.0f;
@@ -44,16 +43,16 @@ void Walker::Reroute(const Waypoint &terminus) {
 void Walker::Draw() {
   glm::vec3 color;
   if (CheckStatus() == kWalkerRerouting) {
-    glColor3fv(glm::value_ptr(kYellowColor));
+    glColor3ubv(kYellowColor);
   } else if (CheckStatus() == kWalkerMoving) {
-    glColor3fv(glm::value_ptr(kGreenColor));
+    glColor3ubv(kGreenColor);
   } else {
-    glColor3fv(glm::value_ptr(kBlueColor));
+    glColor3ubv(kBlueColor);
   }
   RectangleEntity::Draw();
 
   if (goal_ != nullptr) {
-    glColor3fv(glm::value_ptr(kYellowColor));
+    glColor3ubv(kYellowColor);
     glBegin(GL_LINE_LOOP);
     glVertex2fv(glm::value_ptr(pos()));
     glVertex2fv(glm::value_ptr(goal_->pos()));
@@ -61,7 +60,7 @@ void Walker::Draw() {
   }
   const Waypoint *terminus = navi_.GetTerminus();
   if (terminus != nullptr) {
-    glColor3fv(glm::value_ptr(kRedColor));
+    glColor3ubv(kRedColor);
     glBegin(GL_LINE_LOOP);
     glVertex2fv(glm::value_ptr(pos()));
     glVertex2fv(glm::value_ptr(terminus->pos()));

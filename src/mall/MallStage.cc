@@ -5,7 +5,6 @@
 #include "MallStage.h"
 #include <boost/foreach.hpp>
 #include <glm/gtx/compatibility.hpp>
-#define GLM_COLOR
 #include "util/def/ColorDef.h"
 
 MallStage::MallStage() : size_(), graph_() {
@@ -20,7 +19,7 @@ int MallStage::Initialize(const glm::vec2 &size) {
 }
 
 void MallStage::Draw() {
-  glColor3fv(glm::value_ptr(kWhiteColor));
+  glColor3ubv(kWhiteColor);
   glPointSize(0.1f);
   glBegin(GL_POINTS);
   BOOST_FOREACH(auto point, graph_.points()) {
