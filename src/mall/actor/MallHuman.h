@@ -4,7 +4,7 @@
 #ifndef MALLHUMAN_H_
 #define MALLHUMAN_H_
 
-#include "mall/actor/Entity.h"
+#include "entity/Entity.h"
 
 class MallHumanProperty {
  public:

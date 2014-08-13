@@ -150,7 +150,7 @@ int GridScene::Update(float elapsed_time) {
 
   BOOST_FOREACH (auto walker, walkers_) {
     walker->Update(elapsed_time);
-    if (walker->CheckStatus() == Walker::kWalkerStandBy) {
+    if (walker->reached() && !(walker->navi().rerouting())) {
       unsigned int terminusidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
       walker->Reroute(*(stage_.const_graph().points()[terminusidx]));
     }

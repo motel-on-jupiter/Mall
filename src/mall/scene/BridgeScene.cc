@@ -145,7 +145,7 @@ int BridgeScene::Update(float elapsed_time) {
   for(auto it = walkers_.begin(); it != walkers_.end(); ++it) {
     Walker *walker = *it;
     walker->Update(elapsed_time);
-    if (walker->CheckStatus() == Walker::kWalkerStandBy) {
+    if (walker->reached() && !(walker->navi().rerouting())) {
       delete walker;
       it = walkers_.erase(it);
     }

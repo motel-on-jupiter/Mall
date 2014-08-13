@@ -40,6 +40,9 @@
     <Filter Include="src\mall\scene">
       <UniqueIdentifier>{1d106df7-ee78-4f12-adfd-0339722a2b92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\entity">
+      <UniqueIdentifier>{3e1219e0-f4d4-4385-bc79-5052c626b3f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\pch\precompile.cc">
@@ -103,9 +106,6 @@
     <ClCompile Include="..\src\mall\MallGame.cc">
       <Filter>src\mall</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mall\actor\Entity.cc">
-      <Filter>src\mall\actor</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\util\wrapper\TwEventSDL20.c">
       <Filter>src\util\wrapper</Filter>
     </ClCompile>
@@ -138,6 +138,12 @@
     </ClCompile>
     <ClCompile Include="..\src\mall\actor\MallHuman.cc">
       <Filter>src\mall\actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\entity\Entity.cc">
+      <Filter>src\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\entity\EntityRouting.cc">
+      <Filter>src\entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -222,9 +228,6 @@
     <ClInclude Include="..\src\mall\MallGame.h">
       <Filter>src\mall</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\actor\Entity.h">
-      <Filter>src\mall\actor</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\util\wrapper\atb_wrap.h">
       <Filter>src\util\wrapper</Filter>
     </ClInclude>
@@ -254,6 +257,12 @@
     </ClInclude>
     <ClInclude Include="..\src\mall\actor\MallHuman.h">
       <Filter>src\mall\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\entity\Entity.h">
+      <Filter>src\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\entity\EntityRouting.h">
+      <Filter>src\entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
