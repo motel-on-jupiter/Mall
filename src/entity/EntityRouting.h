@@ -4,15 +4,14 @@
 #ifndef ENTITYROUTING_H_
 #define ENTITYROUTING_H_
 
+#include "entity/BaseEntity.h"
 #include "navigation/Navigator.h"
 
-class BaseEntity;
-
-class EntityRouting {
+class EntityRouting : public EntityMixIn {
 public:
   EntityRouting(BaseEntity &entity, const WaypointGraph &graph,
-                     const Waypoint &origin, const Waypoint &terminus,
-                     float speed);
+                const Waypoint &origin, const Waypoint &terminus,
+                float speed);
   ~EntityRouting() {}
 
   void Update(float elapsed_time);
@@ -26,7 +25,6 @@ protected:
   const Waypoint *goal() const { return goal_; }
 
 private:
-  BaseEntity &entity_;
   Navigator navi_;
   const Waypoint *goal_;
   bool reached_;

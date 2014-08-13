@@ -7,7 +7,7 @@
 EntityRouting::EntityRouting(BaseEntity &entity, const WaypointGraph &graph,
                              const Waypoint &origin, const Waypoint &terminus,
                              float speed) :
-  entity_(entity),
+  EntityMixIn(entity),
   navi_(graph),
   goal_(&origin),
   reached_(true),
@@ -16,8 +16,8 @@ EntityRouting::EntityRouting(BaseEntity &entity, const WaypointGraph &graph,
 }
 
 void EntityRouting::Update(float elapsed_time) {
-  if (glm::distance(entity_.pos(), goal_->pos()) <= 0.1f) {
-    entity_.set_pos(goal_->pos());
+  if (glm::distance(entity().pos(), goal_->pos()) <= 0.1f) {
+    entity().set_pos(goal_->pos());
     reached_ = true;
   }
   if (reached_) {
@@ -28,9 +28,9 @@ void EntityRouting::Update(float elapsed_time) {
     reached_ = false;
     goal_ = goal;
   } else {
-    glm::vec2 movedir = glm::normalize(goal_->pos() - entity_.pos());
-    entity_.set_pos(entity_.pos() + movedir * speed_ * elapsed_time);
-    entity_.set_rot(glm::atan(movedir.y, movedir.x) + glm::radians(90.0f));
+    glm::vec2 movedir = glm::normalize(goal_->pos() - entity().pos());
+    entity().set_pos(entity().pos() + movedir * speed_ * elapsed_time);
+    entity().set_rot(glm::atan(movedir.y, movedir.x) + glm::radians(90.0f));
   }
 }
 

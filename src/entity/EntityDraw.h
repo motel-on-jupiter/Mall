@@ -4,22 +4,14 @@
 #ifndef ENTITYDRAW_H_
 #define ENTITYDRAW_H_
 
-#include <boost/noncopyable.hpp>
+#include "entity/BaseEntity.h"
 
-class BaseEntity;
-
-class EntityDraw : boost::noncopyable {
+class EntityDraw : public EntityMixIn {
  public:
-  EntityDraw(BaseEntity &entity) : entity_(entity) {}
+  EntityDraw(BaseEntity &entity) : EntityMixIn(entity) {}
   virtual ~EntityDraw() {}
 
   virtual void Draw() = 0;
-
- protected:
-  BaseEntity &entity() { return entity_; }
-
- private:
-  BaseEntity &entity_;
 };
 
 class EntityPointDraw : public EntityDraw {

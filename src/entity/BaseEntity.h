@@ -4,6 +4,8 @@
 #ifndef BASEENTITY_H_
 #define BASEENTITY_H_
 
+#include <boost/noncopyable.hpp>
+
 class BaseEntity {
  public:
   BaseEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale) :
@@ -21,6 +23,18 @@ class BaseEntity {
   glm::vec2 pos_;
   float rot_;
   glm::vec2 scale_;
+};
+
+class EntityMixIn : public boost::noncopyable {
+ public:
+  EntityMixIn(BaseEntity &entity) : entity_(entity) {}
+  virtual ~EntityMixIn() {}
+
+ protected:
+  BaseEntity &entity() { return entity_; }
+
+ private:
+  BaseEntity &entity_;
 };
 
 #endif /* BASEENTITY_H_ */
