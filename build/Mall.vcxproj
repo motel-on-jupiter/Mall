@@ -15,6 +15,7 @@
     <ClCompile Include="..\src\entity\EntityDraw.cc" />
     <ClCompile Include="..\src\entity\EntityRouting.cc" />
     <ClCompile Include="..\src\main.cc" />
+    <ClCompile Include="..\src\mall\actor\Automobile.cc" />
     <ClCompile Include="..\src\mall\actor\MallHuman.cc" />
     <ClCompile Include="..\src\mall\actor\Walker.cc" />
     <ClCompile Include="..\src\mall\MallGame.cc" />
@@ -59,6 +60,7 @@
     <ClInclude Include="..\src\entity\BaseEntity.h" />
     <ClInclude Include="..\src\entity\EntityDraw.h" />
     <ClInclude Include="..\src\entity\EntityRouting.h" />
+    <ClInclude Include="..\src\mall\actor\Automobile.h" />
     <ClInclude Include="..\src\mall\actor\MallHuman.h" />
     <ClInclude Include="..\src\mall\actor\Walker.h" />
     <ClInclude Include="..\src\mall\MallGame.h" />
