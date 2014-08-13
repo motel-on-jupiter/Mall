@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\entity\Entity.cc" />
+    <ClCompile Include="..\src\entity\BaseEntity.cc" />
     <ClCompile Include="..\src\entity\EntityRouting.cc" />
     <ClCompile Include="..\src\main.cc" />
     <ClCompile Include="..\src\mall\actor\MallHuman.cc" />
@@ -55,7 +55,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\entity\Entity.h" />
+    <ClInclude Include="..\src\entity\BaseEntity.h" />
     <ClInclude Include="..\src\entity\EntityRouting.h" />
     <ClInclude Include="..\src\mall\actor\MallHuman.h" />
     <ClInclude Include="..\src\mall\actor\Walker.h" />

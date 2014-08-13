@@ -2,9 +2,9 @@
  * Copyright (C) 2014 The Motel on Jupiter
  */
 #include "entity/EntityRouting.h"
-#include "entity/Entity.h"
+#include "entity/BaseEntity.h"
 
-EntityRouting::EntityRouting(Entity &entity, const WaypointGraph &graph,
+EntityRouting::EntityRouting(BaseEntity &entity, const WaypointGraph &graph,
                              const Waypoint &origin, const Waypoint &terminus,
                              float speed) :
   entity_(entity),

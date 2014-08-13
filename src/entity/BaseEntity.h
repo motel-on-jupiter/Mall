@@ -1,15 +1,15 @@
 /**
  * Copyright (C) 2014 The Motel on Jupiter
  */
-#ifndef ENTITY_H_
-#define ENTITY_H_
+#ifndef BASEENTITY_H_
+#define BASEENTITY_H_
 
 #include "util/def/ColorDef.h"
 
-class Entity {
+class BaseEntity {
  public:
-  Entity(const glm::vec2 &pos, float rot, const glm::vec2 &scale);
-  virtual ~Entity() {}
+  BaseEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale);
+  virtual ~BaseEntity() {}
 
   virtual void Draw() = 0;
 
@@ -26,7 +26,7 @@ class Entity {
   glm::vec2 scale_;
 };
 
-class PointEntity : public Entity {
+class PointEntity : public BaseEntity {
  public:
   PointEntity(const glm::vec2 &pos, float scale);
   virtual ~PointEntity() {}
@@ -34,7 +34,7 @@ class PointEntity : public Entity {
   virtual void Draw();
 };
 
-class TriangleEntity : public Entity {
+class TriangleEntity : public BaseEntity {
  public:
   TriangleEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale, bool fill);
   virtual ~TriangleEntity() {}
@@ -48,7 +48,7 @@ class TriangleEntity : public Entity {
   bool fill_;
 };
 
-class RectangleEntity : public Entity {
+class RectangleEntity : public BaseEntity {
  public:
   RectangleEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale, bool fill);
   virtual ~RectangleEntity() {}
@@ -62,4 +62,4 @@ class RectangleEntity : public Entity {
   bool fill_;
 };
 
-#endif /* ENTITY_H_ */
+#endif /* BASEENTITY_H_ */

@@ -139,10 +139,10 @@
     <ClCompile Include="..\src\mall\actor\MallHuman.cc">
       <Filter>src\mall\actor</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\entity\Entity.cc">
+    <ClCompile Include="..\src\entity\EntityRouting.cc">
       <Filter>src\entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\entity\EntityRouting.cc">
+    <ClCompile Include="..\src\entity\BaseEntity.cc">
       <Filter>src\entity</Filter>
     </ClCompile>
   </ItemGroup>
@@ -258,10 +258,10 @@
     <ClInclude Include="..\src\mall\actor\MallHuman.h">
       <Filter>src\mall\actor</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\entity\Entity.h">
+    <ClInclude Include="..\src\entity\EntityRouting.h">
       <Filter>src\entity</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\entity\EntityRouting.h">
+    <ClInclude Include="..\src\entity\BaseEntity.h">
       <Filter>src\entity</Filter>
     </ClInclude>
   </ItemGroup>

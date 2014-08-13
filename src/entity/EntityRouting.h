@@ -6,11 +6,11 @@
 
 #include "navigation/Navigator.h"
 
-class Entity;
+class BaseEntity;
 
 class EntityRouting {
 public:
-  EntityRouting(Entity &entity, const WaypointGraph &graph,
+  EntityRouting(BaseEntity &entity, const WaypointGraph &graph,
                      const Waypoint &origin, const Waypoint &terminus,
                      float speed);
   ~EntityRouting() {}
@@ -26,7 +26,7 @@ protected:
   const Waypoint *goal() const { return goal_; }
 
 private:
-  Entity &entity_;
+  BaseEntity &entity_;
   Navigator navi_;
   const Waypoint *goal_;
   bool reached_;

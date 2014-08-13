@@ -1,16 +1,16 @@
 /**
  * Copyright (C) 2014 The Motel on Jupiter
  */
-#include "entity/Entity.h"
+#include "entity/BaseEntity.h"
 #include <GL/glew.h>
 #include <glm/gtx/rotate_vector.hpp>
 
-Entity::Entity(const glm::vec2 &pos, float rot, const glm::vec2 &scale) :
+BaseEntity::BaseEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale) :
   pos_(pos), rot_(rot), scale_(scale){
 }
 
 PointEntity::PointEntity(const glm::vec2 &pos, float scale) :
-  Entity(pos, 0.0f, glm::vec2(scale)) {
+  BaseEntity(pos, 0.0f, glm::vec2(scale)) {
 }
 
 void PointEntity::Draw() {
@@ -21,7 +21,7 @@ void PointEntity::Draw() {
 }
 
 TriangleEntity::TriangleEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale, bool fill) :
-  Entity(pos, rot, scale), fill_(fill) {
+  BaseEntity(pos, rot, scale), fill_(fill) {
 }
 
 void TriangleEntity::Draw() {
@@ -33,7 +33,7 @@ void TriangleEntity::Draw() {
 }
 
 RectangleEntity::RectangleEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale, bool fill) :
-  Entity(pos, rot, scale), fill_(fill) {
+  BaseEntity(pos, rot, scale), fill_(fill) {
 }
 
 void RectangleEntity::Draw() {
