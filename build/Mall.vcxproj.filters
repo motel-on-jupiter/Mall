@@ -145,6 +145,9 @@
     <ClCompile Include="..\src\entity\BaseEntity.cc">
       <Filter>src\entity</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\entity\EntityDraw.cc">
+      <Filter>src\entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\pch\precompile.h">
@@ -262,6 +265,9 @@
       <Filter>src\entity</Filter>
     </ClInclude>
     <ClInclude Include="..\src\entity\BaseEntity.h">
+      <Filter>src\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\entity\EntityDraw.h">
       <Filter>src\entity</Filter>
     </ClInclude>
   </ItemGroup>

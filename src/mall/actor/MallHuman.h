@@ -5,6 +5,7 @@
 #define MALLHUMAN_H_
 
 #include "entity/BaseEntity.h"
+#include "entity/EntityDraw.h"
 
 class MallHumanProperty {
  public:
@@ -37,7 +38,7 @@ class MallHumanProperty {
   unsigned char weight_;
 };
 
-class MallHuman : public RectangleEntity {
+class MallHuman : public BaseEntity, public EntityRectangleDraw {
 public:
   MallHuman(const glm::vec2 &pos, float rot);
   virtual ~MallHuman() {}

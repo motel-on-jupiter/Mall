@@ -7,7 +7,8 @@
 const char *MallHumanProperty::kDefaultName = "Smith";
 
 MallHuman::MallHuman(const glm::vec2 &pos, float rot) :
-  RectangleEntity(pos, rot, glm::vec2(0.5f, 0.2f), true),
+  BaseEntity(pos, rot, glm::vec2(0.5f, 0.2f)),
+  EntityRectangleDraw(*this, true),
   property_() {
 }
 

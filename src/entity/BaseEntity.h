@@ -4,14 +4,11 @@
 #ifndef BASEENTITY_H_
 #define BASEENTITY_H_
 
-#include "util/def/ColorDef.h"
-
 class BaseEntity {
  public:
-  BaseEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale);
+  BaseEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale) :
+    pos_(pos), rot_(rot), scale_(scale) {}
   virtual ~BaseEntity() {}
-
-  virtual void Draw() = 0;
 
   glm::vec2 pos() const { return pos_; }
   void set_pos(const glm::vec2 &pos) { pos_ = pos; }
@@ -24,42 +21,6 @@ class BaseEntity {
   glm::vec2 pos_;
   float rot_;
   glm::vec2 scale_;
-};
-
-class PointEntity : public BaseEntity {
- public:
-  PointEntity(const glm::vec2 &pos, float scale);
-  virtual ~PointEntity() {}
-
-  virtual void Draw();
-};
-
-class TriangleEntity : public BaseEntity {
- public:
-  TriangleEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale, bool fill);
-  virtual ~TriangleEntity() {}
-
-  virtual void Draw();
-
-  bool fill() const { return fill_; }
-  void set_fill(bool fill) { fill_ = fill; }
-
- private:
-  bool fill_;
-};
-
-class RectangleEntity : public BaseEntity {
- public:
-  RectangleEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale, bool fill);
-  virtual ~RectangleEntity() {}
-
-  virtual void Draw();
-
-  bool fill() const { return fill_; }
-  void set_fill(bool fill) { fill_ = fill; }
-
- private:
-  bool fill_;
 };
 
 #endif /* BASEENTITY_H_ */
