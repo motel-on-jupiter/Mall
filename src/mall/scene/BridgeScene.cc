@@ -7,6 +7,8 @@
 #include <GL/glew.h>
 #include <boost/foreach.hpp>
 
+#include "mall/actor/Automobile.h"
+#include "mall/actor/Walker.h"
 #include "navigation/Waypoint.h"
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
@@ -67,7 +69,8 @@ int BridgeStage::Initialize(const glm::vec2 &size) {
     graph().AddPoint(point);
   }
   for (int i=0; i<ARRAYSIZE(kRoadwayWaypointPosTbl) / 2; ++i) {
-    graph().points()[i * 2]->AddNextPoint(graph().points()[i * 2 + 1]);
+    graph().points()[ARRAYSIZE(kSidewalkWaypointPosTbl) + i * 2]->
+        AddNextPoint(graph().points()[ARRAYSIZE(kSidewalkWaypointPosTbl) + i * 2 + 1]);
   }
   return 0;
 }
@@ -77,7 +80,7 @@ void BridgeStage::Finalize() {
 }
 
 BridgeScene::BridgeScene() :
-    initialized_(false), stage_(), walkers_() {
+    initialized_(false), stage_(), walkers_(), automobiles_() {
 }
 
 BridgeScene::~BridgeScene() {
@@ -94,22 +97,6 @@ int BridgeScene::Initialize(const glm::vec2 &stage_size) {
   if (ret != 0) {
     LOGGER.Error("Failed to initialize the stage");
     return -1;
-  }
-
-  // Create the walkers
-  for (unsigned int i=0; i<stage_.const_graph().points().size() / 2; ++i) {
-    Walker *walker = new Walker(stage_.const_graph(),
-                                *(stage_.const_graph().points()[i * 2]),
-                                *(stage_.const_graph().points()[i * 2 + 1]));
-    if (walker == nullptr) {
-      LOGGER.Error("Failed to create the walker");
-      BOOST_FOREACH(Walker *walker, walkers_) {
-        delete walker;
-      }
-      walkers_.clear();
-      return -1;
-    }
-    walkers_.push_back(walker);
   }
 
   // Update the OpenGL flags
@@ -151,7 +138,7 @@ int BridgeScene::Update(float elapsed_time) {
                                   *(stage_.const_graph().points()[i * 2]),
                                   *(stage_.const_graph().points()[i * 2 + 1]));
       if (walker == nullptr) {
-        LOGGER.Error("Failed to create the walker");
+        LOGGER.Error("Failed to create new walker");
         status = -1;
         break;
       } else {
@@ -159,14 +146,42 @@ int BridgeScene::Update(float elapsed_time) {
       }
     }
   }
+  // Generate new automobile
+  for (unsigned int i=4; i<6; ++i) {
+    if (glm::linearRand(0.0f, 100.0f) < 0.75f) {
+      Automobile *automobile = new Automobile(stage_.const_graph(),
+                                              *(stage_.const_graph().points()[i * 2]),
+                                              *(stage_.const_graph().points()[i * 2 + 1]));
+      if (automobile == nullptr) {
+        LOGGER.Error("Failed to create new automobile");
+        status = -1;
+        break;
+      } else {
+        automobiles_.push_back(automobile);
+      }
+    }
+  }
 
   // Update the walkers
-  for(auto it = walkers_.begin(); it != walkers_.end(); ++it) {
+  for(auto it = walkers_.begin(); it != walkers_.end();) {
     Walker *walker = *it;
     walker->Update(elapsed_time);
     if (walker->reached() && !(walker->navi().rerouting())) {
       delete walker;
       it = walkers_.erase(it);
+    } else {
+      ++it;
+    }
+  }
+  // Update the automobiles
+  for(auto it = automobiles_.begin(); it != automobiles_.end();) {
+    Automobile *automobile = *it;
+    automobile->Update(elapsed_time);
+    if (automobile->reached() && !(automobile->navi().rerouting())) {
+      delete automobile;
+      it = automobiles_.erase(it);
+    } else {
+      ++it;
     }
   }
 
@@ -180,6 +195,9 @@ int BridgeScene::Draw() {
   stage_.Draw();
   BOOST_FOREACH(Walker *walker, walkers_) {
     walker->Draw();
+  }
+  BOOST_FOREACH(Automobile *automobile, automobiles_) {
+    automobile->Draw();
   }
   return 0;
 }

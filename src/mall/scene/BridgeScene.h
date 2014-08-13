@@ -6,9 +6,11 @@
 #define BRIDGESCENE_H_
 
 #include <vector>
-#include "mall/actor/Walker.h"
 #include "mall/MallGame.h"
 #include "mall/MallStage.h"
+
+class Automobile;
+class Walker;
 
 class BridgeStage : public MallStage {
  public:
@@ -38,6 +40,7 @@ class BridgeScene : public MallGameSceneInterface {
   bool initialized_;
   BridgeStage stage_;
   std::vector<Walker *> walkers_;
+  std::vector<Automobile *> automobiles_;
 };
 
 #endif /* BRIDGESCENE_H_ */
