@@ -19,7 +19,8 @@ class BridgeStage : public MallStage {
   virtual void Finalize();
 
  private:
-  static const glm::vec2 kWaypointPositionTbl[];
+  static const glm::vec2 kSidewalkWaypointPosTbl[];
+  static const glm::vec2 kRoadwayWaypointPosTbl[];
 };
 
 class BridgeScene : public MallGameSceneInterface {

@@ -19,7 +19,7 @@ BridgeStage::~BridgeStage() {
 
 }
 
-const glm::vec2 BridgeStage::kWaypointPositionTbl[] = {
+const glm::vec2 BridgeStage::kSidewalkWaypointPosTbl[] = {
   glm::vec2(20.0f, 3.0f),
   glm::vec2(0.0f, 3.0f),
   glm::vec2(0.0f, 4.0f),
@@ -30,6 +30,13 @@ const glm::vec2 BridgeStage::kWaypointPositionTbl[] = {
   glm::vec2(20.0f, 12.0f),
 };
 
+const glm::vec2 BridgeStage::kRoadwayWaypointPosTbl[] = {
+  glm::vec2(0.0f, 6.5f),
+  glm::vec2(20.0f, 6.5f),
+  glm::vec2(20.0f, 8.5f),
+  glm::vec2(0.0f, 8.5f),
+};
+
 int BridgeStage::Initialize(const glm::vec2 &size) {
   // Call the base-class method
   int ret = MallStage::Initialize(size);
@@ -38,16 +45,28 @@ int BridgeStage::Initialize(const glm::vec2 &size) {
   }
 
   // Create the way-points
-  for (int i=0; i<ARRAYSIZE(kWaypointPositionTbl); ++i) {
-    Waypoint *point = new Waypoint(kWaypointPositionTbl[i]);
+  for (int i=0; i<ARRAYSIZE(kSidewalkWaypointPosTbl); ++i) {
+    Waypoint *point = new Waypoint(kSidewalkWaypointPosTbl[i]);
     if (point == nullptr) {
-      LOGGER.Error("Failed to allocate the waypoint object (idx: %d)", i);
+      LOGGER.Error("Failed to allocate the sidewalk waypoint object (idx: %d)", i);
       graph().Clear();
       return -1;
     }
     graph().AddPoint(point);
   }
-  for (int i=0; i<ARRAYSIZE(kWaypointPositionTbl) / 2; ++i) {
+  for (int i=0; i<ARRAYSIZE(kSidewalkWaypointPosTbl) / 2; ++i) {
+    graph().points()[i * 2]->AddNextPoint(graph().points()[i * 2 + 1]);
+  }
+  for (int i=0; i<ARRAYSIZE(kRoadwayWaypointPosTbl); ++i) {
+    Waypoint *point = new Waypoint(kRoadwayWaypointPosTbl[i]);
+    if (point == nullptr) {
+      LOGGER.Error("Failed to allocate the roadway waypoint object (idx: %d)", i);
+      graph().Clear();
+      return -1;
+    }
+    graph().AddPoint(point);
+  }
+  for (int i=0; i<ARRAYSIZE(kRoadwayWaypointPosTbl) / 2; ++i) {
     graph().points()[i * 2]->AddNextPoint(graph().points()[i * 2 + 1]);
   }
   return 0;
@@ -126,7 +145,7 @@ int BridgeScene::Update(float elapsed_time) {
   int status = 0;
 
   // Generate new walker
-  for (unsigned int i=0; i<stage_.const_graph().points().size() / 2; ++i) {
+  for (unsigned int i=0; i<4; ++i) {
     if (glm::linearRand(0.0f, 100.0f) < 1.0f) {
       Walker *walker = new Walker(stage_.const_graph(),
                                   *(stage_.const_graph().points()[i * 2]),
