@@ -21,6 +21,7 @@
     <ClCompile Include="..\src\mall\MallGame.cc" />
     <ClCompile Include="..\src\mall\MallMain.cc" />
     <ClCompile Include="..\src\mall\MallStage.cc" />
+    <ClCompile Include="..\src\mall\MallTweakContext.cc" />
     <ClCompile Include="..\src\mall\scene\BridgeScene.cc" />
     <ClCompile Include="..\src\mall\scene\ConvenienceStoreScene.cc" />
     <ClCompile Include="..\src\mall\scene\GridScene.cc" />
@@ -66,6 +67,7 @@
     <ClInclude Include="..\src\mall\MallGame.h" />
     <ClInclude Include="..\src\mall\MallMain.h" />
     <ClInclude Include="..\src\mall\MallStage.h" />
+    <ClInclude Include="..\src\mall\MallTweakContext.h" />
     <ClInclude Include="..\src\mall\scene\BridgeScene.h" />
     <ClInclude Include="..\src\mall\scene\ConvenienceStoreScene.h" />
     <ClInclude Include="..\src\mall\scene\GridScene.h" />

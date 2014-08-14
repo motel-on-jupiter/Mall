@@ -10,6 +10,7 @@
 #include <SDL_ttf.h>
 
 #include "mall/MallGame.h"
+#include "mall/MallTweakContext.h"
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 #include "util/wrapper/glgraphics_wrap.h"
@@ -88,6 +89,11 @@ int MallMain(int argc, char *argv[], const char *config_path) {
   tw_def << "TweakMenu position='" << 550 << " " << 10 <<
       "' size='" << 240 << " " << 580 << "' color='41 126 231' iconified=true";
   TwDefine(tw_def.str().c_str());
+  if (TwAddVarRW(tw_bar, "WAKLER_ROUTE_VISIBLE", TW_TYPE_BOOLCPP,
+                 &(tweak_ctx.walker_route_visible),
+                 "group='Walker' label='Route Visible'") == 0) {
+    LOGGER.Warn("Failed to add new tweak variable (errmsg: %s)", TwGetLastError());
+  }
 
   // Initialize the game
   if (game.Initialize(kStageSize) != 0) {
@@ -172,6 +178,10 @@ static void MallCleanUp() {
   LOGGER.Info("Clean up the application");
 
   game.Finalize();
+  if (TwRemoveAllVars(tw_bar) == 0) {
+    LOGGER.Warn("Failed to remove all tweaker varibables (errmsg: %s)",
+                TwGetLastError());
+  }
   if (TwTerminate() == 0) {
     // Ignore the error to terminate the tweaker
     // because the tweaker library may be not initialized

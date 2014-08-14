@@ -6,7 +6,7 @@
 #include "entity/EntityDraw.h"
 #include "entity/EntityRouting.h"
 
-const float Automobile::kDefaultSpeed = 30.0f * 1000.0f / 60.0f / 60.0f;
+const float Automobile::kDefaultSpeed = 20.0f * 1000.0f / 60.0f / 60.0f;
 
 Automobile::Automobile(const WaypointGraph &graph, const Waypoint &origin,
                        const Waypoint &terminus, float speed) :

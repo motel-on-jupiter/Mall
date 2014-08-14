@@ -151,6 +151,9 @@
     <ClCompile Include="..\src\mall\actor\Automobile.cc">
       <Filter>src\mall\actor</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mall\MallTweakContext.cc">
+      <Filter>src\mall</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\pch\precompile.h">
@@ -275,6 +278,9 @@
     </ClInclude>
     <ClInclude Include="..\src\mall\actor\Automobile.h">
       <Filter>src\mall\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\MallTweakContext.h">
+      <Filter>src\mall</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

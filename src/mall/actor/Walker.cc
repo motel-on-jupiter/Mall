@@ -4,6 +4,7 @@
 #include "mall/actor/Walker.h"
 #include <GL/glew.h>
 #include "entity/EntityRouting.h"
+#include "mall/MallTweakContext.h"
 #include "util/def/ColorDef.h"
 
 const float Walker::kDefaultWalkSpeed = 5.0f * 1000.0f / 60.0f / 60.0f;
@@ -29,19 +30,21 @@ void Walker::Draw() {
   }
   MallHuman::Draw();
 
-  if (goal() != nullptr) {
-    glColor3ubv(WebColor::kYellow);
-    glBegin(GL_LINE_LOOP);
-    glVertex2fv(glm::value_ptr(pos()));
-    glVertex2fv(glm::value_ptr(goal()->pos()));
-    glEnd();
-  }
-  const Waypoint *terminus = navi().GetTerminus();
-  if (terminus != nullptr) {
-    glColor3ubv(WebColor::kRed);
-    glBegin(GL_LINE_LOOP);
-    glVertex2fv(glm::value_ptr(pos()));
-    glVertex2fv(glm::value_ptr(terminus->pos()));
-    glEnd();
+  if (tweak_ctx.walker_route_visible) {
+    if (goal() != nullptr) {
+      glColor3ubv(WebColor::kYellow);
+      glBegin(GL_LINE_LOOP);
+      glVertex2fv(glm::value_ptr(pos()));
+      glVertex2fv(glm::value_ptr(goal()->pos()));
+      glEnd();
+    }
+    const Waypoint *terminus = navi().GetTerminus();
+    if (terminus != nullptr) {
+      glColor3ubv(WebColor::kRed);
+      glBegin(GL_LINE_LOOP);
+      glVertex2fv(glm::value_ptr(pos()));
+      glVertex2fv(glm::value_ptr(terminus->pos()));
+      glEnd();
+    }
   }
 }
