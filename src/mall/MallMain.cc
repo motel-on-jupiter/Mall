@@ -3,6 +3,7 @@
  */
 #include "MallMain.h"
 
+#include <algorithm>
 #include <sstream>
 
 #include <SDL.h>
@@ -21,14 +22,13 @@ static const Uint32 kWindowHeight = 600;
 static const Uint32 kFPS = 30;
 static const glm::vec2 kStageSize = glm::vec2(20, 15);
 
-static const Uint32 kGameLoopInterval = 1000 / kFPS;
+static const int kGameLoopInterval = 1000 / kFPS;
 static const float kGameLoopIntervalSec = 1.0f / kFPS;
 
 static SDL_Window *window = nullptr;
 static SDL_GLContext context = nullptr;
 static TwBar *tw_bar = nullptr;
 static MallGame game;
-static Uint32 next_time = 0;
 
 static void MallCleanUp();
 
@@ -103,10 +103,10 @@ int MallMain(int argc, char *argv[], const char *config_path) {
   }
 
   // Execute the mainloop
-  next_time = SDL_GetTicks() + kGameLoopInterval;
-  bool skip_draw = false;
   int loop_stat = 0;
   while (true) {
+    int start_tick = SDL_GetTicks();
+
     // check event
     bool escape_loop = false;
     SDL_Event event;
@@ -144,30 +144,22 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     }
 
     // Draw the objects
-    if (!skip_draw) {
-      int ret = game.Draw(glm::vec2(kWindowWidth, kWindowHeight));
-      if (ret < 0) {
-        LOGGER.Error("Failed to draw the game objects (ret: %d)", ret);
-        loop_stat = -1;
-        break;
-      }
-      if (TwDraw() == 0) {
-        LOGGER.Error("Failed to draw the tweaker (errmsg: %s)", TwGetLastError());
-        loop_stat = -1;
-        break;
-      }
-      SDL_GL_SwapWindow(window);
+    ret = game.Draw(glm::vec2(kWindowWidth, kWindowHeight));
+    if (ret < 0) {
+      LOGGER.Error("Failed to draw the game objects (ret: %d)", ret);
+      loop_stat = -1;
+      break;
     }
+    if (TwDraw() == 0) {
+      LOGGER.Error("Failed to draw the tweaker (errmsg: %s)", TwGetLastError());
+      loop_stat = -1;
+      break;
+    }
+    SDL_GL_SwapWindow(window);
 
-    int delay_time = static_cast<int>(next_time - SDL_GetTicks());
-    if (delay_time > 0) {
-      SDL_Delay(static_cast<Uint32>(delay_time));
-      skip_draw = false;
-    } else {
-      // Skip next draw step because of no time
-      skip_draw = true;
-    }
-    next_time += kGameLoopInterval;
+    int finish_tick = SDL_GetTicks();
+    int exec_tick = finish_tick - start_tick;
+    SDL_Delay(std::max<int>(kGameLoopInterval - exec_tick, 1));
   }
 
   MallCleanUp();
