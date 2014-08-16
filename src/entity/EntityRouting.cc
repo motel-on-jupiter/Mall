@@ -29,8 +29,16 @@ void EntityRouting::Update(float elapsed_time) {
     goal_ = goal;
   } else {
     glm::vec2 movedir = glm::normalize(goal_->pos() - entity().pos());
-    entity().set_pos(entity().pos() + movedir * speed_ * elapsed_time);
-    entity().set_rot(glm::atan(movedir.y, movedir.x) + glm::radians(90.0f));
+    float movedirangle = glm::atan(movedir.y, movedir.x) + glm::radians(90.0f);
+    float diffangle = movedirangle - entity().rot();
+    float diffangleabs = abs(diffangle);
+    if (diffangleabs < FLT_EPSILON) {
+      entity().set_pos(entity().pos() + movedir * speed_ * elapsed_time);
+    } else {
+      float diffanglesign = static_cast<float>((diffangle > 0) - (diffangle < 0));
+      float newrot = entity().rot() + std::min<float>(0.1f, diffangleabs) * diffanglesign;
+      entity().set_rot(newrot);
+    }
   }
 }
 
