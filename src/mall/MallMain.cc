@@ -13,8 +13,9 @@
 #include "mall/MallGame.h"
 #include "mall/MallTweakContext.h"
 #include "util/logging/Logger.h"
-#include "util/macro_util.h"
+#include "util/measurement/FPSCounter.h"
 #include "util/wrapper/glgraphics_wrap.h"
+#include "util/macro_util.h"
 
 static const std::string kWindowCaption = "Mall - The Motel on Jupiter";
 static const Uint32 kWindowWidth = 800;
@@ -24,11 +25,13 @@ static const glm::vec2 kStageSize = glm::vec2(20, 15);
 
 static const int kGameLoopInterval = 1000 / kIdealFrameRate;
 static const float kGameLoopIntervalSec = 1.0f / kIdealFrameRate;
+static const int kFPSCountSamplingTime = 1000;
 
 static SDL_Window *window = nullptr;
 static SDL_GLContext context = nullptr;
 static TwBar *tw_bar = nullptr;
 static MallGame game;
+static FPSCounter fps_counter(kFPSCountSamplingTime);
 
 static void MallCleanUp();
 
@@ -89,10 +92,15 @@ int MallMain(int argc, char *argv[], const char *config_path) {
   tw_def << "TweakMenu position='" << 550 << " " << 10 <<
       "' size='" << 240 << " " << 580 << "' color='41 126 231' iconified=true";
   TwDefine(tw_def.str().c_str());
+  if (TwAddVarRO(tw_bar, "SYSTEM_ACTUAL_FRAME_RATE", TW_TYPE_INT8,
+                 &(tweak_ctx.actual_fps),
+                 "group='System' label='Actual Frame Rate'") == 0) {
+    LOGGER.Warn("Failed to add a tweak variable for actual-FPS (errmsg: %s)", TwGetLastError());
+  }
   if (TwAddVarRW(tw_bar, "WAKLER_ROUTE_VISIBLE", TW_TYPE_BOOLCPP,
                  &(tweak_ctx.walker_route_visible),
                  "group='Walker' label='Route Visible'") == 0) {
-    LOGGER.Warn("Failed to add new tweak variable (errmsg: %s)", TwGetLastError());
+    LOGGER.Warn("Failed to add a tweak variable for route-visible (errmsg: %s)", TwGetLastError());
   }
 
   // Initialize the game
@@ -162,7 +170,10 @@ int MallMain(int argc, char *argv[], const char *config_path) {
 
     int finish_tick = SDL_GetTicks();
     int exec_tick = finish_tick - start_tick;
-    SDL_Delay(std::max<int>(kGameLoopInterval - exec_tick, 1));
+    Sleep(std::max<int>(kGameLoopInterval - exec_tick, 1));
+
+    fps_counter.Update(SDL_GetTicks());
+    tweak_ctx.actual_fps = fps_counter.fps();
   }
 
   // Reset the minimum timer resolution
