@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <sstream>
+#include <mmsystem.h>
 
 #include <SDL.h>
 #include <SDL_opengl.h>
