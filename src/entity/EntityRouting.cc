@@ -3,6 +3,7 @@
  */
 #include "entity/EntityRouting.h"
 #include "entity/BaseEntity.h"
+#include "util/math_aux.h"
 
 EntityRouting::EntityRouting(BaseEntity &entity, const WaypointGraph &graph,
                              const Waypoint &origin, const Waypoint &terminus,
@@ -30,15 +31,19 @@ void EntityRouting::Update(float elapsed_time) {
     goal_ = goal;
   } else {
     glm::vec2 movedir = glm::normalize(goal_->pos() - entity().pos());
-    float movedirangle = glm::atan(movedir.y, movedir.x) + glm::radians(90.0f);
-    float diffangle = movedirangle - entity().rot();
-    float diffangleabs = abs(diffangle);
-    if (diffangleabs < FLT_EPSILON) {
+    float movedirangle = normalize_angle(atan2(movedir.y, movedir.x) +
+                                         glm::radians(90.0f));
+    float diffangle = normalize_angle(movedirangle - entity().rot());
+    if (abs(diffangle) < FLT_EPSILON) {
       entity().set_pos(entity().pos() + movedir * movespeed_ * elapsed_time);
     } else {
-      float diffanglesign = static_cast<float>((diffangle > 0) - (diffangle < 0));
-      float newrot = entity().rot() + std::min<float>(turnspeed_, diffangleabs) * diffanglesign;
-      entity().set_rot(newrot);
+      float invdiffangle = normalize_angle(entity().rot() - movedirangle);
+      if (abs(diffangle) > abs(invdiffangle)) {
+        diffangle = invdiffangle;
+      }
+      entity().set_rot(normalize_angle(entity().rot() +
+                                       std::min<float>(turnspeed_, abs(diffangle)) *
+                                       sign_f(diffangle)));
     }
   }
 }
