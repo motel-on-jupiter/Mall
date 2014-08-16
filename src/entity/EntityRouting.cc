@@ -18,7 +18,7 @@ EntityRouting::EntityRouting(BaseEntity &entity, const WaypointGraph &graph,
 }
 
 void EntityRouting::Update(float elapsed_time) {
-  if (glm::distance(entity().pos(), goal_->pos()) < 0.1f) {
+  if (is_fzero(glm::distance(entity().pos(), goal_->pos()))) {
     entity().set_pos(goal_->pos());
     reached_ = true;
   }
@@ -36,7 +36,8 @@ void EntityRouting::Update(float elapsed_time) {
                                          glm::radians(90.0f));
     float diffangle = normalize_angle(movedirangle - entity().rot());
     if (is_fzero(diffangle)) {
-      entity().set_pos(entity().pos() + movedir * movespeed_ * elapsed_time);
+      float movedist = std::min(movespeed_ * elapsed_time, glm::length(movevec));
+      entity().set_pos(entity().pos() + movedir * movedist);
     } else {
       float invdiffangle = normalize_angle(entity().rot() - movedirangle);
       if (abs(diffangle) > abs(invdiffangle)) {
