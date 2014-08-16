@@ -13,9 +13,6 @@
     <Filter Include="src\util\logging">
       <UniqueIdentifier>{535fb364-4fd2-431a-a7ee-81db418e4d4d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\util\system">
-      <UniqueIdentifier>{d6b85b33-514f-47d8-83af-3af67a190aaf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\util\wrapper">
       <UniqueIdentifier>{4ebfc1a6-adad-404e-a41a-d51bd8a67b19}</UniqueIdentifier>
     </Filter>
@@ -43,6 +40,9 @@
     <Filter Include="src\entity">
       <UniqueIdentifier>{3e1219e0-f4d4-4385-bc79-5052c626b3f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\util\measurement">
+      <UniqueIdentifier>{a58c77db-2fc1-428c-a6be-b13809aa0b07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\pch\precompile.cc">
@@ -66,14 +66,8 @@
     <ClCompile Include="..\src\util\logging\Logger.cc">
       <Filter>src\util\logging</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\util\system\FPSCounter.cc">
-      <Filter>src\util\system</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\util\logging\Logger.cc">
       <Filter>src\util\logging</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\util\system\FPSCounter.cc">
-      <Filter>src\util\system</Filter>
     </ClCompile>
     <ClCompile Include="..\src\util\logging\emitter\DebuggerConsoleLogEmitter.cc">
       <Filter>src\util\logging\emitter</Filter>
@@ -154,6 +148,9 @@
     <ClCompile Include="..\src\mall\MallTweakContext.cc">
       <Filter>src\mall</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\util\measurement\FPSCounter.cc">
+      <Filter>src\util\measurement</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\pch\precompile.h">
@@ -177,9 +174,6 @@
     <ClInclude Include="..\src\util\logging\Logger.h">
       <Filter>src\util\logging</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\util\system\FPSCounter.h">
-      <Filter>src\util\system</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\util\wrapper\crtdbg_wrap.h">
       <Filter>src\util\wrapper</Filter>
     </ClInclude>
@@ -191,9 +185,6 @@
     </ClInclude>
     <ClInclude Include="..\src\util\logging\Logger.h">
       <Filter>src\util\logging</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\system\FPSCounter.h">
-      <Filter>src\util\system</Filter>
     </ClInclude>
     <ClInclude Include="..\src\util\wrapper\glm_wrap.h">
       <Filter>src\util\wrapper</Filter>
@@ -281,6 +272,9 @@
     </ClInclude>
     <ClInclude Include="..\src\mall\MallTweakContext.h">
       <Filter>src\mall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\measurement\FPSCounter.h">
+      <Filter>src\util\measurement</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
