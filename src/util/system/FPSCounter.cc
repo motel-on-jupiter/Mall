@@ -2,6 +2,7 @@
  * Copyright (C) 2014 The Motel on Jupiter
  */
 #include "FPSCounter.h"
+#include <cmath>
 
 FPSCounter::FPSCounter(int sampling_msec)
 : sampling_msec_(sampling_msec),
@@ -17,7 +18,7 @@ void FPSCounter::Update(int current_msec) {
   // Update FPS
   int elapsed_msec = current_msec - count_start_msec;
   if (elapsed_msec > sampling_msec_) {
-    fps_ = (sampling_msec_ * count_ / elapsed_msec) / (sampling_msec_ / 1000);
+    fps_ = count_ * static_cast<int>(roundf(1000.0f / static_cast<float>(sampling_msec_)));
     count_ = 0;
     count_start_msec = current_msec;
   }
