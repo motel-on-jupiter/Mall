@@ -19,11 +19,11 @@
 static const std::string kWindowCaption = "Mall - The Motel on Jupiter";
 static const Uint32 kWindowWidth = 800;
 static const Uint32 kWindowHeight = 600;
-static const Uint32 kFPS = 30;
+static const Uint32 kIdealFrameRate = 60;
 static const glm::vec2 kStageSize = glm::vec2(20, 15);
 
-static const int kGameLoopInterval = 1000 / kFPS;
-static const float kGameLoopIntervalSec = 1.0f / kFPS;
+static const int kGameLoopInterval = 1000 / kIdealFrameRate;
+static const float kGameLoopIntervalSec = 1.0f / kIdealFrameRate;
 
 static SDL_Window *window = nullptr;
 static SDL_GLContext context = nullptr;
