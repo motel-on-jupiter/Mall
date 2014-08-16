@@ -102,6 +102,9 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     return -1;
   }
 
+  // Set the minimum timer resolution
+  timeBeginPeriod(1);
+
   // Execute the mainloop
   int loop_stat = 0;
   while (true) {
@@ -161,6 +164,9 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     int exec_tick = finish_tick - start_tick;
     SDL_Delay(std::max<int>(kGameLoopInterval - exec_tick, 1));
   }
+
+  // Reset the minimum timer resolution
+  timeEndPeriod(1);
 
   MallCleanUp();
   return loop_stat;
