@@ -276,5 +276,8 @@
     <ClInclude Include="..\src\util\measurement\FPSCounter.h">
       <Filter>src\util\measurement</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\util\math_aux.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
