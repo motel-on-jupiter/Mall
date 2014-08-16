@@ -11,10 +11,12 @@
 class Automobile :
     public BaseEntity, public EntityRectangleDraw, public EntityRouting {
 public:
-  static const float Automobile::kDefaultSpeed;
+  static const float Automobile::kDefaultMoveSpeed;
+  static const float Automobile::kDefaultTurnSpeed;
 
   Automobile(const WaypointGraph &graph, const Waypoint &origin,
-             const Waypoint &terminus, float speed = kDefaultSpeed);
+             const Waypoint &terminus, float movespeed = kDefaultMoveSpeed,
+             float turnspeed = kDefaultTurnSpeed);
   virtual ~Automobile() {}
 
   virtual void Update(float elapsed_time);

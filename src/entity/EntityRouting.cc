@@ -6,12 +6,13 @@
 
 EntityRouting::EntityRouting(BaseEntity &entity, const WaypointGraph &graph,
                              const Waypoint &origin, const Waypoint &terminus,
-                             float speed) :
+                             float speed, float turnspeed) :
   EntityMixIn(entity),
   navi_(graph),
   goal_(&origin),
   reached_(true),
-  speed_(speed) {
+  movespeed_(speed),
+  turnspeed_(turnspeed) {
   navi_.Reroute(origin, terminus);
 }
 
@@ -33,10 +34,10 @@ void EntityRouting::Update(float elapsed_time) {
     float diffangle = movedirangle - entity().rot();
     float diffangleabs = abs(diffangle);
     if (diffangleabs < FLT_EPSILON) {
-      entity().set_pos(entity().pos() + movedir * speed_ * elapsed_time);
+      entity().set_pos(entity().pos() + movedir * movespeed_ * elapsed_time);
     } else {
       float diffanglesign = static_cast<float>((diffangle > 0) - (diffangle < 0));
-      float newrot = entity().rot() + std::min<float>(0.1f, diffangleabs) * diffanglesign;
+      float newrot = entity().rot() + std::min<float>(turnspeed_, diffangleabs) * diffanglesign;
       entity().set_rot(newrot);
     }
   }

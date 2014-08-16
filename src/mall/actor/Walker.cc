@@ -7,12 +7,13 @@
 #include "mall/MallTweakContext.h"
 #include "util/def/ColorDef.h"
 
-const float Walker::kDefaultWalkSpeed = 5.0f * 1000.0f / 60.0f / 60.0f;
+const float Walker::kDefaultMoveSpeed = 5.0f * 1000.0f / 60.0f / 60.0f;
+const float Walker::kDefaultTurnSpeed = glm::radians(5.0f);
 
 Walker::Walker(const WaypointGraph &graph, const Waypoint &origin,
-               const Waypoint &terminus, float speed) :
+               const Waypoint &terminus, float movespeed, float turnspeed) :
   MallHuman(origin.pos(), 0.0f),
-  EntityRouting(*this, graph, origin, terminus, speed) {
+  EntityRouting(*this, graph, origin, terminus, movespeed, turnspeed) {
 }
 
 void Walker::Update(float elapsed_time) {
