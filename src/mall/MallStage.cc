@@ -22,7 +22,7 @@ int MallStage::Initialize(const glm::vec2 &size) {
 void MallStage::Draw() {
   if (tweaker_ctx.stage_waypoint_visible) {
     glColor3ubv(WebColor::kWhite);
-    glPointSize(0.1f);
+    glPointSize(3.0f);
     glBegin(GL_POINTS);
     BOOST_FOREACH(auto point, graph_.points()) {
       glVertex2fv(glm::value_ptr(point->pos()));
