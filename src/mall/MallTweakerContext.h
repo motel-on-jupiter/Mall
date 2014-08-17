@@ -5,8 +5,8 @@
 #define MALLTWEAKERCONTEXT_H_
 
 struct MallTweakerContext {
-  int ideal_fps;
-  int actual_fps;
+  int system_ideal_fps;
+  int system_actual_fps;
   bool walker_route_visible;
 
   MallTweakerContext();

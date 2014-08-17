@@ -94,7 +94,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
       "' size='" << 240 << " " << 580 << "' color='41 126 231' iconified=true";
   TwDefine(tw_def.str().c_str());
   if (TwAddVarRO(tw_bar, "SYSTEM_ACTUAL_FRAME_RATE", TW_TYPE_INT8,
-                 &(tweaker_ctx.actual_fps),
+                 &(tweaker_ctx.system_actual_fps),
                  "group='System' label='Actual Frame Rate'") == 0) {
     LOGGER.Warn("Failed to add a tweak variable for actual-FPS (errmsg: %s)", TwGetLastError());
   }
@@ -174,7 +174,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     Sleep(std::max<int>(kGameLoopInterval - exec_tick, 1));
 
     fps_counter.Update(SDL_GetTicks());
-    tweaker_ctx.actual_fps = fps_counter.fps();
+    tweaker_ctx.system_actual_fps = fps_counter.fps();
   }
 
   // Reset the minimum timer resolution
