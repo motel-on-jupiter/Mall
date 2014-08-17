@@ -14,11 +14,9 @@
 #include "util/macro_util.h"
 
 BridgeStage::BridgeStage() : MallStage() {
-
 }
 
 BridgeStage::~BridgeStage() {
-
 }
 
 const glm::vec2 BridgeStage::kSidewalkWaypointPosTbl[] = {

@@ -47,7 +47,7 @@ class ConvenienceStoreScene : public MallGameSceneInterface {
   ConvenienceStoreStage stage_;
   AutomaticDoor *autodoor_;
   std::vector<ConvenienceStoreAttendant *> attendants_;
-  Walker *walker_;
+  std::vector<Walker *> walkers_;
 };
 
 #endif /* CONVENIENCESTORESCENE_H_ */

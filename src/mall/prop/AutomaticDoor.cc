@@ -3,6 +3,7 @@
  */
 #include "mall/prop/AutomaticDoor.h"
 #include <algorithm>
+#include <boost/foreach.hpp>
 #include "util/macro_util.h"
 
 const float AutomaticDoor::kDefaultDetectionDistance = 1.0f;
@@ -22,11 +23,14 @@ opendegree_(0.0f) {
 AutomaticDoor::~AutomaticDoor() {
 }
 
-void AutomaticDoor::Update(float elapsedtime, const BaseEntity *detecttarget) {
+void AutomaticDoor::Update(float elapsedtime, const BaseEntity **detecttargets,
+                           size_t numtargets) {
   bool detecting = false;
-  if ((detecttarget != nullptr) &&
-      (glm::length(detecttarget->pos() - pos()) < detectdist_)) {
-    detecting = true;
+  for (unsigned int i=0; i<numtargets; ++i) {
+    if (glm::length(detecttargets[i]->pos() - pos()) < detectdist_) {
+      detecting = true;
+      break;
+    }
   }
 
   if (detecting) {

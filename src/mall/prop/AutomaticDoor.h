@@ -4,7 +4,10 @@
 #ifndef AUTOMATICDOOR_H_
 #define AUTOMATICDOOR_H_
 
+#include <vector>
 #include "entity/BaseEntity.h"
+
+class Walker;
 
 class AutomaticDoor : public BaseEntity {
  public:
@@ -18,7 +21,8 @@ class AutomaticDoor : public BaseEntity {
                 float openspeed = kDefaultOpenSpeed);
   virtual ~AutomaticDoor();
 
-  void Update(float elapsedtime, const BaseEntity *detecttarget);
+  void Update(float elapsedtime, const BaseEntity **detecttargets,
+              size_t numtargets);
   void Draw();
 
   float detectdist() const { return detectdist_; }

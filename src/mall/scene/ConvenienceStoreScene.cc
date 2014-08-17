@@ -87,7 +87,7 @@ void ConvenienceStoreStage::Finalize() {
 }
 
 ConvenienceStoreScene::ConvenienceStoreScene() :
-    initialized_(false), stage_(), autodoor_(nullptr), attendants_(), walker_(nullptr) {
+    initialized_(false), stage_(), autodoor_(nullptr), attendants_(), walkers_() {
 }
 
 ConvenienceStoreScene::~ConvenienceStoreScene() {
@@ -127,14 +127,6 @@ int ConvenienceStoreScene::Initialize(const glm::vec2 &stage_size) {
   }
   attendants_.push_back(attendant);
 
-  walker_ = new Walker(glm::radians(90.0f), stage_.const_graph(),
-                       *(stage_.const_graph().points()[4]),
-                       *(stage_.const_graph().points()[3]));
-  if (walker_ == nullptr) {
-    LOGGER.Error("Failed to create a walker");
-    return -1;
-  }
-
   // Update the OpenGL flags
   glDisable(GL_LIGHTING);
   glDisable(GL_LIGHT0);
@@ -153,8 +145,10 @@ void ConvenienceStoreScene::Finalize() {
     delete attendant;
   }
   attendants_.clear();
-  delete walker_;
-  walker_ = nullptr;
+  BOOST_FOREACH(auto walker, walkers_) {
+    delete walker;
+  }
+  walkers_.clear();
   delete autodoor_;
   autodoor_ = nullptr;
   stage_.Finalize();
@@ -168,22 +162,41 @@ int ConvenienceStoreScene::Update(float elapsed_time) {
   if (!initialized_) {
     return 1;
   }
-  autodoor_->Update(elapsed_time, walker_);
+
+  // Generate a walker randomly
+  if (glm::linearRand(0.0f, 100.0f) < 0.5f) {
+    Walker *walker = new Walker(glm::radians(90.0f), stage_.const_graph(),
+                                *(stage_.const_graph().points()[4]),
+                                *(stage_.const_graph().points()[3]));
+    if (walker == nullptr) {
+      LOGGER.Error("Failed to create a walker");
+      return -1;
+    }
+    walkers_.push_back(walker);
+  }
+
+  // Update the objects
+  autodoor_->Update(elapsed_time,
+                    const_cast<const BaseEntity **>(
+                        reinterpret_cast<BaseEntity **>(walkers_.data())
+                        ),
+                    walkers_.size());
   BOOST_FOREACH(auto attendant, attendants_) {
     attendant->Update(elapsed_time);
   }
-  if (walker_ != nullptr) {
-    walker_->Update(elapsed_time);
-    if (walker_->HasReached() && !(walker_->navi().rerouting())) {
-      if (walker_->lastgoal() == stage_.const_graph().points()[4]) {
-        delete walker_;
-        walker_ = nullptr;
+  for (auto it = walkers_.begin(); it != walkers_.end() ; ++it) {
+    Walker *walker = *it;
+    walker->Update(elapsed_time);
+    if (walker->HasReached() && !(walker->navi().rerouting())) {
+      if (walker->lastgoal() == stage_.const_graph().points()[4]) {
+        delete walker;
+        it = walkers_.erase(it);
       }
-      else if (walker_->lastgoal() == stage_.const_graph().points()[3]) {
-        walker_->Reroute(*(stage_.const_graph().points()[6]));
+      else if (walker->lastgoal() == stage_.const_graph().points()[3]) {
+        walker->Reroute(*(stage_.const_graph().points()[6]));
       }
       else {
-        walker_->Reroute(*(stage_.const_graph().points()[4]));
+        walker->Reroute(*(stage_.const_graph().points()[4]));
       }
     }
   }
@@ -195,12 +208,13 @@ int ConvenienceStoreScene::Draw() {
     return 1;
   }
   stage_.Draw();
+  glColor3ubv(WebColor::kGray);
   autodoor_->Draw();
   BOOST_FOREACH(auto attendant, attendants_) {
     attendant->Draw();
   }
-  if (walker_ != nullptr) {
-    walker_->Draw();
+  BOOST_FOREACH(auto walker, walkers_) {
+    walker->Draw();
   }
   return 0;
 }
