@@ -43,6 +43,9 @@
     <Filter Include="src\util\measurement">
       <UniqueIdentifier>{a58c77db-2fc1-428c-a6be-b13809aa0b07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\mall\prop">
+      <UniqueIdentifier>{1353de2a-f4f7-4954-a185-c4e8a38bbfbe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\pch\precompile.cc">
@@ -150,6 +153,9 @@
     </ClCompile>
     <ClCompile Include="..\src\mall\MallTweakerContext.cc">
       <Filter>src\mall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mall\prop\AutomaticDoor.cc">
+      <Filter>src\mall\prop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +284,9 @@
     </ClInclude>
     <ClInclude Include="..\src\mall\MallTweakerContext.h">
       <Filter>src\mall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\prop\AutomaticDoor.h">
+      <Filter>src\mall\prop</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

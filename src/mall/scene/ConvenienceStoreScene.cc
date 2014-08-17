@@ -7,6 +7,7 @@
 #include <GL/glew.h>
 #include <boost/foreach.hpp>
 
+#include "mall/prop/AutomaticDoor.h"
 #include "navigation/Waypoint.h"
 #include "util/def/ColorDef.h"
 #include "util/logging/Logger.h"
@@ -86,7 +87,7 @@ void ConvenienceStoreStage::Finalize() {
 }
 
 ConvenienceStoreScene::ConvenienceStoreScene() :
-    initialized_(false), stage_(), attendants_(), walker_(nullptr) {
+    initialized_(false), stage_(), autodoor_(nullptr), attendants_(), walker_(nullptr) {
 }
 
 ConvenienceStoreScene::~ConvenienceStoreScene() {
@@ -104,6 +105,13 @@ int ConvenienceStoreScene::Initialize(const glm::vec2 &stage_size) {
     LOGGER.Error("Failed to initialize the stage");
     return -1;
   }
+
+  AutomaticDoor *autodoor = new AutomaticDoor(glm::vec2(7.0f, 9.0f), glm::radians(90.0f));
+  if (autodoor == nullptr) {
+    LOGGER.Error("Failed to create auto door");
+    return -1;
+  }
+  autodoor_ = autodoor;
 
   ConvenienceStoreAttendant *attendant =
       new ConvenienceStoreAttendant(glm::vec2(10.0f, 10.0f));
@@ -147,6 +155,8 @@ void ConvenienceStoreScene::Finalize() {
   attendants_.clear();
   delete walker_;
   walker_ = nullptr;
+  delete autodoor_;
+  autodoor_ = nullptr;
   stage_.Finalize();
   initialized_ = false;
   return;
@@ -158,6 +168,7 @@ int ConvenienceStoreScene::Update(float elapsed_time) {
   if (!initialized_) {
     return 1;
   }
+  autodoor_->Update(elapsed_time, walker_);
   BOOST_FOREACH(auto attendant, attendants_) {
     attendant->Update(elapsed_time);
   }
@@ -179,6 +190,7 @@ int ConvenienceStoreScene::Draw() {
     return 1;
   }
   stage_.Draw();
+  autodoor_->Draw();
   BOOST_FOREACH(auto attendant, attendants_) {
     attendant->Draw();
   }

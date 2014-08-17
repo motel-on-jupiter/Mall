@@ -9,6 +9,8 @@
 #include "mall/MallGame.h"
 #include "mall/MallStage.h"
 
+class AutomaticDoor;
+
 class ConvenienceStoreAttendant : public MallHuman {
  public:
   ConvenienceStoreAttendant(const glm::vec2 &pos);
@@ -43,6 +45,7 @@ class ConvenienceStoreScene : public MallGameSceneInterface {
  private:
   bool initialized_;
   ConvenienceStoreStage stage_;
+  AutomaticDoor *autodoor_;
   std::vector<ConvenienceStoreAttendant *> attendants_;
   Walker *walker_;
 };
