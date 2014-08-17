@@ -4,8 +4,7 @@
 #include "mall/MallTweakerContext.h"
 
 MallTweakerContext::MallTweakerContext()
-: system_ideal_fps(0),
-  system_actual_fps(0),
+: system_actual_fps(0),
   walker_route_visible(false) {
 }
 
