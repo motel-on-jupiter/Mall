@@ -24,17 +24,23 @@ public:
   bool rerouting() const { return rerouting_; }
 
 private:
-  static int BuildRouteImpl(const Waypoint *transfer, const Waypoint *terminus, std::deque<const Waypoint *> &traceroute, std::deque<const Waypoint *> &bestroute);
-  static int BuildRoute(const Waypoint *transfer, const Waypoint *terminus, std::deque<const Waypoint *> *route);
+  static int BuildRouteImpl(const Waypoint *transfer, const Waypoint *terminus, std::deque<const Waypoint *> &traceroute, std::deque<const Waypoint *> &bestroute, bool &abortion);
+  static int BuildRoute(const Waypoint *transfer, const Waypoint *terminus, std::deque<const Waypoint *> *route, bool *abortion);
 
   const WaypointGraph &graph_;
   std::deque<const Waypoint *> routepath_;
   std::future<int> reroute_;
   bool rerouting_;
   std::deque<const Waypoint *> reroutepath_;
+  bool reroutingabortion_;
 };
 
-inline int Navigator::BuildRouteImpl(const Waypoint *transfer, const Waypoint *terminus, std::deque<const Waypoint *> &traceroute, std::deque<const Waypoint *> &bestroute) {
+inline int Navigator::BuildRouteImpl(const Waypoint *transfer, const Waypoint *terminus, std::deque<const Waypoint *> &traceroute, std::deque<const Waypoint *> &bestroute, bool &abortion) {
+  // Detect the abortion
+  if (abortion) {
+    return 1;
+  }
+
   // For short circuit
   if ((bestroute.size() != 0) && (traceroute.size() + 3 >= bestroute.size())) {
     return 0;
@@ -48,6 +54,11 @@ inline int Navigator::BuildRouteImpl(const Waypoint *transfer, const Waypoint *t
   }
 
   BOOST_FOREACH(auto nextpoint, transfer->nextpoints()) {
+    // Detect the abortion
+    if (abortion) {
+      return 1;
+    }
+
     // Check whether this node is goal or not
     if (nextpoint == terminus) {
       if ((bestroute.size() == 0) ||
@@ -62,7 +73,7 @@ inline int Navigator::BuildRouteImpl(const Waypoint *transfer, const Waypoint *t
 
     // Walk the next nodes
     traceroute.push_back(transfer);
-    if (BuildRouteImpl(nextpoint, terminus, traceroute, bestroute) < 0) {
+    if (BuildRouteImpl(nextpoint, terminus, traceroute, bestroute, abortion) < 0) {
       return -1;
     }
     traceroute.pop_back();

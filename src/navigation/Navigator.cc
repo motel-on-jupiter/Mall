@@ -6,10 +6,17 @@
 #include "util/macro_util.h"
 
 Navigator::Navigator(const WaypointGraph &graph) :
-  graph_(graph), routepath_(), reroute_(), rerouting_(false),reroutepath_() {
+  graph_(graph),
+  routepath_(),
+  reroute_(),
+  rerouting_(false),
+  reroutepath_(),
+  reroutingabortion_(false) {
 }
 
 Navigator::~Navigator() {
+  reroutingabortion_ = true;
+  reroute_.wait();
 }
 
 const Waypoint *Navigator::NextGoal() {
@@ -32,7 +39,8 @@ const Waypoint *Navigator::NextGoal() {
 }
 
 void Navigator::Reroute(const Waypoint &origin, const Waypoint &terminus) {
-  reroute_ = std::async(std::launch::async, BuildRoute, &origin, &terminus, &reroutepath_);
+  reroutingabortion_ = false;
+  reroute_ = std::async(std::launch::async, BuildRoute, &origin, &terminus, &reroutepath_, &reroutingabortion_);
   rerouting_ = true;
 }
 
@@ -43,10 +51,10 @@ const Waypoint *Navigator::GetTerminus() const {
   return routepath_.back();
 }
 
-int Navigator::BuildRoute(const Waypoint *tranfer, const Waypoint *terminus, std::deque<const Waypoint *> *route) {
+int Navigator::BuildRoute(const Waypoint *tranfer, const Waypoint *terminus, std::deque<const Waypoint *> *route, bool *abortion) {
   std::deque<const Waypoint *> traceroute;
   std::deque<const Waypoint *> bestroute;
-  int ret = BuildRouteImpl(tranfer, terminus, traceroute, bestroute);
+  int ret = BuildRouteImpl(tranfer, terminus, traceroute, bestroute, *abortion);
   if (ret < 0) {
     LOGGER.Error("Failed to build route (ret: %d)", ret);
     return -1;
