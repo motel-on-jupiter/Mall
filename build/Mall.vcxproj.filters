@@ -145,11 +145,11 @@
     <ClCompile Include="..\src\mall\actor\Automobile.cc">
       <Filter>src\mall\actor</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mall\MallTweakContext.cc">
-      <Filter>src\mall</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\util\measurement\FPSCounter.cc">
       <Filter>src\util\measurement</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mall\MallTweakerContext.cc">
+      <Filter>src\mall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -270,14 +270,14 @@
     <ClInclude Include="..\src\mall\actor\Automobile.h">
       <Filter>src\mall\actor</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\MallTweakContext.h">
-      <Filter>src\mall</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\util\measurement\FPSCounter.h">
       <Filter>src\util\measurement</Filter>
     </ClInclude>
     <ClInclude Include="..\src\util\math_aux.h">
       <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\MallTweakerContext.h">
+      <Filter>src\mall</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

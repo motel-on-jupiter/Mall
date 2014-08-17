@@ -12,7 +12,7 @@
 #include <SDL_ttf.h>
 
 #include "mall/MallGame.h"
-#include "mall/MallTweakContext.h"
+#include "mall/MallTweakerContext.h"
 #include "util/logging/Logger.h"
 #include "util/measurement/FPSCounter.h"
 #include "util/wrapper/glgraphics_wrap.h"
@@ -94,12 +94,12 @@ int MallMain(int argc, char *argv[], const char *config_path) {
       "' size='" << 240 << " " << 580 << "' color='41 126 231' iconified=true";
   TwDefine(tw_def.str().c_str());
   if (TwAddVarRO(tw_bar, "SYSTEM_ACTUAL_FRAME_RATE", TW_TYPE_INT8,
-                 &(tweak_ctx.actual_fps),
+                 &(tweaker_ctx.actual_fps),
                  "group='System' label='Actual Frame Rate'") == 0) {
     LOGGER.Warn("Failed to add a tweak variable for actual-FPS (errmsg: %s)", TwGetLastError());
   }
   if (TwAddVarRW(tw_bar, "WAKLER_ROUTE_VISIBLE", TW_TYPE_BOOLCPP,
-                 &(tweak_ctx.walker_route_visible),
+                 &(tweaker_ctx.walker_route_visible),
                  "group='Walker' label='Route Visible'") == 0) {
     LOGGER.Warn("Failed to add a tweak variable for route-visible (errmsg: %s)", TwGetLastError());
   }
@@ -174,7 +174,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     Sleep(std::max<int>(kGameLoopInterval - exec_tick, 1));
 
     fps_counter.Update(SDL_GetTicks());
-    tweak_ctx.actual_fps = fps_counter.fps();
+    tweaker_ctx.actual_fps = fps_counter.fps();
   }
 
   // Reset the minimum timer resolution

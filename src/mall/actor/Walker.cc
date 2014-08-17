@@ -4,7 +4,7 @@
 #include "mall/actor/Walker.h"
 #include <GL/glew.h>
 #include "entity/EntityRouting.h"
-#include "mall/MallTweakContext.h"
+#include "mall/MallTweakerContext.h"
 #include "util/def/ColorDef.h"
 
 const float Walker::kDefaultMoveSpeed = 5.0f * 1000.0f / 60.0f / 60.0f;
@@ -31,7 +31,7 @@ void Walker::Draw() {
   }
   MallHuman::Draw();
 
-  if (tweak_ctx.walker_route_visible) {
+  if (tweaker_ctx.walker_route_visible) {
     if (goal() != nullptr) {
       glColor3ubv(WebColor::kYellow);
       glBegin(GL_LINE_LOOP);
