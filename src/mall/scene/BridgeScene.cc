@@ -113,6 +113,10 @@ void BridgeScene::Finalize() {
     LOGGER.Notice("Ignored the duplicate call to finalize game");
     return;
   }
+  BOOST_FOREACH(Automobile *automobile, automobiles_) {
+    delete automobile;
+  }
+  automobiles_.clear();
   BOOST_FOREACH(Walker *walker, walkers_) {
     delete walker;
   }
