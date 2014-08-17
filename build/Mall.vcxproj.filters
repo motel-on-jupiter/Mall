@@ -157,6 +157,9 @@
     <ClCompile Include="..\src\mall\prop\AutomaticDoor.cc">
       <Filter>src\mall\prop</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mall\prop\ShopShelf.cc">
+      <Filter>src\mall\prop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\pch\precompile.h">
@@ -286,6 +289,9 @@
       <Filter>src\mall</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mall\prop\AutomaticDoor.h">
+      <Filter>src\mall\prop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mall\prop\ShopShelf.h">
       <Filter>src\mall\prop</Filter>
     </ClInclude>
   </ItemGroup>
