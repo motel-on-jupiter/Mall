@@ -7,6 +7,7 @@
 struct MallTweakerContext {
   int system_actual_fps;
   bool walker_route_visible;
+  bool stage_waypoint_visible;
   bool stage_traceable_visible;
 
   MallTweakerContext();

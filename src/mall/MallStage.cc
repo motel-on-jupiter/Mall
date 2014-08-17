@@ -20,14 +20,17 @@ int MallStage::Initialize(const glm::vec2 &size) {
 }
 
 void MallStage::Draw() {
-  glColor3ubv(WebColor::kWhite);
-  glPointSize(0.1f);
-  glBegin(GL_POINTS);
-  BOOST_FOREACH(auto point, graph_.points()) {
-    glVertex2fv(glm::value_ptr(point->pos()));
+  if (tweaker_ctx.stage_waypoint_visible) {
+    glColor3ubv(WebColor::kWhite);
+    glPointSize(0.1f);
+    glBegin(GL_POINTS);
+    BOOST_FOREACH(auto point, graph_.points()) {
+      glVertex2fv(glm::value_ptr(point->pos()));
+    }
+    glEnd();
   }
-  glEnd();
   if (tweaker_ctx.stage_traceable_visible) {
+    glColor3ubv(WebColor::kWhite);
     glBegin(GL_LINES);
     BOOST_FOREACH(const Waypoint *point, graph_.points()) {
       BOOST_FOREACH(const Waypoint *nextpoint, point->nextpoints()) {

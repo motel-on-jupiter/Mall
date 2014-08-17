@@ -6,6 +6,7 @@
 MallTweakerContext::MallTweakerContext()
 : system_actual_fps(0),
   walker_route_visible(false),
+  stage_waypoint_visible(false),
   stage_traceable_visible(false) {
 }
 
