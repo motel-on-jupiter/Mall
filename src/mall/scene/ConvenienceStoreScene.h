@@ -5,11 +5,13 @@
 #define CONVENIENCESTORESCENE_H_
 
 #include <vector>
-#include "mall/actor/Walker.h"
+#include "mall/actor/MallHuman.h"
 #include "mall/MallGame.h"
 #include "mall/MallStage.h"
 
 class AutomaticDoor;
+class ShopShelf;
+class Walker;
 
 class ConvenienceStoreAttendant : public MallHuman {
  public:
@@ -43,9 +45,14 @@ class ConvenienceStoreScene : public MallGameSceneInterface {
   int OnMouseButtonDown(unsigned char button, const glm::vec2 &cursor_pos);
 
  private:
+  static const glm::vec2 kShelfPositionTbl[];
+  static const float kShelfRotationTbl[];
+  static const glm::vec2 kShelfScaleTbl[];
+
   bool initialized_;
   ConvenienceStoreStage stage_;
   AutomaticDoor *autodoor_;
+  std::vector<ShopShelf *> shelfs_;
   std::vector<ConvenienceStoreAttendant *> attendants_;
   std::vector<Walker *> walkers_;
 };

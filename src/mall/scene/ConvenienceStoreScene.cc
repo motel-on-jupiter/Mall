@@ -7,7 +7,9 @@
 #include <GL/glew.h>
 #include <boost/foreach.hpp>
 
+#include "mall/actor/Walker.h"
 #include "mall/prop/AutomaticDoor.h"
+#include "mall/prop/ShopShelf.h"
 #include "navigation/Waypoint.h"
 #include "util/def/ColorDef.h"
 #include "util/logging/Logger.h"
@@ -86,8 +88,13 @@ void ConvenienceStoreStage::Finalize() {
   graph().Clear();
 }
 
-ConvenienceStoreScene::ConvenienceStoreScene() :
-    initialized_(false), stage_(), autodoor_(nullptr), attendants_(), walkers_() {
+ConvenienceStoreScene::ConvenienceStoreScene()
+: initialized_(false),
+  stage_(),
+  autodoor_(nullptr),
+  shelfs_(),
+  attendants_(),
+  walkers_() {
 }
 
 ConvenienceStoreScene::~ConvenienceStoreScene() {
@@ -98,6 +105,75 @@ ConvenienceStoreScene::~ConvenienceStoreScene() {
   }
 }
 
+const glm::vec2 ConvenienceStoreScene::kShelfPositionTbl[] = {
+  glm::vec2(9.0f, 4.0f),
+  glm::vec2(11.0f, 4.0f),
+  glm::vec2(13.0f, 4.0f),
+  glm::vec2(7.25f, 5.5f),
+  glm::vec2(7.25f, 7.25f),
+  glm::vec2(15.0f, 5.5f),
+  glm::vec2(15.0f, 7.5f),
+  glm::vec2(15.0f, 9.5f),
+  glm::vec2(8.75f, 6.25f),
+  glm::vec2(8.75f, 7.75f),
+  glm::vec2(9.25f, 6.25f),
+  glm::vec2(9.25f, 7.75f),
+  glm::vec2(10.75f, 6.25f),
+  glm::vec2(10.75f, 7.75f),
+  glm::vec2(11.25f, 6.25f),
+  glm::vec2(11.25f, 7.75f),
+  glm::vec2(12.75f, 6.25f),
+  glm::vec2(12.75f, 7.75f),
+  glm::vec2(13.25f, 6.25f),
+  glm::vec2(13.25f, 7.75f),
+};
+
+const float ConvenienceStoreScene::kShelfRotationTbl[] = {
+  glm::radians(0.0f),
+  glm::radians(0.0f),
+  glm::radians(0.0f),
+  glm::radians(90.0f),
+  glm::radians(90.0f),
+  glm::radians(-90.0f),
+  glm::radians(-90.0f),
+  glm::radians(-90.0f),
+  glm::radians(-90.0f),
+  glm::radians(-90.0f),
+  glm::radians(90.0f),
+  glm::radians(90.0f),
+  glm::radians(-90.0f),
+  glm::radians(-90.0f),
+  glm::radians(90.0f),
+  glm::radians(90.0f),
+  glm::radians(-90.0f),
+  glm::radians(-90.0f),
+  glm::radians(90.0f),
+  glm::radians(90.0f),
+};
+
+const glm::vec2 ConvenienceStoreScene::kShelfScaleTbl[] = {
+  glm::vec2(2.0f, 0.75f),
+  glm::vec2(2.0f, 0.75f),
+  glm::vec2(2.0f, 0.75f),
+  glm::vec2(1.75f, 0.3f),
+  glm::vec2(1.75f, 0.3f),
+  glm::vec2(2.0f, 0.75f),
+  glm::vec2(2.0f, 0.75f),
+  glm::vec2(2.0f, 0.75f),
+  glm::vec2(1.5f, 0.5f),
+  glm::vec2(1.5f, 0.5f),
+  glm::vec2(1.5f, 0.5f),
+  glm::vec2(1.5f, 0.5f),
+  glm::vec2(1.5f, 0.5f),
+  glm::vec2(1.5f, 0.5f),
+  glm::vec2(1.5f, 0.5f),
+  glm::vec2(1.5f, 0.5f),
+  glm::vec2(1.5f, 0.5f),
+  glm::vec2(1.5f, 0.5f),
+  glm::vec2(1.5f, 0.5f),
+  glm::vec2(1.5f, 0.5f),
+};
+
 int ConvenienceStoreScene::Initialize(const glm::vec2 &stage_size) {
   // Initialize the stage
   int ret = stage_.Initialize(stage_size);
@@ -106,12 +182,23 @@ int ConvenienceStoreScene::Initialize(const glm::vec2 &stage_size) {
     return -1;
   }
 
-  AutomaticDoor *autodoor = new AutomaticDoor(glm::vec2(7.0f, 9.0f), glm::radians(90.0f));
+  AutomaticDoor *autodoor = new AutomaticDoor(glm::vec2(6.75f, 9.0f), glm::radians(90.0f));
   if (autodoor == nullptr) {
     LOGGER.Error("Failed to create auto door");
     return -1;
   }
   autodoor_ = autodoor;
+
+  for (int i=0; i<ARRAYSIZE(kShelfPositionTbl); ++i) {
+    ShopShelf *shelf = new ShopShelf(kShelfPositionTbl[i],
+                                     kShelfRotationTbl[i],
+                                     kShelfScaleTbl[i], "juice", 10);
+    if (shelf == nullptr) {
+      LOGGER.Error("Failed to create shelf");
+      return -1;
+    }
+    shelfs_.push_back(shelf);
+  }
 
   ConvenienceStoreAttendant *attendant =
       new ConvenienceStoreAttendant(glm::vec2(10.0f, 10.0f));
@@ -149,6 +236,10 @@ void ConvenienceStoreScene::Finalize() {
     delete walker;
   }
   walkers_.clear();
+  BOOST_FOREACH(auto shelf, shelfs_) {
+    delete shelf;
+  }
+  shelfs_.clear();
   delete autodoor_;
   autodoor_ = nullptr;
   stage_.Finalize();
@@ -210,6 +301,9 @@ int ConvenienceStoreScene::Draw() {
   stage_.Draw();
   glColor3ubv(WebColor::kGray);
   autodoor_->Draw();
+  BOOST_FOREACH(auto shelf, shelfs_) {
+    shelf->Draw();
+  }
   BOOST_FOREACH(auto attendant, attendants_) {
     attendant->Draw();
   }
