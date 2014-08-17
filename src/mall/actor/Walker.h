@@ -12,7 +12,7 @@ public:
   static const float kDefaultMoveSpeed;
   static const float kDefaultTurnSpeed;
 
-  Walker(const WaypointGraph &graph, const Waypoint &origin,
+  Walker(float rot, const WaypointGraph &graph, const Waypoint &origin,
          const Waypoint &terminus, float movespeed = kDefaultMoveSpeed,
          float turnspeed = kDefaultTurnSpeed);
   virtual ~Walker() {}

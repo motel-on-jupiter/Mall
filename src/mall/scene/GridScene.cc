@@ -102,9 +102,11 @@ int GridScene::Initialize(const glm::vec2 &stage_size) {
 
   // Create the walkers
   for (int i=0; i<kNumWalkWalkers; ++i) {
-    unsigned int originidx = static_cast<unsigned int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
-    unsigned int terminusidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
-    Walker *walker = new Walker(stage_.const_graph(), *(stage_.const_graph().points()[originidx]), *(stage_.const_graph().points()[terminusidx]));
+    unsigned int originidx = rand() % stage_.const_graph().points().size();
+    unsigned int terminusidx = rand() % stage_.const_graph().points().size();
+    Walker *walker = new Walker(0.0f, stage_.const_graph(),
+                                *(stage_.const_graph().points()[originidx]),
+                                *(stage_.const_graph().points()[terminusidx]));
     if (walker == nullptr) {
       LOGGER.Error("Failed to create the walker object (idx: %d)", i);
       BOOST_FOREACH (auto walker, walkers_) {

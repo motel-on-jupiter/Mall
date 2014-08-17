@@ -14,7 +14,7 @@ public:
   static const float Automobile::kDefaultMoveSpeed;
   static const float Automobile::kDefaultTurnSpeed;
 
-  Automobile(const WaypointGraph &graph, const Waypoint &origin,
+  Automobile(float rot, const WaypointGraph &graph, const Waypoint &origin,
              const Waypoint &terminus, float movespeed = kDefaultMoveSpeed,
              float turnspeed = kDefaultTurnSpeed);
   virtual ~Automobile() {}

@@ -133,8 +133,9 @@ int BridgeScene::Update(float elapsed_time) {
 
   // Generate new walker
   for (unsigned int i=0; i<4; ++i) {
+    float rot = glm::radians((i % 2 == 0) ? -90.0f : 90.0f);
     if (glm::linearRand(0.0f, 100.0f) < 1.0f) {
-      Walker *walker = new Walker(stage_.const_graph(),
+      Walker *walker = new Walker(rot, stage_.const_graph(),
                                   *(stage_.const_graph().points()[i * 2]),
                                   *(stage_.const_graph().points()[i * 2 + 1]));
       if (walker == nullptr) {
@@ -148,8 +149,9 @@ int BridgeScene::Update(float elapsed_time) {
   }
   // Generate new automobile
   for (unsigned int i=4; i<6; ++i) {
+    float rot = glm::radians((i % 2 == 0) ? 90.0f : -90.0f);
     if (glm::linearRand(0.0f, 100.0f) < 0.75f) {
-      Automobile *automobile = new Automobile(stage_.const_graph(),
+      Automobile *automobile = new Automobile(rot, stage_.const_graph(),
                                               *(stage_.const_graph().points()[i * 2]),
                                               *(stage_.const_graph().points()[i * 2 + 1]));
       if (automobile == nullptr) {

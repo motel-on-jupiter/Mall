@@ -127,7 +127,7 @@ int ConvenienceStoreScene::Initialize(const glm::vec2 &stage_size) {
   }
   attendants_.push_back(attendant);
 
-  walker_ = new Walker(stage_.const_graph(),
+  walker_ = new Walker(glm::radians(90.0f), stage_.const_graph(),
                        *(stage_.const_graph().points()[4]),
                        *(stage_.const_graph().points()[3]));
   if (walker_ == nullptr) {
