@@ -6,7 +6,7 @@
 MallTweakContext::MallTweakContext()
 : ideal_fps(0),
   actual_fps(0),
-  walker_route_visible(true) {
+  walker_route_visible(false) {
 }
 
 MallTweakContext::~MallTweakContext() {
