@@ -16,19 +16,18 @@ public:
 
   void Update(float elapsed_time);
   void Reroute(const Waypoint &terminus);
+  bool HasReached() const { return goal_ == nullptr; }
 
   Navigator &navi() { return navi_; }
-  bool reached() const { return reached_; }
   float movespeed() const { return movespeed_; }
   float turnspeed() const { return turnspeed_; }
-
-protected:
   const Waypoint *goal() const { return goal_; }
+  const Waypoint *lastgoal() const { return lastgoal_; }
 
 private:
   Navigator navi_;
   const Waypoint *goal_;
-  bool reached_;
+  const Waypoint *lastgoal_;
   float movespeed_;
   float turnspeed_;
 };

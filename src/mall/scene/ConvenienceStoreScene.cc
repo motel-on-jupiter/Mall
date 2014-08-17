@@ -173,10 +173,10 @@ int ConvenienceStoreScene::Update(float elapsed_time) {
     attendant->Update(elapsed_time);
   }
   walker_->Update(elapsed_time);
-  if (walker_->reached() && !(walker_->navi().rerouting())) {
-    if (walker_->navi().GetTerminus() == stage_.const_graph().points()[4]) {
+  if (walker_->HasReached() && !(walker_->navi().rerouting())) {
+    if (walker_->lastgoal() == stage_.const_graph().points()[4]) {
       walker_->Reroute(*(stage_.const_graph().points()[3]));
-    } else if (walker_->navi().GetTerminus() == stage_.const_graph().points()[3]) {
+    } else if (walker_->lastgoal() == stage_.const_graph().points()[3]) {
       walker_->Reroute(*(stage_.const_graph().points()[6]));
     } else {
       walker_->Reroute(*(stage_.const_graph().points()[4]));

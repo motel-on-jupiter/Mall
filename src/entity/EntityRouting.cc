@@ -10,25 +10,30 @@ EntityRouting::EntityRouting(BaseEntity &entity, const WaypointGraph &graph,
                              float speed, float turnspeed) :
   EntityMixIn(entity),
   navi_(graph),
-  goal_(&origin),
-  reached_(true),
+  goal_(nullptr),
+  lastgoal_(&origin),
   movespeed_(speed),
   turnspeed_(turnspeed) {
   navi_.Reroute(origin, terminus);
 }
 
 void EntityRouting::Update(float elapsed_time) {
-  if (is_fzero(glm::distance(entity().pos(), goal_->pos()))) {
+  if ((goal_ != nullptr) &&
+      (is_fzero(glm::distance(entity().pos(), goal_->pos())))) {
     entity().set_pos(goal_->pos());
-    reached_ = true;
+    lastgoal_ = goal_;
+    goal_ = nullptr;
   }
-  if (reached_) {
-    const Waypoint *goal = navi_.NextGoal();
-    if (goal == nullptr) {
+  if (goal_ == nullptr) {
+    const Waypoint *nextgoal = lastgoal_;
+    while (nextgoal == lastgoal_) {
+      nextgoal = navi_.NextGoal();
+    }
+    if (nextgoal == nullptr) {
       return;
     }
-    reached_ = false;
-    goal_ = goal;
+    lastgoal_ = goal_;
+    goal_ = nextgoal;
   } else {
     glm::vec2 movevec = goal_->pos() - entity().pos();
     glm::vec2 movedir = glm::normalize(movevec);
@@ -51,6 +56,5 @@ void EntityRouting::Update(float elapsed_time) {
 }
 
 void EntityRouting::Reroute(const Waypoint &terminus) {
-  navi_.Reroute(*goal_, terminus);
+  navi_.Reroute(*lastgoal_, terminus);
 }
-

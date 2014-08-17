@@ -166,7 +166,7 @@ int BridgeScene::Update(float elapsed_time) {
   for(auto it = walkers_.begin(); it != walkers_.end();) {
     Walker *walker = *it;
     walker->Update(elapsed_time);
-    if (walker->reached() && !(walker->navi().rerouting())) {
+    if (walker->HasReached() && !(walker->navi().rerouting())) {
       delete walker;
       it = walkers_.erase(it);
     } else {
@@ -177,7 +177,7 @@ int BridgeScene::Update(float elapsed_time) {
   for(auto it = automobiles_.begin(); it != automobiles_.end();) {
     Automobile *automobile = *it;
     automobile->Update(elapsed_time);
-    if (automobile->reached() && !(automobile->navi().rerouting())) {
+    if (automobile->HasReached() && !(automobile->navi().rerouting())) {
       delete automobile;
       it = automobiles_.erase(it);
     } else {

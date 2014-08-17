@@ -24,7 +24,7 @@ void Walker::Draw() {
   glm::vec3 color;
   if (navi().rerouting()) {
     glColor3ubv(WebColor::kYellow);
-  } else if (reached()) {
+  } else if (HasReached()) {
     glColor3ubv(WebColor::kNavy);
   } else {
     glColor3ubv(WebColor::kGreen);
