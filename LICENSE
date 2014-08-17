@@ -23,6 +23,7 @@ The libraries which Mall uses as follows,
 - FreeGLUT
 - GLEW
 - GLM
+- SDL
 - SDL-image
+- SDL-ttf
 
-and "share/texture/sky.png" is downloaded from http://opengameart.org/node/12485.
