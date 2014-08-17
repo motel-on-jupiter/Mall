@@ -8,11 +8,11 @@
 
 const float AutomaticDoor::kDefaultDetectionDistance = 1.0f;
 const float AutomaticDoor::kDefaultStayTime = 1.0f;
-const float AutomaticDoor::kDefaultOpenSpeed = 0.06f;
+const float AutomaticDoor::kDefaultOpenSpeed = 0.04f;
 
-AutomaticDoor::AutomaticDoor(const glm::vec2 &pos, float rot,
+AutomaticDoor::AutomaticDoor(const glm::vec2 &pos, float rot, const glm::vec2 &scale,
                              float detectdist, float staytime, float openspeed) :
-BaseEntity(pos, rot, glm::vec2(1.0f, 0.1f)),
+BaseEntity(pos, rot, scale),
 detectdist_(detectdist),
 staytime_(staytime),
 openspeed_(openspeed),

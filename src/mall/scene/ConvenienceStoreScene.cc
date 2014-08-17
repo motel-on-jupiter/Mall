@@ -35,11 +35,13 @@ const glm::vec2 ConvenienceStoreStage::kWaypointPositionTbl[] = {
   glm::vec2(10.0f, 5.0f),
   glm::vec2(12.0f, 5.0f),
   glm::vec2(14.0f, 5.0f),
-  glm::vec2(6.0f, 9.0f),
-  glm::vec2(8.0f, 9.0f),
-  glm::vec2(10.0f, 9.0f),
-  glm::vec2(12.0f, 9.0f),
-  glm::vec2(14.0f, 9.0f),
+  glm::vec2(6.0f, 8.6f),
+  glm::vec2(8.0f, 8.6f),
+  glm::vec2(6.0f, 9.4f),
+  glm::vec2(8.0f, 9.4f),
+  glm::vec2(10.0f, 9.4f),
+  glm::vec2(12.0f, 9.4f),
+  glm::vec2(14.0f, 9.4f),
 };
 
 int ConvenienceStoreStage::Initialize(const glm::vec2 &size) {
@@ -63,24 +65,26 @@ int ConvenienceStoreStage::Initialize(const glm::vec2 &size) {
   graph().points()[0]->AddNextPoint(graph().points()[5]);
   graph().points()[1]->AddNextPoint(graph().points()[0]);
   graph().points()[1]->AddNextPoint(graph().points()[2]);
-  graph().points()[1]->AddNextPoint(graph().points()[6]);
+  graph().points()[1]->AddNextPoint(graph().points()[8]);
   graph().points()[2]->AddNextPoint(graph().points()[1]);
   graph().points()[2]->AddNextPoint(graph().points()[3]);
   graph().points()[3]->AddNextPoint(graph().points()[2]);
-  graph().points()[2]->AddNextPoint(graph().points()[7]);
-  graph().points()[3]->AddNextPoint(graph().points()[8]);
+  graph().points()[2]->AddNextPoint(graph().points()[9]);
+  graph().points()[3]->AddNextPoint(graph().points()[10]);
   graph().points()[4]->AddNextPoint(graph().points()[5]);
   graph().points()[5]->AddNextPoint(graph().points()[0]);
-  graph().points()[5]->AddNextPoint(graph().points()[4]);
-  graph().points()[5]->AddNextPoint(graph().points()[6]);
-  graph().points()[6]->AddNextPoint(graph().points()[1]);
-  graph().points()[6]->AddNextPoint(graph().points()[5]);
-  graph().points()[6]->AddNextPoint(graph().points()[7]);
-  graph().points()[7]->AddNextPoint(graph().points()[2]);
+  graph().points()[5]->AddNextPoint(graph().points()[7]);
   graph().points()[7]->AddNextPoint(graph().points()[6]);
+  graph().points()[7]->AddNextPoint(graph().points()[5]);
   graph().points()[7]->AddNextPoint(graph().points()[8]);
-  graph().points()[8]->AddNextPoint(graph().points()[3]);
+  graph().points()[8]->AddNextPoint(graph().points()[1]);
   graph().points()[8]->AddNextPoint(graph().points()[7]);
+  graph().points()[8]->AddNextPoint(graph().points()[9]);
+  graph().points()[9]->AddNextPoint(graph().points()[2]);
+  graph().points()[9]->AddNextPoint(graph().points()[8]);
+  graph().points()[9]->AddNextPoint(graph().points()[10]);
+  graph().points()[10]->AddNextPoint(graph().points()[3]);
+  graph().points()[10]->AddNextPoint(graph().points()[9]);
   return 0;
 }
 
@@ -182,7 +186,9 @@ int ConvenienceStoreScene::Initialize(const glm::vec2 &stage_size) {
     return -1;
   }
 
-  AutomaticDoor *autodoor = new AutomaticDoor(glm::vec2(6.75f, 9.0f), glm::radians(90.0f));
+  AutomaticDoor *autodoor = new AutomaticDoor(glm::vec2(6.75f, 9.0f),
+                                              glm::radians(90.0f),
+                                              glm::vec2(1.6f, 0.1f));
   if (autodoor == nullptr) {
     LOGGER.Error("Failed to create auto door");
     return -1;
@@ -201,13 +207,13 @@ int ConvenienceStoreScene::Initialize(const glm::vec2 &stage_size) {
   }
 
   ConvenienceStoreAttendant *attendant =
-      new ConvenienceStoreAttendant(glm::vec2(10.0f, 10.0f));
+      new ConvenienceStoreAttendant(glm::vec2(10.0f, 10.5f));
   if (attendant == nullptr) {
     LOGGER.Error("Failed to create 1st attendant");
     return -1;
   }
   attendants_.push_back(attendant);
-  attendant = new ConvenienceStoreAttendant(glm::vec2(12.0f, 10.0f));
+  attendant = new ConvenienceStoreAttendant(glm::vec2(12.0f, 10.5f));
   if (attendant == nullptr) {
     LOGGER.Error("Failed to create 2nd attendant");
     return -1;
@@ -279,15 +285,15 @@ int ConvenienceStoreScene::Update(float elapsed_time) {
     Walker *walker = *it;
     walker->Update(elapsed_time);
     if (walker->HasReached() && !(walker->navi().rerouting())) {
-      if (walker->lastgoal() == stage_.const_graph().points()[4]) {
+      if (walker->lastgoal() == stage_.const_graph().points()[6]) {
         delete walker;
         it = walkers_.erase(it);
       }
       else if (walker->lastgoal() == stage_.const_graph().points()[3]) {
-        walker->Reroute(*(stage_.const_graph().points()[6]));
+        walker->Reroute(*(stage_.const_graph().points()[(rand() % 2 == 0) ? 8 : 9]));
       }
       else {
-        walker->Reroute(*(stage_.const_graph().points()[4]));
+        walker->Reroute(*(stage_.const_graph().points()[6]));
       }
     }
   }

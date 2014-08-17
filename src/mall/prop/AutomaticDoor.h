@@ -16,6 +16,7 @@ class AutomaticDoor : public BaseEntity {
   static const float kDefaultOpenSpeed;
 
   AutomaticDoor(const glm::vec2 &pos, float rot,
+                const glm::vec2 &scale,
                 float detectdist = kDefaultDetectionDistance,
                 float staytime = kDefaultStayTime,
                 float openspeed = kDefaultOpenSpeed);
