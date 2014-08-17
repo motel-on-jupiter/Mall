@@ -103,6 +103,11 @@ int MallMain(int argc, char *argv[], const char *config_path) {
                  "group='Walker' label='Route Visible'") == 0) {
     LOGGER.Warn("Failed to add a tweak variable for route-visible (errmsg: %s)", TwGetLastError());
   }
+  if (TwAddVarRW(tw_bar, "STAGE_TRACABLE_VISIBLE", TW_TYPE_BOOLCPP,
+                 &(tweaker_ctx.stage_traceable_visible),
+                 "group='Stage' label='Traceable Visible'") == 0) {
+    LOGGER.Warn("Failed to add a tweak variable for graph-traceable-visible (errmsg: %s)", TwGetLastError());
+  }
 
   // Initialize the game
   if (game.Initialize(kStageSize) != 0) {
