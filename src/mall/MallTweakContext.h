@@ -9,8 +9,8 @@ struct MallTweakContext {
   int actual_fps;
   bool walker_route_visible;
 
-  MallTweakContext() : ideal_fps(0), actual_fps(0), walker_route_visible(true) {}
-  ~MallTweakContext() {}
+  MallTweakContext();
+  ~MallTweakContext();
 };
 
 extern MallTweakContext tweak_ctx;

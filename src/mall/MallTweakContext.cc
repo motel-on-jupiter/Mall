@@ -3,5 +3,13 @@
  */
 #include "mall/MallTweakContext.h"
 
-MallTweakContext tweak_ctx;
+MallTweakContext::MallTweakContext()
+: ideal_fps(0),
+  actual_fps(0),
+  walker_route_visible(true) {
+}
 
+MallTweakContext::~MallTweakContext() {
+}
+
+MallTweakContext tweak_ctx;
