@@ -172,15 +172,19 @@ int ConvenienceStoreScene::Update(float elapsed_time) {
   BOOST_FOREACH(auto attendant, attendants_) {
     attendant->Update(elapsed_time);
   }
-  walker_->Update(elapsed_time);
-  if (walker_->HasReached() && !(walker_->navi().rerouting())) {
-    if (walker_->lastgoal() == stage_.const_graph().points()[4]) {
-      delete walker_;
-      walker_ = nullptr;
-    } else if (walker_->lastgoal() == stage_.const_graph().points()[3]) {
-      walker_->Reroute(*(stage_.const_graph().points()[6]));
-    } else {
-      walker_->Reroute(*(stage_.const_graph().points()[4]));
+  if (walker_ != nullptr) {
+    walker_->Update(elapsed_time);
+    if (walker_->HasReached() && !(walker_->navi().rerouting())) {
+      if (walker_->lastgoal() == stage_.const_graph().points()[4]) {
+        delete walker_;
+        walker_ = nullptr;
+      }
+      else if (walker_->lastgoal() == stage_.const_graph().points()[3]) {
+        walker_->Reroute(*(stage_.const_graph().points()[6]));
+      }
+      else {
+        walker_->Reroute(*(stage_.const_graph().points()[4]));
+      }
     }
   }
   return 0;
@@ -195,7 +199,9 @@ int ConvenienceStoreScene::Draw() {
   BOOST_FOREACH(auto attendant, attendants_) {
     attendant->Draw();
   }
-  walker_->Draw();
+  if (walker_ != nullptr) {
+    walker_->Draw();
+  }
   return 0;
 }
 
