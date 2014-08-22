@@ -132,6 +132,7 @@
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(Platform)_$(Configuration)</TargetName>
     <IncludePath>$(SolutionDir)..\src;$(IncludePath)</IncludePath>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -139,6 +140,7 @@
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(Platform)_$(Configuration)</TargetName>
     <IncludePath>$(SolutionDir)..\src;$(IncludePath)</IncludePath>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -157,6 +159,7 @@
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>C:\Work\Lib\SDL\SDL2-2.0.3\include;C:\Work\Lib\SDL_image\SDL2_image-2.0.0\include;C:\Work\Lib\SDL_ttf\SDL2_ttf-2.0.12\include;C:\Work\Lib\glew\glew-1.9.0\include;C:\Work\Lib\boost\boost_1_55_0\include;C:\Work\Lib\freeglut\freeglut-2.8.1\include;C:\Work\Lib\glm\glm-0.9.5.2\include;C:\Work\Lib\AntTweakBar\AntTweakBar-1.16\include</AdditionalIncludeDirectories>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -186,6 +189,7 @@
       <DisableSpecificWarnings>4127;4530</DisableSpecificWarnings>
       <AdditionalOptions>/Zm360 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>C:\Work\Lib\SDL\SDL2-2.0.3\include;C:\Work\Lib\SDL_image\SDL2_image-2.0.0\include;C:\Work\Lib\SDL_ttf\SDL2_ttf-2.0.12\include;C:\Work\Lib\glew\glew-1.9.0\include;C:\Work\Lib\boost\boost_1_55_0\include;C:\Work\Lib\freeglut\freeglut-2.8.1\include;C:\Work\Lib\glm\glm-0.9.5.2\include;C:\Work\Lib\AntTweakBar\AntTweakBar-1.16\include</AdditionalIncludeDirectories>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
