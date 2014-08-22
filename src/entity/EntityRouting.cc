@@ -20,7 +20,7 @@ EntityRouting::EntityRouting(BaseEntity &entity, const WaypointGraph &graph,
 void EntityRouting::Update(float elapsed_time) {
   if ((goal_ != nullptr) &&
       (is_fzero(glm::distance(entity().pos(), goal_->pos())))) {
-    entity().set_pos(goal_->pos());
+    entity().MoveTo(goal_->pos());
     lastgoal_ = goal_;
     goal_ = nullptr;
   }
@@ -42,15 +42,14 @@ void EntityRouting::Update(float elapsed_time) {
     float diffangle = normalize_angle(movedirangle - entity().rot());
     if (is_fzero(diffangle)) {
       float movedist = std::min(movespeed_ * elapsed_time, glm::length(movevec));
-      entity().set_pos(entity().pos() + movedir * movedist);
+      entity().Move(movedir * movedist);
     } else {
       float invdiffangle = normalize_angle(entity().rot() - movedirangle);
       if (abs(diffangle) > abs(invdiffangle)) {
         diffangle = invdiffangle;
       }
-      entity().set_rot(normalize_angle(entity().rot() +
-                                       std::min<float>(turnspeed_, abs(diffangle)) *
-                                       sign_f(diffangle)));
+      entity().Rotate(std::min<float>(turnspeed_, abs(diffangle)) *
+                      sign_f(diffangle));
     }
   }
 }

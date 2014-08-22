@@ -5,12 +5,20 @@
 #define BASEENTITY_H_
 
 #include <boost/noncopyable.hpp>
+#include "util/math_aux.h"
 
 class BaseEntity {
  public:
   BaseEntity(const glm::vec2 &pos, float rot, const glm::vec2 &scale) :
     pos_(pos), rot_(rot), scale_(scale) {}
   virtual ~BaseEntity() {}
+
+  void Move(const glm::vec2 &offset) { set_pos(pos() + offset); }
+  void MoveTo(const glm::vec2 &pos) { set_pos(pos); }
+  void Rotate(float offset) { set_rot(normalize_angle(rot() + offset)); }
+  void RotateTo(float rot) { set_rot(normalize_angle(rot)); }
+  void Rescale(const glm::vec2 &offset) { set_scale(scale() + offset); }
+  void RescaleTo(const glm::vec2 &scale) { set_scale(scale); }
 
   glm::vec2 pos() const { return pos_; }
   void set_pos(const glm::vec2 &pos) { pos_ = pos; }
