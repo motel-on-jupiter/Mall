@@ -8,7 +8,7 @@
 #include "mall/MallGame.h"
 #include "mall/MallStage.h"
 
-class Walker;
+class Mouse;
 
 class MouseCageStage : public MallStage {
  public:
@@ -31,7 +31,8 @@ class MouseCageScene : public MallGameSceneInterface {
   virtual int OnMouseButtonDown(unsigned char button, const glm::vec2 &cursor_pos);
 
  private:
-  MouseCageStage stage;
+  MouseCageStage stage_;
+  Mouse *mouse_;
 };
 
 #endif /* MOUSECAGESCENE_H_ */

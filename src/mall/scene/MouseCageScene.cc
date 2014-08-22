@@ -2,6 +2,8 @@
  * Copyright (C) 2014 The Motel on Jupiter
  */
 #include "MouseCageScene.h"
+#include "mall/actor/Mouse.h"
+#include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
 MouseCageStage::MouseCageStage() {
@@ -19,18 +21,30 @@ int MouseCageStage::Initialize(const glm::vec2& size) {
 void MouseCageStage::Finalize() {
 }
 
-MouseCageScene::MouseCageScene() {
+MouseCageScene::MouseCageScene() : stage_(), mouse_(nullptr) {
 }
 
 MouseCageScene::~MouseCageScene() {
 }
 
 int MouseCageScene::Initialize(const glm::vec2& stage_size) {
-  return stage.Initialize(stage_size);
+  int ret = stage_.Initialize(stage_size);
+  if (ret < 0) {
+    LOGGER.Error("Failed to initialize the stage (ret: %d)", ret);
+    return -1;
+  }
+  mouse_ = new Mouse(glm::vec2(0.0f), 0.0f, glm::vec2(1.0f));
+  if (mouse_ == nullptr) {
+    LOGGER.Error("Failed to create the mouse object");
+    return -1;
+  }
+  return 0;
 }
 
 void MouseCageScene::Finalize() {
-  stage.Finalize();
+  delete mouse_;
+  mouse_ = nullptr;
+  stage_.Finalize();
 }
 
 int MouseCageScene::Update(float elapsed_time) {
@@ -40,7 +54,10 @@ int MouseCageScene::Update(float elapsed_time) {
 }
 
 int MouseCageScene::Draw() {
-  stage.Draw();
+  stage_.Draw();
+  if (mouse_ != nullptr) {
+    mouse_->Draw();
+  }
   return 0;
 }
 
