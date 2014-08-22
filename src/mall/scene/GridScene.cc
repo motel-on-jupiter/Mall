@@ -184,6 +184,7 @@ int GridScene::OnMouseButtonDown(unsigned char button, const glm::vec2 &cursor_p
       }
     }
     if (nearest_dist < 10.0f) {
+      assert(nearest_walker != nullptr);
       LOGGER.Info("name: %s, sex: %d, age: %d, height: %d, weight: %d",
                   nearest_walker->property().name(),
                   nearest_walker->property().sex(),

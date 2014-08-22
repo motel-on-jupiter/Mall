@@ -15,6 +15,7 @@ LogEmitter::~LogEmitter() {
 void LogEmitter::Emit(const char* prefix, const char* format, ...) {
   va_list args;
   va_start(format, args);
+#pragma warning(suppress: 6001)
   Emitv(prefix, format, args);
   va_end(args);
 }

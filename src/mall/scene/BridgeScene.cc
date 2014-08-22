@@ -169,6 +169,7 @@ int BridgeScene::Update(float elapsed_time) {
   // Update the walkers
   for(auto it = walkers_.begin(); it != walkers_.end();) {
     Walker *walker = *it;
+    assert(walker != nullptr);
     walker->Update(elapsed_time);
     if (walker->HasReached() && !(walker->navi().rerouting())) {
       delete walker;
@@ -180,6 +181,7 @@ int BridgeScene::Update(float elapsed_time) {
   // Update the automobiles
   for(auto it = automobiles_.begin(); it != automobiles_.end();) {
     Automobile *automobile = *it;
+    assert(automobile != nullptr);
     automobile->Update(elapsed_time);
     if (automobile->HasReached() && !(automobile->navi().rerouting())) {
       delete automobile;
