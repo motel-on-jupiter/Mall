@@ -166,6 +166,9 @@
     <ClCompile Include="..\src\mall\actor\Mouse.cc">
       <Filter>src\mall\actor</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\entity\EntityPhisiology.cc">
+      <Filter>src\entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\pch\precompile.h">
@@ -305,6 +308,9 @@
     </ClInclude>
     <ClInclude Include="..\src\mall\actor\Mouse.h">
       <Filter>src\mall\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\entity\EntityPhisiology.h">
+      <Filter>src\entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

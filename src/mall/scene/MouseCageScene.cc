@@ -50,6 +50,9 @@ void MouseCageScene::Finalize() {
 int MouseCageScene::Update(float elapsed_time) {
   UNUSED(elapsed_time);
 
+  if (mouse_ != nullptr) {
+    mouse_->Update(elapsed_time);
+  }
   return 0;
 }
 
@@ -62,9 +65,14 @@ int MouseCageScene::Draw() {
 }
 
 int MouseCageScene::OnMouseButtonDown(unsigned char button,
-                                  const glm::vec2& cursor_pos) {
-  UNUSED(button);
+                                      const glm::vec2& cursor_pos) {
   UNUSED(cursor_pos);
 
+  if (button == 1) {
+    LOGGER.Info("appetite(food): %f, appetite(drink): %f, sleep: %f",
+                mouse_->GetAppetiteForFood(),
+                mouse_->GetAppetiteForDrink(),
+                mouse_->GetDesireForSleep());
+  }
   return 0;
 }

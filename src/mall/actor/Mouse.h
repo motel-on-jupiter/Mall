@@ -6,11 +6,16 @@
 
 #include "entity/BaseEntity.h"
 #include "entity/EntityDraw.h"
+#include "entity/EntityPhisiology.h"
 
-class Mouse : public BaseEntity, public EntityTriangleDraw {
+class Mouse :
+    public BaseEntity, public EntityTriangleDraw, public EntityPhisiology {
  public:
   Mouse(const glm::vec2 &pos, float rot, const glm::vec2 &scale);
   virtual ~Mouse();
+
+  virtual void Update(float elapsed_time);
+  virtual void Draw();
 };
 
 #endif /* MOUSE_H_ */
