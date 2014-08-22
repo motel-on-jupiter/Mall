@@ -27,7 +27,7 @@ class BaseEntity {
 
 class EntityMixIn : public boost::noncopyable {
  public:
-  EntityMixIn(BaseEntity &entity) : entity_(entity) {}
+  explicit EntityMixIn(BaseEntity &entity) : entity_(entity) {}
   virtual ~EntityMixIn() {}
 
  protected:

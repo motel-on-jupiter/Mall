@@ -14,7 +14,7 @@
 
 class Navigator : private boost::noncopyable {
 public:
-  Navigator(const WaypointGraph &graph);
+  explicit Navigator(const WaypointGraph &graph);
   virtual ~Navigator();
 
   const Waypoint *NextGoal();

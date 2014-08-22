@@ -8,7 +8,7 @@
 
 class EntityDraw : public EntityMixIn {
  public:
-  EntityDraw(BaseEntity &entity) : EntityMixIn(entity) {}
+  explicit EntityDraw(BaseEntity &entity) : EntityMixIn(entity) {}
   virtual ~EntityDraw() {}
 
   virtual void Draw() = 0;
@@ -16,7 +16,7 @@ class EntityDraw : public EntityMixIn {
 
 class EntityPointDraw : public EntityDraw {
  public:
-  EntityPointDraw(BaseEntity &entity);
+  explicit EntityPointDraw(BaseEntity &entity);
   virtual ~EntityPointDraw() {}
 
   virtual void Draw();

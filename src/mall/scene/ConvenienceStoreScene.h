@@ -15,7 +15,7 @@ class Walker;
 
 class ConvenienceStoreAttendant : public MallHuman {
  public:
-  ConvenienceStoreAttendant(const glm::vec2 &pos);
+  explicit ConvenienceStoreAttendant(const glm::vec2 &pos);
   virtual ~ConvenienceStoreAttendant() {}
 
   virtual void Draw();

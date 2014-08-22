@@ -10,7 +10,7 @@
 
 class PipeLogEmitter : public LogEmitter {
  public:
-  PipeLogEmitter(FILE *pipe);
+  explicit PipeLogEmitter(FILE *pipe);
   virtual ~PipeLogEmitter();
 
   virtual int Initialize();

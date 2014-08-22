@@ -6,7 +6,7 @@
 
 class FPSCounter {
  public:
-  FPSCounter(int sampling_msec);
+  explicit FPSCounter(int sampling_msec);
   ~FPSCounter() {}
 
   void Update(int current_msec);

@@ -9,7 +9,7 @@
 
 class Waypoint {
 public:
-  Waypoint(const glm::vec2 &pos);
+  explicit Waypoint(const glm::vec2 &pos);
   virtual ~Waypoint() {}
 
   void AddNextPoint(Waypoint *point);
