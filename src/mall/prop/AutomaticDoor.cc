@@ -16,7 +16,7 @@ BaseEntity(pos, rot, scale),
 detectdist_(detectdist),
 staytime_(staytime),
 openspeed_(openspeed),
-nodetectingtime_(0.0f),
+nodetectingtime_(FLT_MAX),
 opendegree_(0.0f) {
 }
 
