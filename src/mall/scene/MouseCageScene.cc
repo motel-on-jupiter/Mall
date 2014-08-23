@@ -3,6 +3,7 @@
  */
 #include "MouseCageScene.h"
 #include "mall/actor/Mouse.h"
+#include "mall/prop/MouseFood.h"
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
@@ -21,7 +22,7 @@ int MouseCageStage::Initialize(const glm::vec2& size) {
 void MouseCageStage::Finalize() {
 }
 
-MouseCageScene::MouseCageScene() : stage_(), mouse_(nullptr) {
+MouseCageScene::MouseCageScene() : stage_(), mouse_(nullptr), food_(nullptr) {
 }
 
 MouseCageScene::~MouseCageScene() {
@@ -33,15 +34,22 @@ int MouseCageScene::Initialize(const glm::vec2& stage_size) {
     LOGGER.Error("Failed to initialize the stage (ret: %d)", ret);
     return -1;
   }
-  mouse_ = new Mouse(glm::vec2(0.0f), 0.0f, glm::vec2(1.0f));
+  mouse_ = new Mouse(stage_size * 0.5f, 0.0f, glm::vec2(1.0f));
   if (mouse_ == nullptr) {
     LOGGER.Error("Failed to create the mouse object");
+    return -1;
+  }
+  food_ = new MouseFood(stage_size * glm::vec2(0.25f, 0.5f), 0.0f, glm::vec2(1.0f));
+  if (food_ == nullptr) {
+    LOGGER.Error("Failed to create the mouse-food object");
     return -1;
   }
   return 0;
 }
 
 void MouseCageScene::Finalize() {
+  delete food_;
+  food_ = nullptr;
   delete mouse_;
   mouse_ = nullptr;
   stage_.Finalize();
@@ -60,6 +68,9 @@ int MouseCageScene::Draw() {
   stage_.Draw();
   if (mouse_ != nullptr) {
     mouse_->Draw();
+  }
+  if (food_ != nullptr) {
+    food_->Draw();
   }
   return 0;
 }

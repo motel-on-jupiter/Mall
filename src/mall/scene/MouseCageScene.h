@@ -9,6 +9,7 @@
 #include "mall/MallStage.h"
 
 class Mouse;
+class MouseFood;
 
 class MouseCageStage : public MallStage {
  public:
@@ -33,6 +34,7 @@ class MouseCageScene : public MallGameSceneInterface {
  private:
   MouseCageStage stage_;
   Mouse *mouse_;
+  MouseFood *food_;
 };
 
 #endif /* MOUSECAGESCENE_H_ */
