@@ -2,6 +2,7 @@
  * Copyright (C) 2014 The Motel On Jupiter
  */
 #include "MouseFood.h"
+#include "mall/actor/Mouse.h"
 #include "util/color_sample.h"
 
 MouseFood::MouseFood(const glm::vec2 &pos, float rot, const glm::vec2 &scale,
@@ -21,10 +22,18 @@ MouseCheese::MouseCheese(const glm::vec2& pos, float rot,
 MouseCheese::~MouseCheese() {
 }
 
+void MouseCheese::Affect(Mouse &mouse) const {
+  mouse.GratifyAppetitleForFood(1.0f);
+}
+
 MouseWater::MouseWater(const glm::vec2& pos, float rot,
                        const glm::vec2& scale)
 : MouseFood(pos, rot, scale, X11Color::kAqua) {
 }
 
 MouseWater::~MouseWater() {
+}
+
+void MouseWater::Affect(Mouse &mouse) const {
+  mouse.GratifyAppetitleForDrink(1.0f);
 }

@@ -24,6 +24,7 @@ void Mouse::Update(float elapsed_time) {
 
   glm::vec2 totarget = (*target_)->pos() - pos();
   if (is_fzero(glm::length(totarget))) {
+    (*target_)->Affect(*this);
     ++target_;
     if (target_ == foods_.end()) {
       target_ = foods_.begin();
