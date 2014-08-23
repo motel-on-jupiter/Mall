@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <boost/foreach.hpp>
 #include "util/macro_util.h"
+#include "util/def/ColorDef.h"
 
 const float AutomaticDoor::kDefaultDetectionDistance = 1.0f;
 const float AutomaticDoor::kDefaultStayTime = 1.0f;
@@ -46,6 +47,8 @@ void AutomaticDoor::Update(float elapsedtime, const BaseEntity **detecttargets,
 }
 
 void AutomaticDoor::Draw() {
+  glColor3ubv(WebColor::kGray);
+
   glm::vec2 doorscale = scale() * 0.5f;
   glPushMatrix();
   glMultMatrixf(glm::value_ptr(glm::translate(glm::vec3(pos(), 0.0f))));

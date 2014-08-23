@@ -40,7 +40,7 @@ class MallHumanProperty {
 
 class MallHuman : public BaseEntity, public EntityRectangleDraw {
 public:
-  MallHuman(const glm::vec2 &pos, float rot);
+  MallHuman(const glm::vec2 &pos, float rot, const GLubyte *color);
   virtual ~MallHuman() {}
 
   virtual void Update(float elapsed_time);

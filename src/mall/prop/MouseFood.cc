@@ -6,14 +6,8 @@
 
 MouseFood::MouseFood(const glm::vec2 &pos, float rot, const glm::vec2 &scale)
 : BaseEntity(pos, rot, scale),
-  EntityRectangleDraw(*this, true) {
+  EntityRectangleDraw(*this, true, X11Color::kOrangeRed) {
 }
 
 MouseFood::~MouseFood() {
 }
-
-void MouseFood::Draw() {
-  glColor3ubv(X11Color::kOrangeRed);
-  EntityRectangleDraw::Draw();
-}
-

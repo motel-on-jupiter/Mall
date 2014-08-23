@@ -16,11 +16,10 @@
 #include "util/macro_util.h"
 
 ConvenienceStoreAttendant::ConvenienceStoreAttendant(const glm::vec2 &pos) :
-  MallHuman(pos, 0.0f) {
+  MallHuman(pos, 0.0f, X11Color::kOrange) {
 }
 
 void ConvenienceStoreAttendant::Draw() {
-  glColor3ubv(X11Color::kOrange);
   MallHuman::Draw();
 }
 
@@ -305,7 +304,6 @@ int ConvenienceStoreScene::Draw() {
     return 1;
   }
   stage_.Draw();
-  glColor3ubv(WebColor::kGray);
   autodoor_->Draw();
   BOOST_FOREACH(auto shelf, shelfs_) {
     shelf->Draw();

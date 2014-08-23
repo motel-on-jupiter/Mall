@@ -12,7 +12,7 @@ const float Walker::kDefaultTurnSpeed = glm::radians(5.0f);
 
 Walker::Walker(float rot, const WaypointGraph &graph, const Waypoint &origin,
                const Waypoint &terminus, float movespeed, float turnspeed) :
-  MallHuman(origin.pos(), rot),
+  MallHuman(origin.pos(), rot, WebColor::kGreen),
   EntityRouting(*this, graph, origin, terminus, movespeed, turnspeed) {
 }
 
@@ -21,13 +21,12 @@ void Walker::Update(float elapsed_time) {
 }
 
 void Walker::Draw() {
-  glm::vec3 color;
   if (navi().rerouting()) {
-    glColor3ubv(WebColor::kYellow);
+    set_color(WebColor::kYellow);
   } else if (HasReached()) {
-    glColor3ubv(WebColor::kNavy);
+    set_color(WebColor::kNavy);
   } else {
-    glColor3ubv(WebColor::kGreen);
+    set_color(WebColor::kGreen);
   }
   MallHuman::Draw();
 

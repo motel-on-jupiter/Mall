@@ -15,7 +15,6 @@ class Mouse :
   virtual ~Mouse();
 
   virtual void Update(float elapsed_time);
-  virtual void Draw();
 };
 
 #endif /* MOUSE_H_ */

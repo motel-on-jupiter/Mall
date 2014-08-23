@@ -6,22 +6,28 @@
 #include <glm/gtx/rotate_vector.hpp>
 #include "entity/BaseEntity.h"
 
-EntityPointDraw::EntityPointDraw(BaseEntity &entity) :
-  EntityDraw(entity) {
+EntityPointDraw::EntityPointDraw(BaseEntity &entity, const GLubyte *color) :
+  EntityDraw(entity, color) {
 }
 
 void EntityPointDraw::Draw() {
+  if (color() != nullptr) {
+    glColor3ubv(color());
+  }
   glPointSize(entity().scale().x);
   glBegin(GL_POINTS);
   glVertex2fv(glm::value_ptr(entity().pos()));
   glEnd();
 }
 
-EntityTriangleDraw::EntityTriangleDraw(BaseEntity &entity, bool fill) :
-  EntityDraw(entity), fill_(fill) {
+EntityTriangleDraw::EntityTriangleDraw(BaseEntity &entity, bool fill, const GLubyte *color) :
+  EntityDraw(entity, color), fill_(fill) {
 }
 
 void EntityTriangleDraw::Draw() {
+  if (color() != nullptr) {
+    glColor3ubv(color());
+  }
   glPushMatrix();
   glMultMatrixf(glm::value_ptr(glm::translate(glm::vec3(entity().pos(), 0.0f))));
   glBegin(fill_ ? GL_TRIANGLES : GL_LINE_LOOP);
@@ -32,11 +38,14 @@ void EntityTriangleDraw::Draw() {
   glPopMatrix();
 }
 
-EntityRectangleDraw::EntityRectangleDraw(BaseEntity &entity, bool fill) :
-  EntityDraw(entity), fill_(fill) {
+EntityRectangleDraw::EntityRectangleDraw(BaseEntity &entity, bool fill, const GLubyte *color) :
+  EntityDraw(entity, color), fill_(fill) {
 }
 
 void EntityRectangleDraw::Draw() {
+  if (color() != nullptr) {
+    glColor3ubv(color());
+  }
   glPushMatrix();
   glMultMatrixf(glm::value_ptr(glm::translate(glm::vec3(entity().pos(), 0.0f))));
   glBegin(fill_ ? GL_QUADS : GL_LINE_LOOP);

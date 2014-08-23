@@ -11,8 +11,6 @@ class MouseFood : public BaseEntity, public EntityRectangleDraw {
  public:
   MouseFood(const glm::vec2 &pos, float rot, const glm::vec2 &scale);
   virtual ~MouseFood();
-
-  virtual void Draw();
 };
 
 #endif /* MOUSEFOOD_H_ */
