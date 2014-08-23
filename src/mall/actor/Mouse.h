@@ -23,6 +23,7 @@ class Mouse :
  private:
   std::vector<const MouseFood *> foods_;
   std::vector<const MouseFood *>::iterator target_;
+  float ingestingtimer_;
 };
 
 #endif /* MOUSE_H_ */
