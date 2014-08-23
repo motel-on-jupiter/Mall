@@ -35,11 +35,6 @@ int MouseCageScene::Initialize(const glm::vec2& stage_size) {
     LOGGER.Error("Failed to initialize the stage (ret: %d)", ret);
     return -1;
   }
-  mouse_ = new Mouse(stage_size * 0.5f, 0.0f, glm::vec2(1.0f));
-  if (mouse_ == nullptr) {
-    LOGGER.Error("Failed to create the mouse object");
-    return -1;
-  }
   cheese_ = new MouseCheese(stage_size * glm::vec2(0.25f, 0.5f), 0.0f, glm::vec2(1.0f));
   if (cheese_ == nullptr) {
     LOGGER.Error("Failed to create the cheese object");
@@ -48,6 +43,14 @@ int MouseCageScene::Initialize(const glm::vec2& stage_size) {
   water_ = new MouseWater(stage_size * glm::vec2(0.75f, 0.5f), 0.0f, glm::vec2(1.0f));
   if (water_ == nullptr) {
     LOGGER.Error("Failed to create the water object");
+    return -1;
+  }
+  std::vector<const MouseFood *> foods_;
+  foods_.push_back(cheese_);
+  foods_.push_back(water_);
+  mouse_ = new Mouse(stage_size * 0.5f, 0.0f, glm::vec2(1.0f), foods_);
+  if (mouse_ == nullptr) {
+    LOGGER.Error("Failed to create the mouse object");
     return -1;
   }
   return 0;
