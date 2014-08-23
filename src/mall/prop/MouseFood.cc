@@ -23,7 +23,7 @@ MouseCheese::~MouseCheese() {
 }
 
 void MouseCheese::Affect(Mouse &mouse) const {
-  mouse.GratifyAppetitleForFood(1.0f);
+  mouse.GratifyAppetitleForFood(100.0f);
 }
 
 MouseWater::MouseWater(const glm::vec2& pos, float rot,
@@ -35,5 +35,5 @@ MouseWater::~MouseWater() {
 }
 
 void MouseWater::Affect(Mouse &mouse) const {
-  mouse.GratifyAppetitleForDrink(1.0f);
+  mouse.GratifyAppetitleForDrink(100.0f);
 }
