@@ -21,7 +21,14 @@ class Mouse :
   virtual void Update(float elapsed_time);
 
  private:
+  enum State {
+    kIdle,
+    kTargeting,
+    kIngesting,
+  };
+
   std::vector<const MouseFood *> foods_;
+  State state_;
   std::vector<const MouseFood *>::iterator target_;
   float ingestingtimer_;
 };
