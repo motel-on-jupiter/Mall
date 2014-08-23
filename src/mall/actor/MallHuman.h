@@ -40,6 +40,8 @@ class MallHumanProperty {
 
 class MallHuman : public BaseEntity, public EntityRectangleDraw {
 public:
+  static const glm::vec2 kScale;
+
   MallHuman(const glm::vec2 &pos, float rot, const GLubyte *color);
   virtual ~MallHuman() {}
 

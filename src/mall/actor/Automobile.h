@@ -11,8 +11,9 @@
 class Automobile :
     public BaseEntity, public EntityRectangleDraw, public EntityRouting {
 public:
-  static const float Automobile::kDefaultMoveSpeed;
-  static const float Automobile::kDefaultTurnSpeed;
+  static const float kDefaultMoveSpeed;
+  static const float kDefaultTurnSpeed;
+  static const glm::vec2 kScale;
 
   Automobile(float rot, const WaypointGraph &graph, const Waypoint &origin,
              const Waypoint &terminus, float movespeed = kDefaultMoveSpeed,

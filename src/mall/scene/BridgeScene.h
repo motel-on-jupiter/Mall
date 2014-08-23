@@ -41,6 +41,8 @@ class BridgeScene : public MallGameSceneInterface {
   BridgeStage stage_;
   std::vector<Walker *> walkers_;
   std::vector<Automobile *> automobiles_;
+  Walker *lastgenwalkers_[4];
+  Automobile *lastgenautomobiles_[2];
 };
 
 #endif /* BRIDGESCENE_H_ */
