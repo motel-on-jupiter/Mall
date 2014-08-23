@@ -12,7 +12,7 @@ class EntityDraw : public EntityMixIn {
   : EntityMixIn(entity), color_(color) {}
   virtual ~EntityDraw() {}
 
-  virtual void Draw() = 0;
+  virtual void Draw() const = 0;
 
   const GLubyte* color() const { return color_; }
   void set_color(const GLubyte* color) { color_ = color; }
@@ -26,7 +26,7 @@ class EntityPointDraw : public EntityDraw {
   EntityPointDraw(BaseEntity &entity, const GLubyte *color);
   virtual ~EntityPointDraw() {}
 
-  virtual void Draw();
+  virtual void Draw() const;
 };
 
 class EntityTriangleDraw : public EntityDraw {
@@ -34,7 +34,7 @@ class EntityTriangleDraw : public EntityDraw {
   EntityTriangleDraw(BaseEntity &entity, bool fill, const GLubyte *color);
   virtual ~EntityTriangleDraw() {}
 
-  virtual void Draw();
+  virtual void Draw() const;
 
   bool fill() const { return fill_; }
   void set_fill(bool fill) { fill_ = fill; }
@@ -48,7 +48,7 @@ class EntityRectangleDraw : public EntityDraw {
   EntityRectangleDraw(BaseEntity &entity, bool fill, const GLubyte *color);
   virtual ~EntityRectangleDraw() {}
 
-  virtual void Draw();
+  virtual void Draw() const;
 
   bool fill() const { return fill_; }
   void set_fill(bool fill) { fill_ = fill; }

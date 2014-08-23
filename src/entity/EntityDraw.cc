@@ -10,7 +10,7 @@ EntityPointDraw::EntityPointDraw(BaseEntity &entity, const GLubyte *color) :
   EntityDraw(entity, color) {
 }
 
-void EntityPointDraw::Draw() {
+void EntityPointDraw::Draw() const {
   if (color() != nullptr) {
     glColor3ubv(color());
   }
@@ -24,7 +24,7 @@ EntityTriangleDraw::EntityTriangleDraw(BaseEntity &entity, bool fill, const GLub
   EntityDraw(entity, color), fill_(fill) {
 }
 
-void EntityTriangleDraw::Draw() {
+void EntityTriangleDraw::Draw() const {
   if (color() != nullptr) {
     glColor3ubv(color());
   }
@@ -42,7 +42,7 @@ EntityRectangleDraw::EntityRectangleDraw(BaseEntity &entity, bool fill, const GL
   EntityDraw(entity, color), fill_(fill) {
 }
 
-void EntityRectangleDraw::Draw() {
+void EntityRectangleDraw::Draw() const {
   if (color() != nullptr) {
     glColor3ubv(color());
   }
