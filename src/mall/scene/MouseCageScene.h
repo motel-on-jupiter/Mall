@@ -34,8 +34,8 @@ class MouseCageScene : public MallGameSceneInterface {
 
  private:
   MouseCageStage stage_;
-  MouseCheese *cheese_;
-  MouseWater *water_;
+  std::vector<const MouseCheese *> cheeses_;
+  std::vector<const MouseWater *> waters_;
   Mouse *mouse_;
 };
 

@@ -9,13 +9,16 @@
 #include "entity/EntityDraw.h"
 #include "entity/EntityPhisiology.h"
 
+class MouseCheese;
 class MouseFood;
+class MouseWater;
 
 class Mouse :
     public BaseEntity, public EntityTriangleDraw, public EntityPhisiology {
  public:
   Mouse(const glm::vec2 &pos, float rot, const glm::vec2 &scale,
-        std::vector<const MouseFood *> &foods);
+        const std::vector<const MouseCheese *> &cheeses,
+        const std::vector<const MouseWater *> &waters);
   virtual ~Mouse();
 
   virtual void Update(float elapsed_time);
@@ -27,9 +30,10 @@ class Mouse :
     kIngesting,
   };
 
-  std::vector<const MouseFood *> foods_;
+  const std::vector<const MouseCheese *> &cheeses_;
+  const std::vector<const MouseWater *> &waters_;
   State state_;
-  std::vector<const MouseFood *>::iterator target_;
+  const MouseFood *target_;
   float ingestingtimer_;
 };
 

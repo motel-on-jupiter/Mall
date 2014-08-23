@@ -8,13 +8,15 @@
 #include "util/math_aux.h"
 
 Mouse::Mouse(const glm::vec2 &pos, float rot, const glm::vec2 &scale,
-             std::vector<const MouseFood *> &foods)
+             const std::vector<const MouseCheese *> &cheeses,
+             const std::vector<const MouseWater *> &waters)
 : BaseEntity(pos, rot, scale),
   EntityTriangleDraw(*(static_cast<BaseEntity *>(this)), true, X11Color::kSilver),
   EntityPhisiology(*(static_cast<BaseEntity *>(this))),
-  foods_(foods),
-  state_(kTargeting),
-  target_(foods_.begin()),
+  cheeses_(cheeses),
+  waters_(waters),
+  state_(kIdle),
+  target_(nullptr),
   ingestingtimer_(0.0f) {
 }
 
@@ -26,19 +28,20 @@ void Mouse::Update(float elapsed_time) {
 
   switch(state_) {
     case kIdle: {
-      // Reset the target food
-      ++target_;
-      if (target_ == foods_.end()) {
-        target_ = foods_.begin();
+      if (GetAppetiteForFood() > 0.8f) {
+        target_ = *(cheeses_.begin());
+        state_ = kTargeting;
+      } else if (GetAppetiteForDrink() > 0.8f) {
+        target_ = *(waters_.begin());
+        state_ = kTargeting;
       }
-      state_ = kTargeting;
       break;
     }
     case kTargeting: {
-      glm::vec2 totarget = (*target_)->pos() - pos();
+      glm::vec2 totarget = target_->pos() - pos();
       Move(glm::normalize(totarget) * std::min(glm::length(totarget), 5.0f * elapsed_time));
       RotateTo(atan2(totarget.y, totarget.x) + glm::radians(90.0f));
-      if (is_fzero(glm::length((*target_)->pos() - pos()))) {
+      if (is_fzero(glm::length(target_->pos() - pos()))) {
         state_ = kIngesting;
         ingestingtimer_ = 1.0f;
       }
@@ -47,7 +50,7 @@ void Mouse::Update(float elapsed_time) {
     case kIngesting: {
       ingestingtimer_ = std::max(ingestingtimer_ - elapsed_time, 0.0f);
       if (is_fzero(ingestingtimer_)) {
-        (*target_)->Affect(*this);
+        target_->Affect(*this);
         state_ = kIdle;
       }
       break;
