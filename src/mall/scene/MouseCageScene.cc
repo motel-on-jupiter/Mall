@@ -22,7 +22,8 @@ int MouseCageStage::Initialize(const glm::vec2& size) {
 void MouseCageStage::Finalize() {
 }
 
-MouseCageScene::MouseCageScene() : stage_(), mouse_(nullptr), food_(nullptr) {
+MouseCageScene::MouseCageScene()
+: stage_(), mouse_(nullptr), cheese_(nullptr), water_(nullptr) {
 }
 
 MouseCageScene::~MouseCageScene() {
@@ -39,17 +40,24 @@ int MouseCageScene::Initialize(const glm::vec2& stage_size) {
     LOGGER.Error("Failed to create the mouse object");
     return -1;
   }
-  food_ = new MouseFood(stage_size * glm::vec2(0.25f, 0.5f), 0.0f, glm::vec2(1.0f));
-  if (food_ == nullptr) {
-    LOGGER.Error("Failed to create the mouse-food object");
+  cheese_ = new MouseCheese(stage_size * glm::vec2(0.25f, 0.5f), 0.0f, glm::vec2(1.0f));
+  if (cheese_ == nullptr) {
+    LOGGER.Error("Failed to create the cheese object");
+    return -1;
+  }
+  water_ = new MouseWater(stage_size * glm::vec2(0.75f, 0.5f), 0.0f, glm::vec2(1.0f));
+  if (water_ == nullptr) {
+    LOGGER.Error("Failed to create the water object");
     return -1;
   }
   return 0;
 }
 
 void MouseCageScene::Finalize() {
-  delete food_;
-  food_ = nullptr;
+  delete water_;
+  water_ = nullptr;
+  delete cheese_;
+  cheese_ = nullptr;
   delete mouse_;
   mouse_ = nullptr;
   stage_.Finalize();
@@ -69,8 +77,11 @@ int MouseCageScene::Draw() {
   if (mouse_ != nullptr) {
     mouse_->Draw();
   }
-  if (food_ != nullptr) {
-    food_->Draw();
+  if (cheese_ != nullptr) {
+    cheese_->Draw();
+  }
+  if (water_ != nullptr) {
+    water_->Draw();
   }
   return 0;
 }

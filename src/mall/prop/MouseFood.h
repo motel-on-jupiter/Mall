@@ -9,8 +9,20 @@
 
 class MouseFood : public BaseEntity, public EntityRectangleDraw {
  public:
-  MouseFood(const glm::vec2 &pos, float rot, const glm::vec2 &scale);
+  MouseFood(const glm::vec2 &pos, float rot, const glm::vec2 &scale, const GLubyte *color);
   virtual ~MouseFood();
+};
+
+class MouseCheese : public MouseFood {
+ public:
+  MouseCheese(const glm::vec2 &pos, float rot, const glm::vec2 &scale);
+  virtual ~MouseCheese();
+};
+
+class MouseWater : public MouseFood {
+ public:
+  MouseWater(const glm::vec2 &pos, float rot, const glm::vec2 &scale);
+  virtual ~MouseWater();
 };
 
 #endif /* MOUSEFOOD_H_ */
