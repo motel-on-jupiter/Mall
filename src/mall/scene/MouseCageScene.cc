@@ -23,7 +23,7 @@ void MouseCageStage::Finalize() {
 }
 
 MouseCageScene::MouseCageScene()
-: stage_(), mouse_(nullptr), cheese_(nullptr), water_(nullptr) {
+: stage_(), cheese_(nullptr), water_(nullptr), mouse_(nullptr) {
 }
 
 MouseCageScene::~MouseCageScene() {
@@ -77,14 +77,14 @@ int MouseCageScene::Update(float elapsed_time) {
 
 int MouseCageScene::Draw() {
   stage_.Draw();
-  if (mouse_ != nullptr) {
-    mouse_->Draw();
-  }
   if (cheese_ != nullptr) {
     cheese_->Draw();
   }
   if (water_ != nullptr) {
     water_->Draw();
+  }
+  if (mouse_ != nullptr) {
+    mouse_->Draw();
   }
   return 0;
 }

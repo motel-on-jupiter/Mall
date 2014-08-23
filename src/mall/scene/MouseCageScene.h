@@ -34,9 +34,9 @@ class MouseCageScene : public MallGameSceneInterface {
 
  private:
   MouseCageStage stage_;
-  Mouse *mouse_;
   MouseCheese *cheese_;
   MouseWater *water_;
+  Mouse *mouse_;
 };
 
 #endif /* MOUSECAGESCENE_H_ */
