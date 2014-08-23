@@ -52,6 +52,8 @@ class ConvenienceStoreScene : public MallGameSceneInterface {
     size_t waypoint;
   };
   static const ShelfInitParam kShelfInitParamTbl[];
+  static const size_t kPortalWaypointIdx;
+  static const size_t kExitWaypointIdx;
 
   bool initialized_;
   ConvenienceStoreStage stage_;

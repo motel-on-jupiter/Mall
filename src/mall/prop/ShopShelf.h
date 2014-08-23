@@ -19,6 +19,7 @@ class ShopShelf : public BaseEntity, public EntityRectangleDraw {
   const std::string& stockitem() const { return stockitem_; }
   unsigned int stocknum() const { return stocknum_; }
   void set_stocknum(unsigned int stocknum) { stocknum_ = stocknum; }
+  const Waypoint &waypoint() const { return waypoint_; }
 
  private:
   std::string stockitem_;

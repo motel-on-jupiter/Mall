@@ -209,6 +209,9 @@ void ConvenienceStoreScene::Finalize() {
   return;
 }
 
+const size_t ConvenienceStoreScene::kPortalWaypointIdx = 4;
+const size_t ConvenienceStoreScene::kExitWaypointIdx = 6;
+
 int ConvenienceStoreScene::Update(float elapsed_time) {
   UNUSED(elapsed_time);
 
@@ -218,9 +221,10 @@ int ConvenienceStoreScene::Update(float elapsed_time) {
 
   // Generate a walker randomly
   if (glm::linearRand(0.0f, 100.0f) < 0.5f) {
+    ShopShelf *wanted = shelfs_[rand() % shelfs_.size()];
     Walker *walker = new Walker(glm::radians(90.0f), stage_.const_graph(),
-                                *(stage_.const_graph().points()[4]),
-                                *(stage_.const_graph().points()[3]));
+                                *(stage_.const_graph().points()[kPortalWaypointIdx]),
+                                wanted->waypoint());
     if (walker == nullptr) {
       LOGGER.Error("Failed to create a walker");
       return -1;
@@ -237,21 +241,27 @@ int ConvenienceStoreScene::Update(float elapsed_time) {
   BOOST_FOREACH(auto attendant, attendants_) {
     attendant->Update(elapsed_time);
   }
-  for (auto it = walkers_.begin(); it != walkers_.end() ; ++it) {
+  for (auto it = walkers_.begin(); it != walkers_.end();) {
     Walker *walker = *it;
     walker->Update(elapsed_time);
     if (walker->HasReached() && !(walker->navi().rerouting())) {
       if (walker->lastgoal() == stage_.const_graph().points()[6]) {
+        // Reach the exit
         delete walker;
         it = walkers_.erase(it);
+        continue;
       }
-      else if (walker->lastgoal() == stage_.const_graph().points()[3]) {
-        walker->Reroute(*(stage_.const_graph().points()[(rand() % 2 == 0) ? 8 : 9]));
+      else if (walker->lastgoal() == stage_.const_graph().points()[8] ||
+               walker->lastgoal() == stage_.const_graph().points()[9]) {
+        // Go to exit
+        walker->Reroute(*(stage_.const_graph().points()[kExitWaypointIdx]));
       }
       else {
-        walker->Reroute(*(stage_.const_graph().points()[6]));
+        // Go to cashier
+        walker->Reroute(*(stage_.const_graph().points()[(rand() % 2 == 0) ? 8 : 9]));
       }
     }
+    ++it;
   }
   return 0;
 }
