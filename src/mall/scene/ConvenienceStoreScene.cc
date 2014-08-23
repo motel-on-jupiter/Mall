@@ -238,9 +238,6 @@ int ConvenienceStoreScene::Update(float elapsed_time) {
                         reinterpret_cast<BaseEntity **>(walkers_.data())
                         ),
                     walkers_.size());
-  BOOST_FOREACH(auto attendant, attendants_) {
-    attendant->Update(elapsed_time);
-  }
   for (auto it = walkers_.begin(); it != walkers_.end();) {
     Walker *walker = *it;
     walker->Update(elapsed_time);

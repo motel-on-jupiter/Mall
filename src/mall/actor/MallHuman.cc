@@ -13,7 +13,3 @@ MallHuman::MallHuman(const glm::vec2 &pos, float rot, const GLubyte *color) :
   EntityRectangleDraw(*this, true, color),
   property_() {
 }
-
-void MallHuman::Update(float elapsed_time) {
-  UNUSED(elapsed_time);
-}

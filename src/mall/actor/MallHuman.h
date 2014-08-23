@@ -45,8 +45,6 @@ public:
   MallHuman(const glm::vec2 &pos, float rot, const GLubyte *color);
   virtual ~MallHuman() {}
 
-  virtual void Update(float elapsed_time);
-
   const MallHumanProperty &property() const { return property_; }
 
 private:
