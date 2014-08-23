@@ -45,9 +45,13 @@ class ConvenienceStoreScene : public MallGameSceneInterface {
   int OnMouseButtonDown(unsigned char button, const glm::vec2 &cursor_pos);
 
  private:
-  static const glm::vec2 kShelfPositionTbl[];
-  static const float kShelfRotationTbl[];
-  static const glm::vec2 kShelfScaleTbl[];
+  struct ShelfInitParam {
+    glm::vec2 pos;
+    float rot;
+    glm::vec2 scale;
+    size_t waypoint;
+  };
+  static const ShelfInitParam kShelfInitParamTbl[];
 
   bool initialized_;
   ConvenienceStoreStage stage_;

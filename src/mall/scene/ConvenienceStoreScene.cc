@@ -108,73 +108,28 @@ ConvenienceStoreScene::~ConvenienceStoreScene() {
   }
 }
 
-const glm::vec2 ConvenienceStoreScene::kShelfPositionTbl[] = {
-  glm::vec2(9.0f, 4.0f),
-  glm::vec2(11.0f, 4.0f),
-  glm::vec2(13.0f, 4.0f),
-  glm::vec2(7.25f, 5.5f),
-  glm::vec2(7.25f, 7.25f),
-  glm::vec2(15.0f, 5.5f),
-  glm::vec2(15.0f, 7.5f),
-  glm::vec2(15.0f, 9.5f),
-  glm::vec2(8.75f, 6.25f),
-  glm::vec2(8.75f, 7.75f),
-  glm::vec2(9.25f, 6.25f),
-  glm::vec2(9.25f, 7.75f),
-  glm::vec2(10.75f, 6.25f),
-  glm::vec2(10.75f, 7.75f),
-  glm::vec2(11.25f, 6.25f),
-  glm::vec2(11.25f, 7.75f),
-  glm::vec2(12.75f, 6.25f),
-  glm::vec2(12.75f, 7.75f),
-  glm::vec2(13.25f, 6.25f),
-  glm::vec2(13.25f, 7.75f),
-};
-
-const float ConvenienceStoreScene::kShelfRotationTbl[] = {
-  glm::radians(0.0f),
-  glm::radians(0.0f),
-  glm::radians(0.0f),
-  glm::radians(90.0f),
-  glm::radians(90.0f),
-  glm::radians(-90.0f),
-  glm::radians(-90.0f),
-  glm::radians(-90.0f),
-  glm::radians(-90.0f),
-  glm::radians(-90.0f),
-  glm::radians(90.0f),
-  glm::radians(90.0f),
-  glm::radians(-90.0f),
-  glm::radians(-90.0f),
-  glm::radians(90.0f),
-  glm::radians(90.0f),
-  glm::radians(-90.0f),
-  glm::radians(-90.0f),
-  glm::radians(90.0f),
-  glm::radians(90.0f),
-};
-
-const glm::vec2 ConvenienceStoreScene::kShelfScaleTbl[] = {
-  glm::vec2(2.0f, 0.75f),
-  glm::vec2(2.0f, 0.75f),
-  glm::vec2(2.0f, 0.75f),
-  glm::vec2(1.75f, 0.3f),
-  glm::vec2(1.75f, 0.3f),
-  glm::vec2(2.0f, 0.75f),
-  glm::vec2(2.0f, 0.75f),
-  glm::vec2(2.0f, 0.75f),
-  glm::vec2(1.5f, 0.5f),
-  glm::vec2(1.5f, 0.5f),
-  glm::vec2(1.5f, 0.5f),
-  glm::vec2(1.5f, 0.5f),
-  glm::vec2(1.5f, 0.5f),
-  glm::vec2(1.5f, 0.5f),
-  glm::vec2(1.5f, 0.5f),
-  glm::vec2(1.5f, 0.5f),
-  glm::vec2(1.5f, 0.5f),
-  glm::vec2(1.5f, 0.5f),
-  glm::vec2(1.5f, 0.5f),
-  glm::vec2(1.5f, 0.5f),
+const ConvenienceStoreScene::ShelfInitParam ConvenienceStoreScene::kShelfInitParamTbl[] = {
+  {glm::vec2(9.0f, 4.0f),    glm::radians(0.0f),   glm::vec2(2.0f, 0.75f), 0},
+  {glm::vec2(11.0f, 4.0f),   glm::radians(0.0f),   glm::vec2(2.0f, 0.75f), 1},
+  {glm::vec2(13.0f, 4.0f),   glm::radians(0.0f),   glm::vec2(2.0f, 0.75f), 2},
+  {glm::vec2(7.25f, 5.5f),   glm::radians(90.0f),  glm::vec2(1.75f, 0.3f), 0},
+  {glm::vec2(7.25f, 7.25f),  glm::radians(90.0f),  glm::vec2(1.75f, 0.3f), 5},
+  {glm::vec2(15.0f, 5.5f),   glm::radians(-90.0f), glm::vec2(2.0f, 0.75f), 3},
+  {glm::vec2(15.0f, 7.5f),   glm::radians(-90.0f), glm::vec2(2.0f, 0.75f), 10},
+  {glm::vec2(15.0f, 9.5f),   glm::radians(-90.0f), glm::vec2(2.0f, 0.75f), 10},
+  {glm::vec2(8.75f, 6.25f),  glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  0},
+  {glm::vec2(8.75f, 7.75f),  glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  5},
+  {glm::vec2(9.25f, 6.25f),  glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  1},
+  {glm::vec2(9.25f, 7.75f),  glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  8},
+  {glm::vec2(10.75f, 6.25f), glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  1},
+  {glm::vec2(10.75f, 7.75f), glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  8},
+  {glm::vec2(11.25f, 6.25f), glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  2},
+  {glm::vec2(11.25f, 7.75f), glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  9},
+  {glm::vec2(12.75f, 6.25f), glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  2},
+  {glm::vec2(12.75f, 7.75f), glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  9},
+  {glm::vec2(13.25f, 6.25f), glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  3},
+  {glm::vec2(13.25f, 7.75f), glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  10},
+  {glm::vec2(-1.0f)}, // sentinel
 };
 
 int ConvenienceStoreScene::Initialize(const glm::vec2 &stage_size) {
@@ -194,10 +149,12 @@ int ConvenienceStoreScene::Initialize(const glm::vec2 &stage_size) {
   }
   autodoor_ = autodoor;
 
-  for (int i=0; i<ARRAYSIZE(kShelfPositionTbl); ++i) {
-    ShopShelf *shelf = new ShopShelf(kShelfPositionTbl[i],
-                                     kShelfRotationTbl[i],
-                                     kShelfScaleTbl[i], "juice", 10);
+  for (auto initparam = kShelfInitParamTbl; initparam->pos.x > 0.0f;
+      ++initparam) {
+    assert(initparam->waypoint < stage_.const_graph().points().size());
+    ShopShelf *shelf = new ShopShelf(initparam->pos, initparam->rot,
+                                     initparam->scale, "juice", 10,
+                                     *(stage_.const_graph().points()[initparam->waypoint]));
     if (shelf == nullptr) {
       LOGGER.Error("Failed to create shelf");
       return -1;

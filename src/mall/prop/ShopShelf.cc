@@ -2,11 +2,15 @@
  * Copyright (C) 2014 The Motel On Jupiter
  */
 #include "mall/prop/ShopShelf.h"
+#include "navigation/Waypoint.h"
 #include "util/color_sample.h"
 
 ShopShelf::ShopShelf(const glm::vec2 &pos, float rot, const glm::vec2 &scale,
-                     std::string item, unsigned int itemstock)
+                     std::string stockitem, unsigned int stocknum,
+                     const Waypoint &waypoint)
 : BaseEntity(pos, rot, scale),
   EntityRectangleDraw(*this, false, WebColor::kGray),
-  item_(item), itemstock_(itemstock) {
+  stockitem_(stockitem),
+  stocknum_(stocknum),
+  waypoint_(waypoint) {
 }

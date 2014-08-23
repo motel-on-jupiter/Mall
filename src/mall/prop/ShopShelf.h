@@ -7,19 +7,23 @@
 #include "entity/BaseEntity.h"
 #include "entity/EntityDraw.h"
 
+class Waypoint;
+
 class ShopShelf : public BaseEntity, public EntityRectangleDraw {
  public:
   ShopShelf(const glm::vec2 &pos, float rot, const glm::vec2 &scale,
-            std::string item, unsigned int itemstock);
+            std::string stockitem, unsigned int stocknum,
+            const Waypoint &waypoint);
   virtual ~ShopShelf() {}
 
-  const std::string& item() const { return item_; }
-  unsigned int itemstock() const { return itemstock_; }
-  void set_itemstock(unsigned int itemstock) { itemstock_ = itemstock; }
+  const std::string& stockitem() const { return stockitem_; }
+  unsigned int stocknum() const { return stocknum_; }
+  void set_stocknum(unsigned int stocknum) { stocknum_ = stocknum; }
 
  private:
-  std::string item_;
-  unsigned int itemstock_;
+  std::string stockitem_;
+  unsigned int stocknum_;
+  const Waypoint &waypoint_;
 };
 
 #endif /* SHOPSHELF_H_ */
