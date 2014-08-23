@@ -13,9 +13,9 @@ EntityPhisiology::EntityPhisiology(BaseEntity &entity)
 }
 
 void EntityPhisiology::Update(float elapsed_time) {
-  hungry_ = std::min(hungry_ + 0.01f * elapsed_time, maxhungry_);
-  thirsty_ = std::min(thirsty_ + 0.01f * elapsed_time, maxthirsty_);
-  sleepy_ = std::min(sleepy_ + 0.003f * elapsed_time, maxsleepy_);
+  hungry_ = std::min(hungry_ + 10.0f * elapsed_time, maxhungry_);
+  thirsty_ = std::min(thirsty_ + 10.0f * elapsed_time, maxthirsty_);
+  sleepy_ = std::min(sleepy_ + 3.0f * elapsed_time, maxsleepy_);
 }
 
 float EntityPhisiology::GetAppetiteForFood() const {
