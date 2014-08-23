@@ -40,6 +40,7 @@ class EntityMixIn : public boost::noncopyable {
 
  protected:
   BaseEntity &entity() { return entity_; }
+  const BaseEntity &entity() const { return entity_; }
 
  private:
   BaseEntity &entity_;
