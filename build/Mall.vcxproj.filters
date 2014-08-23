@@ -318,5 +318,8 @@
     <ClInclude Include="..\src\mall\prop\MouseFood.h">
       <Filter>src\mall\prop</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\util\color_sample.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
