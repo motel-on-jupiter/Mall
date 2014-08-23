@@ -5,7 +5,7 @@
 #include <GL/glew.h>
 #include "entity/EntityRouting.h"
 #include "mall/MallTweakerContext.h"
-#include "util/def/ColorDef.h"
+#include "util/color_sample.h"
 
 const float Walker::kDefaultMoveSpeed = 5.0f * 1000.0f / 60.0f / 60.0f;
 const float Walker::kDefaultTurnSpeed = glm::radians(5.0f);

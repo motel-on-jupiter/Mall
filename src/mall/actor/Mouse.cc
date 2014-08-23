@@ -3,8 +3,8 @@
  */
 #include "Mouse.h"
 #include <algorithm>
+#include "util/color_sample.h"
 #include "mall/prop/MouseFood.h"
-#include "util/def/ColorDef.h"
 #include "util/math_aux.h"
 
 Mouse::Mouse(const glm::vec2 &pos, float rot, const glm::vec2 &scale,

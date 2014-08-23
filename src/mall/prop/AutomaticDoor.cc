@@ -4,8 +4,8 @@
 #include "mall/prop/AutomaticDoor.h"
 #include <algorithm>
 #include <boost/foreach.hpp>
+#include "util/color_sample.h"
 #include "util/macro_util.h"
-#include "util/def/ColorDef.h"
 
 const float AutomaticDoor::kDefaultDetectionDistance = 1.0f;
 const float AutomaticDoor::kDefaultStayTime = 1.0f;

@@ -5,7 +5,7 @@
 #include "entity/BaseEntity.h"
 #include "entity/EntityDraw.h"
 #include "entity/EntityRouting.h"
-#include "util/def/ColorDef.h"
+#include "util/color_sample.h"
 
 const float Automobile::kDefaultMoveSpeed = 20.0f * 1000.0f / 60.0f / 60.0f;
 const float Automobile::kDefaultTurnSpeed = glm::radians(360.0f);

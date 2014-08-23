@@ -11,8 +11,8 @@
 #include "mall/prop/AutomaticDoor.h"
 #include "mall/prop/ShopShelf.h"
 #include "navigation/Waypoint.h"
-#include "util/def/ColorDef.h"
 #include "util/logging/Logger.h"
+#include "util/color_sample.h"
 #include "util/macro_util.h"
 
 ConvenienceStoreAttendant::ConvenienceStoreAttendant(const glm::vec2 &pos) :
