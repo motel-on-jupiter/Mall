@@ -99,6 +99,11 @@ int MallMain(int argc, char *argv[], const char *config_path) {
                  "group='System' label='Actual Frame Rate'") == 0) {
     LOGGER.Warn("Failed to add a tweak variable for actual-FPS (errmsg: %s)", TwGetLastError());
   }
+  if (TwAddVarRW(tw_bar, "SYSTEM_TIME_SPEED", TW_TYPE_FLOAT,
+                 &(tweaker_ctx.system_time_speed),
+                 "group='System' label='Time Speed' min='0' max='30' step='0.5'") == 0) {
+    LOGGER.Warn("Failed to add a tweak variable for time-speed (errmsg: %s)", TwGetLastError());
+  }
   if (TwAddVarRW(tw_bar, "WAKLER_ROUTE_VISIBLE", TW_TYPE_BOOLCPP,
                  &(tweaker_ctx.walker_route_visible),
                  "group='Walker' label='Route Visible'") == 0) {
@@ -159,7 +164,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     }
 
     // Update the game
-    int ret = game.Update(kGameLoopIntervalSec);
+    int ret = game.Update(kGameLoopIntervalSec * tweaker_ctx.system_time_speed);
     if (ret < 0) {
       LOGGER.Error("Failed to update the game objects (ret: %d)", ret);
       loop_stat = -1;
