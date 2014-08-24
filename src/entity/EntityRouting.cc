@@ -48,8 +48,8 @@ void EntityRouting::Update(float elapsed_time) {
       if (abs(diffangle) > abs(invdiffangle)) {
         diffangle = invdiffangle;
       }
-      entity().Rotate(std::min<float>(turnspeed_, abs(diffangle)) *
-                      sign_f(diffangle));
+      entity().Rotate(std::min(normalize_angle(turnspeed_ * elapsed_time),
+                               abs(diffangle)) * sign_f(diffangle));
     }
   }
 }

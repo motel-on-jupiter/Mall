@@ -8,7 +8,7 @@
 #include "util/color_sample.h"
 
 const float Walker::kDefaultMoveSpeed = 5.0f * 1000.0f / 60.0f / 60.0f;
-const float Walker::kDefaultTurnSpeed = glm::radians(5.0f);
+const float Walker::kDefaultTurnSpeed = glm::radians(18000.0f) / 60.0f;
 
 Walker::Walker(float rot, const WaypointGraph &graph, const Waypoint &origin,
                const Waypoint &terminus, float movespeed, float turnspeed) :
