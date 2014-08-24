@@ -4,8 +4,8 @@
 #include "ConvenienceStoreScene.h"
 
 #include <vector>
-#include <GL/glew.h>
 #include <boost/foreach.hpp>
+#include <GL/glew.h>
 
 #include "mall/actor/Walker.h"
 #include "mall/prop/AutomaticDoor.h"
@@ -248,7 +248,7 @@ int ConvenienceStoreScene::Update(float elapsed_time) {
   }
 
   // Generate a walker randomly
-  if (glm::linearRand(0.0f, 100.0f) < 0.5f) {
+  if (glm::linearRand(0.0f, 1.0f) < 0.3f * elapsed_time) {
     const Waypoint *potal = stage_.const_graph().points()[kPortalWaypointIdx];
     const Waypoint &wanted = shelfs_[rand() % shelfs_.size()]->waypoint();
     size_t cashieridx = kCashierWaypointIdxTbl[rand() % ARRAYSIZE(kCashierWaypointIdxTbl)];

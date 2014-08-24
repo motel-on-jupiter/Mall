@@ -143,7 +143,7 @@ int BridgeScene::Update(float elapsed_time) {
     }
 
     float rot = glm::radians((i % 2 == 0) ? -90.0f : 90.0f);
-    if (glm::linearRand(0.0f, 100.0f) < 1.0f) {
+    if (glm::linearRand(0.0f, 1.0f) < 0.6f * elapsed_time) {
       Walker *walker = new Walker(rot, stage_.const_graph(),
                                   *(stage_.const_graph().points()[i * 2]),
                                   *(stage_.const_graph().points()[i * 2 + 1]));
@@ -167,7 +167,7 @@ int BridgeScene::Update(float elapsed_time) {
     }
 
     float rot = glm::radians((i % 2 == 0) ? 90.0f : -90.0f);
-    if (glm::linearRand(0.0f, 100.0f) < 0.75f) {
+    if (glm::linearRand(0.0f, 1.0f) < 0.45f * elapsed_time) {
       Automobile *automobile = new Automobile(rot, stage_.const_graph(),
                                               *(stage_.const_graph().points()[i * 2]),
                                               *(stage_.const_graph().points()[i * 2 + 1]));
