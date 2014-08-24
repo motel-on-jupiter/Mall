@@ -10,7 +10,7 @@
 #include <tchar.h>
 #include <Windows.h>
 
-const TCHAR *MessageBoxLogEmitter::kMessageBoxCaption = _T(
+const wchar_t *MessageBoxLogEmitter::kMessageBoxCaption = _T(
     "MessageBoxLogEmitter");
 
 MessageBoxLogEmitter::MessageBoxLogEmitter()
@@ -31,7 +31,7 @@ int MessageBoxLogEmitter::Finalize() {
 
 void MessageBoxLogEmitter::Emitv(const char *prefix, const char *format,
                                  va_list args) {
-  TCHAR buf[kMaxEmittableSize] = { 0 };
+  wchar_t buf[kMaxEmittableSize] = { 0 };
   size_t len = 0;
   errno_t error = mbstowcs_s(&len, buf, (size_t) kMaxEmittableSize, prefix,
                              (size_t) kMaxEmittableSize);

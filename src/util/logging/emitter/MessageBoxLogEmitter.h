@@ -6,7 +6,6 @@
 #define MESSAGEBOXLOGEMITTER_H_
 
 #include "util/logging/emitter/LogEmitter.h"
-#include <tchar.h>
 #include <boost/serialization/singleton.hpp>
 
 #define MESSAGE_BOX_LOG_EMITTER (MessageBoxLogEmitter::get_mutable_instance())
@@ -17,7 +16,7 @@ class MessageBoxLogEmitter : public LogEmitter,
   enum {
     kMaxEmittableSize = 1024
   };
-  static const TCHAR *kMessageBoxCaption;
+  static const wchar_t *kMessageBoxCaption;
 
   MessageBoxLogEmitter();
   virtual ~MessageBoxLogEmitter();
