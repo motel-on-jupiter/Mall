@@ -4,6 +4,7 @@
 #ifndef ENTITYDRAW_H_
 #define ENTITYDRAW_H_
 
+#include <GL/glew.h>
 #include "entity/BaseEntity.h"
 
 class EntityDraw : public EntityMixIn {

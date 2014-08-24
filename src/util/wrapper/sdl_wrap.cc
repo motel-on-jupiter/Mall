@@ -1,6 +1,7 @@
 /**
  * Copyright (C) 2014 The Motel on Jupiter
  */
+#include <GL/glew.h>
 #include <SDL_ttf.h>
 
 int RenderTTFText(TTF_Font *Font, const SDL_Color& Color,

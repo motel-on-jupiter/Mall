@@ -4,6 +4,7 @@
 #include "mall/prop/AutomaticDoor.h"
 #include <algorithm>
 #include <boost/foreach.hpp>
+#include <GL/glew.h>
 #include "util/color_sample.h"
 #include "util/macro_util.h"
 

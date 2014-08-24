@@ -7,6 +7,7 @@
 #include <sstream>
 #include <mmsystem.h>
 
+#include <AntTweakbar.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <SDL_ttf.h>

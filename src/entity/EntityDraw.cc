@@ -2,7 +2,6 @@
  * Copyright (C) 2014 The Motel on Jupiter
  */
 #include "entity/EntityDraw.h"
-#include <GL/glew.h>
 #include <glm/gtx/rotate_vector.hpp>
 #include "entity/BaseEntity.h"
 

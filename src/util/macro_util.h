@@ -14,10 +14,9 @@
 
 #ifdef _MSC_VER
 #include <Windows.h>
-#else
+#endif
 #ifndef ARRAYSIZE
 #define ARRAYSIZE(_var) (sizeof(_var) / sizeof((_var)[0]))
-#endif
 #endif
 
 #endif /* MACRO_UTIL_H_ */
