@@ -6,19 +6,33 @@
 
 #include <vector>
 #include "mall/actor/MallHuman.h"
+#include "mall/actor/Walker.h"
 #include "mall/MallGame.h"
 #include "mall/MallStage.h"
 
 class AutomaticDoor;
 class ShopShelf;
-class Walker;
 
 class ConvenienceStoreAttendant : public MallHuman {
  public:
   explicit ConvenienceStoreAttendant(const glm::vec2 &pos);
   virtual ~ConvenienceStoreAttendant() {}
+};
 
-  virtual void Draw();
+class ConvenienceStoreCustomer : public Walker {
+ public:
+  ConvenienceStoreCustomer(const WaypointGraph &graph, const Waypoint &potalpoint,
+                           const Waypoint &wantedpoint, const Waypoint &cashierpoint,
+                           const Waypoint &exitpoint);
+  virtual ~ConvenienceStoreCustomer() {}
+
+  int Update(float elapsed_time);
+
+ private:
+  const Waypoint &potalpoint_;
+  const Waypoint &wantedpoint_;
+  const Waypoint &cashierpoint_;
+  const Waypoint &exitpoint_;
 };
 
 class ConvenienceStoreStage : public MallStage {
@@ -53,6 +67,7 @@ class ConvenienceStoreScene : public MallGameSceneInterface {
   };
   static const ShelfInitParam kShelfInitParamTbl[];
   static const size_t kPortalWaypointIdx;
+  static const size_t kCashierWaypointIdxTbl[];
   static const size_t kExitWaypointIdx;
 
   bool initialized_;
@@ -60,7 +75,7 @@ class ConvenienceStoreScene : public MallGameSceneInterface {
   AutomaticDoor *autodoor_;
   std::vector<ShopShelf *> shelfs_;
   std::vector<ConvenienceStoreAttendant *> attendants_;
-  std::vector<Walker *> walkers_;
+  std::vector<ConvenienceStoreCustomer *> customers_;
 };
 
 #endif /* CONVENIENCESTORESCENE_H_ */

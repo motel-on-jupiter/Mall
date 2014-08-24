@@ -16,8 +16,9 @@ Walker::Walker(float rot, const WaypointGraph &graph, const Waypoint &origin,
   EntityRouting(*this, graph, origin, terminus, movespeed, turnspeed) {
 }
 
-void Walker::Update(float elapsed_time) {
+int Walker::Update(float elapsed_time) {
   EntityRouting::Update(elapsed_time);
+  return 0;
 }
 
 void Walker::Draw() {

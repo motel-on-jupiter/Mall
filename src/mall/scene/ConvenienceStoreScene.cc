@@ -15,12 +15,39 @@
 #include "util/color_sample.h"
 #include "util/macro_util.h"
 
-ConvenienceStoreAttendant::ConvenienceStoreAttendant(const glm::vec2 &pos) :
-  MallHuman(pos, 0.0f, X11Color::kOrange) {
+ConvenienceStoreAttendant::ConvenienceStoreAttendant(const glm::vec2 &pos)
+: MallHuman(pos, 0.0f, X11Color::kOrange) {
 }
 
-void ConvenienceStoreAttendant::Draw() {
-  MallHuman::Draw();
+ConvenienceStoreCustomer::ConvenienceStoreCustomer(const WaypointGraph &graph,
+                                                   const Waypoint &potalpoint,
+                                                   const Waypoint &wantedpoint,
+                                                   const Waypoint &cashierpoint,
+                                                   const Waypoint &exitpoint)
+: Walker(glm::radians(90.0f), graph, potalpoint, wantedpoint),
+  potalpoint_(potalpoint),
+  wantedpoint_(wantedpoint),
+  cashierpoint_(cashierpoint),
+  exitpoint_(exitpoint) {
+}
+
+int ConvenienceStoreCustomer::Update(float elapsed_time) {
+  // Update the motion
+  Walker::Update(elapsed_time);
+
+  // Re-routing
+  if (HasReached() && !(navi().rerouting())) {
+    if (lastgoal() == &wantedpoint_) {
+      Reroute(cashierpoint_);
+    } else if (lastgoal() == &cashierpoint_) {
+      Reroute(exitpoint_);
+    } else if (lastgoal() == &exitpoint_) {
+      return 1;
+    } else {
+      assert(false);
+    }
+  }
+  return 0;
 }
 
 ConvenienceStoreStage::ConvenienceStoreStage() : MallStage() {
@@ -97,7 +124,7 @@ ConvenienceStoreScene::ConvenienceStoreScene()
   autodoor_(nullptr),
   shelfs_(),
   attendants_(),
-  walkers_() {
+  customers_() {
 }
 
 ConvenienceStoreScene::~ConvenienceStoreScene() {
@@ -194,10 +221,10 @@ void ConvenienceStoreScene::Finalize() {
     delete attendant;
   }
   attendants_.clear();
-  BOOST_FOREACH(auto walker, walkers_) {
+  BOOST_FOREACH(auto walker, customers_) {
     delete walker;
   }
-  walkers_.clear();
+  customers_.clear();
   BOOST_FOREACH(auto shelf, shelfs_) {
     delete shelf;
   }
@@ -210,6 +237,7 @@ void ConvenienceStoreScene::Finalize() {
 }
 
 const size_t ConvenienceStoreScene::kPortalWaypointIdx = 4;
+const size_t ConvenienceStoreScene::kCashierWaypointIdxTbl[] = {8, 9};
 const size_t ConvenienceStoreScene::kExitWaypointIdx = 6;
 
 int ConvenienceStoreScene::Update(float elapsed_time) {
@@ -221,44 +249,34 @@ int ConvenienceStoreScene::Update(float elapsed_time) {
 
   // Generate a walker randomly
   if (glm::linearRand(0.0f, 100.0f) < 0.5f) {
-    ShopShelf *wanted = shelfs_[rand() % shelfs_.size()];
-    Walker *walker = new Walker(glm::radians(90.0f), stage_.const_graph(),
-                                *(stage_.const_graph().points()[kPortalWaypointIdx]),
-                                wanted->waypoint());
-    if (walker == nullptr) {
-      LOGGER.Error("Failed to create a walker");
+    const Waypoint *potal = stage_.const_graph().points()[kPortalWaypointIdx];
+    const Waypoint &wanted = shelfs_[rand() % shelfs_.size()]->waypoint();
+    size_t cashieridx = kCashierWaypointIdxTbl[rand() % ARRAYSIZE(kCashierWaypointIdxTbl)];
+    const Waypoint *cashier = stage_.const_graph().points()[cashieridx];
+    const Waypoint *exit = stage_.const_graph().points()[kExitWaypointIdx];
+    ConvenienceStoreCustomer *customer =
+        new ConvenienceStoreCustomer(stage_.const_graph(), *potal, wanted,
+                                     *cashier, *exit);
+    if (customer == nullptr) {
+      LOGGER.Error("Failed to create a customer");
       return -1;
     }
-    walkers_.push_back(walker);
+    customers_.push_back(customer);
   }
 
   // Update the objects
   autodoor_->Update(elapsed_time,
                     const_cast<const BaseEntity **>(
-                        reinterpret_cast<BaseEntity **>(walkers_.data())
+                        reinterpret_cast<BaseEntity **>(customers_.data())
                         ),
-                    walkers_.size());
-  for (auto it = walkers_.begin(); it != walkers_.end();) {
-    Walker *walker = *it;
-    walker->Update(elapsed_time);
-    if (walker->HasReached() && !(walker->navi().rerouting())) {
-      if (walker->lastgoal() == stage_.const_graph().points()[6]) {
-        // Reach the exit
-        delete walker;
-        it = walkers_.erase(it);
-        continue;
-      }
-      else if (walker->lastgoal() == stage_.const_graph().points()[8] ||
-               walker->lastgoal() == stage_.const_graph().points()[9]) {
-        // Go to exit
-        walker->Reroute(*(stage_.const_graph().points()[kExitWaypointIdx]));
-      }
-      else {
-        // Go to cashier
-        walker->Reroute(*(stage_.const_graph().points()[(rand() % 2 == 0) ? 8 : 9]));
-      }
+                    customers_.size());
+  for (auto it = customers_.begin(); it != customers_.end();) {
+    if ((*it)->Update(elapsed_time) == 1) {
+      delete *it;
+      it = customers_.erase(it);
+    } else {
+      ++it;
     }
-    ++it;
   }
   return 0;
 }
@@ -275,8 +293,8 @@ int ConvenienceStoreScene::Draw() {
   BOOST_FOREACH(auto attendant, attendants_) {
     attendant->Draw();
   }
-  BOOST_FOREACH(auto walker, walkers_) {
-    walker->Draw();
+  BOOST_FOREACH(auto customer, customers_) {
+    customer->Draw();
   }
   return 0;
 }
@@ -284,5 +302,6 @@ int ConvenienceStoreScene::Draw() {
 int ConvenienceStoreScene::OnMouseButtonDown(unsigned char button, const glm::vec2 &cursor_pos) {
   UNUSED(button);
   UNUSED(cursor_pos);
+
   return 0;
 }

@@ -17,7 +17,7 @@ public:
          float turnspeed = kDefaultTurnSpeed);
   virtual ~Walker() {}
 
-  virtual void Update(float elapsed_time);
+  virtual int Update(float elapsed_time);
   virtual void Draw();
 };
 

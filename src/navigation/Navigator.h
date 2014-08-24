@@ -21,6 +21,7 @@ public:
   void Reroute(const Waypoint &origin, const Waypoint &terminus);
   const Waypoint *GetTerminus() const;
 
+  const WaypointGraph &graph() const { return graph_; }
   bool rerouting() const { return rerouting_; }
 
 private:
