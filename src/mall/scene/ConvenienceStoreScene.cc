@@ -19,6 +19,23 @@ ConvenienceStoreAttendant::ConvenienceStoreAttendant(const glm::vec2 &pos)
 : MallHuman(pos, 0.0f, X11Color::kOrange) {
 }
 
+ConvenienceStoreCustomer *ConvenienceStoreCustomer::Create(ConvenienceStoreStage &stage,
+                                                           std::vector<ShopShelf *> shelfs,
+                                                           std::string wanteditem,
+                                                           unsigned int wantednum) {
+  BOOST_FOREACH(ShopShelf *shelf, shelfs) {
+    if (shelf->stockitem() == wanteditem) {
+      const Waypoint &cashierpoint = *stage.GetCashierWaypoint(rand() % stage.GetCashierNum());
+      return new ConvenienceStoreCustomer(stage.const_graph(),
+                                          stage.GetPotalWaypoint(),
+                                          shelf->waypoint(), cashierpoint,
+                                          stage.GetExitWaypoint(),
+                                          wanteditem, wantednum);
+    }
+  }
+  return nullptr;
+}
+
 ConvenienceStoreCustomer::ConvenienceStoreCustomer(const WaypointGraph &graph,
                                                    const Waypoint &potalpoint,
                                                    const Waypoint &wantedpoint,
@@ -53,6 +70,10 @@ int ConvenienceStoreCustomer::Update(float elapsed_time) {
   }
   return 0;
 }
+
+const size_t ConvenienceStoreStage::kPortalWaypointIdx = 4;
+const size_t ConvenienceStoreStage::kCashierWaypointIdxTbl[] = {8, 9};
+const size_t ConvenienceStoreStage::kExitWaypointIdx = 6;
 
 ConvenienceStoreStage::ConvenienceStoreStage() : MallStage() {
 }
@@ -122,6 +143,25 @@ void ConvenienceStoreStage::Finalize() {
   graph().Clear();
 }
 
+inline size_t ConvenienceStoreStage::GetCashierNum() const {
+  return ARRAYSIZE(kCashierWaypointIdxTbl);
+}
+
+inline const Waypoint &ConvenienceStoreStage::GetPotalWaypoint() const {
+  return *(const_graph().points().at(kPortalWaypointIdx));
+}
+
+inline const Waypoint *ConvenienceStoreStage::GetCashierWaypoint(size_t idx) const {
+  if (idx >= GetCashierNum()) {
+    return nullptr;
+  }
+  return const_graph().points().at(kCashierWaypointIdxTbl[idx]);
+}
+
+inline const Waypoint &ConvenienceStoreStage::GetExitWaypoint() const {
+  return *(const_graph().points().at(kExitWaypointIdx));
+}
+
 ConvenienceStoreScene::ConvenienceStoreScene()
 : initialized_(false),
   stage_(),
@@ -138,6 +178,29 @@ ConvenienceStoreScene::~ConvenienceStoreScene() {
     }
   }
 }
+
+std::string ConvenienceStoreScene::kShopItemList[] = {
+  "Juice",
+  "Canned Coffee",
+  "Beer",
+  "Magazine",
+  "Comics",
+  "Rice Ball",
+  "Packed Lunch",
+  "Ice Cream",
+  "Hair Spray",
+  "Toothbrush",
+  "Stationary",
+  "Under Ware",
+  "Instant Noodle",
+  "Dry Cell",
+  "Potate Chips",
+  "Candy",
+  "Dried Cuttlefish",
+  "Bar Of Chocolate",
+  "Desert",
+  "Bread",
+};
 
 const ConvenienceStoreScene::ShelfInitParam ConvenienceStoreScene::kShelfInitParamTbl[] = {
   {glm::vec2(9.0f, 4.0f),    glm::radians(0.0f),   glm::vec2(2.0f, 0.75f), "Juice", 50, 0},
@@ -183,9 +246,10 @@ int ConvenienceStoreScene::Initialize(const glm::vec2 &stage_size) {
   for (auto initparam = kShelfInitParamTbl; initparam->pos.x > 0.0f;
       ++initparam) {
     assert(initparam->waypoint < stage_.const_graph().points().size());
+    Waypoint *waypoint = stage_.const_graph().points()[initparam->waypoint];
     ShopShelf *shelf = new ShopShelf(initparam->pos, initparam->rot,
-                                     initparam->scale, "juice", 10,
-                                     *(stage_.const_graph().points()[initparam->waypoint]));
+                                     initparam->scale, initparam->stockitem,
+                                     initparam->stocknum, *waypoint);
     if (shelf == nullptr) {
       LOGGER.Error("Failed to create shelf");
       return -1;
@@ -240,10 +304,6 @@ void ConvenienceStoreScene::Finalize() {
   return;
 }
 
-const size_t ConvenienceStoreScene::kPortalWaypointIdx = 4;
-const size_t ConvenienceStoreScene::kCashierWaypointIdxTbl[] = {8, 9};
-const size_t ConvenienceStoreScene::kExitWaypointIdx = 6;
-
 int ConvenienceStoreScene::Update(float elapsed_time) {
   UNUSED(elapsed_time);
 
@@ -253,15 +313,8 @@ int ConvenienceStoreScene::Update(float elapsed_time) {
 
   // Generate a walker randomly
   if (glm::linearRand(0.0f, 1.0f) < 0.3f * elapsed_time) {
-    const Waypoint *potal = stage_.const_graph().points()[kPortalWaypointIdx];
-    const ShopShelf *shelf = shelfs_[rand() % shelfs_.size()];
-    const Waypoint &wanted = shelf->waypoint();
-    size_t cashieridx = kCashierWaypointIdxTbl[rand() % ARRAYSIZE(kCashierWaypointIdxTbl)];
-    const Waypoint *cashier = stage_.const_graph().points()[cashieridx];
-    const Waypoint *exit = stage_.const_graph().points()[kExitWaypointIdx];
-    ConvenienceStoreCustomer *customer =
-        new ConvenienceStoreCustomer(stage_.const_graph(), *potal, wanted,
-                                     *cashier, *exit, shelf->stockitem(), 1);
+    std::string &wanteditem = kShopItemList[rand() % ARRAYSIZE(kShopItemList)];
+    ConvenienceStoreCustomer *customer = ConvenienceStoreCustomer::Create(stage_, shelfs_, wanteditem, 1);
     if (customer == nullptr) {
       LOGGER.Error("Failed to create a customer");
       return -1;
