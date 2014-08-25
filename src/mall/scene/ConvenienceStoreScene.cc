@@ -23,12 +23,16 @@ ConvenienceStoreCustomer::ConvenienceStoreCustomer(const WaypointGraph &graph,
                                                    const Waypoint &potalpoint,
                                                    const Waypoint &wantedpoint,
                                                    const Waypoint &cashierpoint,
-                                                   const Waypoint &exitpoint)
+                                                   const Waypoint &exitpoint,
+                                                   std::string wanteditem,
+                                                   unsigned int wantednum)
 : Walker(glm::radians(90.0f), graph, potalpoint, wantedpoint),
   potalpoint_(potalpoint),
   wantedpoint_(wantedpoint),
   cashierpoint_(cashierpoint),
-  exitpoint_(exitpoint) {
+  exitpoint_(exitpoint),
+  wanteditem_(wanteditem),
+  wantednum_(wantednum) {
 }
 
 int ConvenienceStoreCustomer::Update(float elapsed_time) {
@@ -136,26 +140,26 @@ ConvenienceStoreScene::~ConvenienceStoreScene() {
 }
 
 const ConvenienceStoreScene::ShelfInitParam ConvenienceStoreScene::kShelfInitParamTbl[] = {
-  {glm::vec2(9.0f, 4.0f),    glm::radians(0.0f),   glm::vec2(2.0f, 0.75f), 0},
-  {glm::vec2(11.0f, 4.0f),   glm::radians(0.0f),   glm::vec2(2.0f, 0.75f), 1},
-  {glm::vec2(13.0f, 4.0f),   glm::radians(0.0f),   glm::vec2(2.0f, 0.75f), 2},
-  {glm::vec2(7.25f, 5.5f),   glm::radians(90.0f),  glm::vec2(1.75f, 0.3f), 0},
-  {glm::vec2(7.25f, 7.25f),  glm::radians(90.0f),  glm::vec2(1.75f, 0.3f), 5},
-  {glm::vec2(15.0f, 5.5f),   glm::radians(-90.0f), glm::vec2(2.0f, 0.75f), 3},
-  {glm::vec2(15.0f, 7.5f),   glm::radians(-90.0f), glm::vec2(2.0f, 0.75f), 10},
-  {glm::vec2(15.0f, 9.5f),   glm::radians(-90.0f), glm::vec2(2.0f, 0.75f), 10},
-  {glm::vec2(8.75f, 6.25f),  glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  0},
-  {glm::vec2(8.75f, 7.75f),  glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  5},
-  {glm::vec2(9.25f, 6.25f),  glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  1},
-  {glm::vec2(9.25f, 7.75f),  glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  8},
-  {glm::vec2(10.75f, 6.25f), glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  1},
-  {glm::vec2(10.75f, 7.75f), glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  8},
-  {glm::vec2(11.25f, 6.25f), glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  2},
-  {glm::vec2(11.25f, 7.75f), glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  9},
-  {glm::vec2(12.75f, 6.25f), glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  2},
-  {glm::vec2(12.75f, 7.75f), glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  9},
-  {glm::vec2(13.25f, 6.25f), glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  3},
-  {glm::vec2(13.25f, 7.75f), glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  10},
+  {glm::vec2(9.0f, 4.0f),    glm::radians(0.0f),   glm::vec2(2.0f, 0.75f), "Juice", 50, 0},
+  {glm::vec2(11.0f, 4.0f),   glm::radians(0.0f),   glm::vec2(2.0f, 0.75f), "Canned Coffee", 50, 1},
+  {glm::vec2(13.0f, 4.0f),   glm::radians(0.0f),   glm::vec2(2.0f, 0.75f), "Beer", 50, 2},
+  {glm::vec2(7.25f, 5.5f),   glm::radians(90.0f),  glm::vec2(1.75f, 0.3f), "Magazine", 30, 0},
+  {glm::vec2(7.25f, 7.25f),  glm::radians(90.0f),  glm::vec2(1.75f, 0.3f), "Comics", 50, 5},
+  {glm::vec2(15.0f, 5.5f),   glm::radians(-90.0f), glm::vec2(2.0f, 0.75f), "Rice Ball", 30, 3},
+  {glm::vec2(15.0f, 7.5f),   glm::radians(-90.0f), glm::vec2(2.0f, 0.75f), "Packed Lunch", 25, 10},
+  {glm::vec2(15.0f, 9.5f),   glm::radians(-90.0f), glm::vec2(2.0f, 0.75f), "Ice Cream", 30, 10},
+  {glm::vec2(8.75f, 6.25f),  glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  "Hair Spray", 15, 0},
+  {glm::vec2(8.75f, 7.75f),  glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  "Toothbrush", 15, 5},
+  {glm::vec2(9.25f, 6.25f),  glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  "Stationary", 15, 1},
+  {glm::vec2(9.25f, 7.75f),  glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  "Under Ware", 15, 8},
+  {glm::vec2(10.75f, 6.25f), glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  "Instant Noodle", 30, 1},
+  {glm::vec2(10.75f, 7.75f), glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  "Dry Cell", 30, 8},
+  {glm::vec2(11.25f, 6.25f), glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  "Potate Chips", 30, 2},
+  {glm::vec2(11.25f, 7.75f), glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  "Candy", 30, 9},
+  {glm::vec2(12.75f, 6.25f), glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  "Dried Cuttlefish", 30, 2},
+  {glm::vec2(12.75f, 7.75f), glm::radians(-90.0f), glm::vec2(1.5f, 0.5f),  "Bar Of Chocolate", 30, 9},
+  {glm::vec2(13.25f, 6.25f), glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  "Desert", 20, 3},
+  {glm::vec2(13.25f, 7.75f), glm::radians(90.0f),  glm::vec2(1.5f, 0.5f),  "Bread", 20, 10},
   {glm::vec2(-1.0f)}, // sentinel
 };
 
@@ -250,13 +254,14 @@ int ConvenienceStoreScene::Update(float elapsed_time) {
   // Generate a walker randomly
   if (glm::linearRand(0.0f, 1.0f) < 0.3f * elapsed_time) {
     const Waypoint *potal = stage_.const_graph().points()[kPortalWaypointIdx];
-    const Waypoint &wanted = shelfs_[rand() % shelfs_.size()]->waypoint();
+    const ShopShelf *shelf = shelfs_[rand() % shelfs_.size()];
+    const Waypoint &wanted = shelf->waypoint();
     size_t cashieridx = kCashierWaypointIdxTbl[rand() % ARRAYSIZE(kCashierWaypointIdxTbl)];
     const Waypoint *cashier = stage_.const_graph().points()[cashieridx];
     const Waypoint *exit = stage_.const_graph().points()[kExitWaypointIdx];
     ConvenienceStoreCustomer *customer =
         new ConvenienceStoreCustomer(stage_.const_graph(), *potal, wanted,
-                                     *cashier, *exit);
+                                     *cashier, *exit, shelf->stockitem(), 1);
     if (customer == nullptr) {
       LOGGER.Error("Failed to create a customer");
       return -1;

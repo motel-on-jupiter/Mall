@@ -4,6 +4,7 @@
 #ifndef CONVENIENCESTORESCENE_H_
 #define CONVENIENCESTORESCENE_H_
 
+#include <string>
 #include <vector>
 #include "mall/actor/MallHuman.h"
 #include "mall/actor/Walker.h"
@@ -23,7 +24,8 @@ class ConvenienceStoreCustomer : public Walker {
  public:
   ConvenienceStoreCustomer(const WaypointGraph &graph, const Waypoint &potalpoint,
                            const Waypoint &wantedpoint, const Waypoint &cashierpoint,
-                           const Waypoint &exitpoint);
+                           const Waypoint &exitpoint, std::string wanteditem,
+                           unsigned int wantednum);
   virtual ~ConvenienceStoreCustomer() {}
 
   int Update(float elapsed_time);
@@ -33,6 +35,8 @@ class ConvenienceStoreCustomer : public Walker {
   const Waypoint &wantedpoint_;
   const Waypoint &cashierpoint_;
   const Waypoint &exitpoint_;
+  std::string wanteditem_;
+  unsigned int wantednum_;
 };
 
 class ConvenienceStoreStage : public MallStage {
@@ -63,6 +67,8 @@ class ConvenienceStoreScene : public MallGameSceneInterface {
     glm::vec2 pos;
     float rot;
     glm::vec2 scale;
+    const char *stockitem;
+    unsigned int stocknum;
     size_t waypoint;
   };
   static const ShelfInitParam kShelfInitParamTbl[];
