@@ -15,7 +15,8 @@
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 
-MallGame::MallGame() : scene_(nullptr), font_(nullptr) {
+MallGame::MallGame()
+: scenes_(), activescene_(nullptr), stagesize_(), font_(nullptr) {
 }
 
 MallGame::~MallGame() {
@@ -23,6 +24,31 @@ MallGame::~MallGame() {
 }
 
 int MallGame::Initialize(const glm::vec2 &stage_size) {
+  MallGameSceneInterface *scene = new GridScene();
+  if (scene == nullptr) {
+    LOGGER.Error("Failed to create the grid scene");
+    return -1;
+  }
+  scenes_.push_back(scene);
+  scene = new BridgeScene();
+  if (scene == nullptr) {
+    LOGGER.Error("Failed to create the bridge scene");
+    return -1;
+  }
+  scenes_.push_back(scene);
+  scene = new ConvenienceStoreScene();
+  if (scene == nullptr) {
+    LOGGER.Error("Failed to create the covenience store scene");
+    return -1;
+  }
+  scenes_.push_back(scene);
+  scene = new MouseCageScene();
+  if (scene == nullptr) {
+    LOGGER.Error("Failed to create the mouse cage scene");
+    return -1;
+  }
+  scenes_.push_back(scene);
+
   // Set the parameter
   stagesize_ = stage_size;
 
@@ -37,11 +63,14 @@ int MallGame::Initialize(const glm::vec2 &stage_size) {
 }
 
 void MallGame::Finalize() {
-  if (scene_ != nullptr) {
-    scene_->Finalize();
-    delete scene_;
-    scene_ = nullptr;
+  if (activescene_) {
+    activescene_->Finalize();
+    activescene_ = nullptr;
   }
+  BOOST_FOREACH(MallGameSceneInterface *scene, scenes_) {
+    delete scene;
+  }
+  scenes_.clear();
   if (font_ != nullptr) {
     TTF_CloseFont(font_);
     font_ = nullptr;
@@ -49,16 +78,16 @@ void MallGame::Finalize() {
 }
 
 int MallGame::Update(float elapsed_time) {
-  if (scene_ == nullptr) {
+  if (activescene_ == nullptr) {
     return 2;
   }
-  return scene_->Update(elapsed_time);
+  return activescene_->Update(elapsed_time);
 }
 
 int MallGame::Draw(const glm::vec2 &window_size) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  if (scene_ == nullptr) {
+  if (activescene_ == nullptr) {
     return 0;
   }
 
@@ -70,49 +99,39 @@ int MallGame::Draw(const glm::vec2 &window_size) {
           static_cast<GLdouble>(window_size.y), 0.0, -1.0, 1.0);
   glMatrixMode(GL_MODELVIEW);
   glLoadMatrixf(glm::value_ptr(glm::scale(glm::vec3(40.0f, 40.0f, 1.0f))));
-  int ret = scene_->Draw();
+  int ret = activescene_->Draw();
   glPopMatrix();
 
   return ret;
 }
 
 int MallGame::OnKeyboardDown(SDL_Keycode key) {
-  if (scene_ == nullptr) {
-    if ((key >= SDLK_1) && (key <= SDLK_4)) {
-      if (key == SDLK_1) {
-        LOGGER.Info("Set up GridScene");
-        scene_ = new GridScene();
-      } else if (key == SDLK_2) {
-        LOGGER.Info("Set up BridgeScene");
-        scene_ = new BridgeScene();
-      } else if (key == SDLK_3) {
-        LOGGER.Info("Set up ConvenienceStoreScene");
-        scene_ = new ConvenienceStoreScene();
-      } else {
-        LOGGER.Info("Set up MouseCageScene");
-        scene_ = new MouseCageScene();
-      }
-      int ret = scene_->Initialize(stagesize_);
-      if (ret < 0) {
-        LOGGER.Error("Failed to initialize the game case");
-        return -1;
+  if (activescene_ == nullptr) {
+    if ((key >= SDLK_1) && (key <= SDLK_9)) {
+      if (key - SDLK_1 < static_cast<int>(scenes_.size())) {
+        LOGGER.Info("Set up the game scene");
+        activescene_ = scenes_.at(key - SDLK_1);
+        int ret = activescene_->Initialize(stagesize_);
+        if (ret < 0) {
+          LOGGER.Error("Failed to initialize the game case");
+          return -1;
+        }
       }
     }
   } else {
     if (key == SDLK_0) {
-      LOGGER.Info("Clean up the game-case");
-      scene_->Finalize();
-      delete scene_;
-      scene_ = nullptr;
+      LOGGER.Info("Clean up the game scene");
+      activescene_->Finalize();
+      activescene_ = nullptr;
     }
   }
   return 0;
 }
 
 int MallGame::OnMouseButtonDown(unsigned char button, int x, int y, const glm::vec2 &window_size) {
-  if (scene_ != nullptr) {
+  if (activescene_ != nullptr) {
     auto abs_cursor_pos = glm::vec2(static_cast<float>(x), static_cast<float>(y));
-    return scene_->OnMouseButtonDown(button, abs_cursor_pos / window_size);
+    return activescene_->OnMouseButtonDown(button, abs_cursor_pos / window_size);
   }
   return 0;
 }

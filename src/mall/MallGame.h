@@ -5,6 +5,7 @@
 #ifndef MALLGAME_H_
 #define MALLGAME_H_
 
+#include <vector>
 #include <SDL_ttf.h>
 
 class MallGameSceneInterface {
@@ -32,7 +33,8 @@ class MallGame {
   int OnMouseButtonDown(unsigned char button, int x, int y, const glm::vec2 &window_size);
 
  private:
-  MallGameSceneInterface *scene_;
+  std::vector<MallGameSceneInterface *> scenes_;
+  MallGameSceneInterface *activescene_;
   glm::vec2 stagesize_;
   TTF_Font *font_;
 };
