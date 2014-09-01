@@ -127,9 +127,6 @@
     <ClCompile Include="..\src\mall\scene\GridScene.cc">
       <Filter>src\mall\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\util\wrapper\sdl_wrap.cc">
-      <Filter>src\util\wrapper</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mall\scene\ConvenienceStoreScene.cc">
       <Filter>src\mall\scene</Filter>
     </ClCompile>

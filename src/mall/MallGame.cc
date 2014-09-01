@@ -5,7 +5,6 @@
 
 #include <GL/glew.h>
 #include <SDL_surface.h>
-#include <SDL_ttf.h>
 #include <SDL_video.h>
 
 #include "mall/scene/BridgeScene.h"
@@ -16,7 +15,7 @@
 #include "util/macro_util.h"
 
 MallGame::MallGame()
-: scenes_(), activescene_(nullptr), stagesize_(), font_(nullptr) {
+: scenes_(), activescene_(nullptr), stagesize_() {
 }
 
 MallGame::~MallGame() {
@@ -52,13 +51,6 @@ int MallGame::Initialize(const glm::vec2 &stage_size) {
   // Set the parameter
   stagesize_ = stage_size;
 
-  // Load font
-  font_ = TTF_OpenFont("share/ipag00303/ipag.ttf", 24);
-  if (font_ == nullptr) {
-    LOGGER.Error("Failed to open font with SDL_ttf (errmsg: %s)",
-                 TTF_GetError());
-    return -1;
-  }
   return 0;
 }
 
@@ -71,10 +63,6 @@ void MallGame::Finalize() {
     delete scene;
   }
   scenes_.clear();
-  if (font_ != nullptr) {
-    TTF_CloseFont(font_);
-    font_ = nullptr;
-  }
 }
 
 int MallGame::Update(float elapsed_time) {

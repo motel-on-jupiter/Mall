@@ -6,7 +6,6 @@
 #define MALLGAME_H_
 
 #include <vector>
-#include <SDL_ttf.h>
 
 class MallGameSceneInterface {
  public:
@@ -36,7 +35,6 @@ class MallGame {
   std::vector<MallGameSceneInterface *> scenes_;
   MallGameSceneInterface *activescene_;
   glm::vec2 stagesize_;
-  TTF_Font *font_;
 };
 
 #endif /* MALLGAME_H_ */

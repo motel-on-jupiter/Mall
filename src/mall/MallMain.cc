@@ -10,7 +10,6 @@
 #include <AntTweakbar.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
-#include <SDL_ttf.h>
 
 #include "mall/MallGame.h"
 #include "mall/MallTweakerContext.h"
@@ -47,13 +46,6 @@ int MallMain(int argc, char *argv[], const char *config_path) {
   // Initialize SDL
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     LOGGER.Error("Failed to initialize SDL video system (errmsg: %s)", SDL_GetError());
-    return -1;
-  }
-
-  // Initialize TTF font drawing library
-  if (TTF_Init() != 0) {
-    LOGGER.Error("Failed to initialize SDL_ttf (errmsg: %s)", TTF_GetError());
-    MallCleanUp();
     return -1;
   }
 
@@ -218,6 +210,5 @@ static void MallCleanUp() {
   if (window != nullptr) {
     SDL_DestroyWindow(window);
   }
-  TTF_Quit();
   SDL_Quit();
 }
