@@ -66,7 +66,7 @@ class ConvenienceStoreCustomer : public Walker {
   unsigned int wantednum_;
 };
 
-class ConvenienceStoreScene : public MallGameSceneInterface {
+class ConvenienceStoreScene : public MallBaseGameScene {
  public:
   ConvenienceStoreScene();
   ~ConvenienceStoreScene();

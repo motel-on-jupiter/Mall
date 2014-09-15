@@ -78,6 +78,7 @@ void BridgeStage::Finalize() {
 }
 
 BridgeScene::BridgeScene() :
+    MallBaseGameScene("Bridge Traffic"),
     initialized_(false), stage_(), walkers_(), automobiles_() {
   memset(lastgenwalkers_, 0, sizeof(lastgenwalkers_));
   memset(lastgenautomobiles_, 0, sizeof(lastgenautomobiles_));

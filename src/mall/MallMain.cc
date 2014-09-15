@@ -70,6 +70,10 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     return -1;
   }
 
+  // Initialize the GLUT (for bitmap font support)
+  int glut_argc = 0;
+  glutInit(&glut_argc, {});
+
   // Initialize the tweaker library
   if (TwInit(TW_OPENGL, NULL) == 0) {
     LOGGER.Error("Failed to initialize the tweaker library (errmsg: %s)", TwGetLastError());
@@ -139,11 +143,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
           escape_loop = true;
           break;
         case SDL_KEYDOWN:
-          if (event.key.keysym.sym == SDLK_ESCAPE) {
-            escape_loop = true;
-          } else {
-            game.OnKeyboardDown(event.key.keysym.sym);
-          }
+          game.OnKeyboardDown(event.key.keysym.sym);
           break;
         case SDL_MOUSEBUTTONDOWN:
           game.OnMouseButtonDown(event.button.button, event.button.x, event.button.y,
@@ -151,7 +151,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
           break;
       }
     }
-    if (escape_loop) {
+    if (escape_loop || !game.ongoing()) {
       break;
     }
 

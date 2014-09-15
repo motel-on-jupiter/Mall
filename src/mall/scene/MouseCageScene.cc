@@ -24,7 +24,7 @@ void MouseCageStage::Finalize() {
 }
 
 MouseCageScene::MouseCageScene()
-: stage_(), cheeses_(), waters_(), mouse_(nullptr) {
+: MallBaseGameScene("Mouse Cage"), stage_(), cheeses_(), waters_(), mouse_(nullptr) {
 }
 
 MouseCageScene::~MouseCageScene() {

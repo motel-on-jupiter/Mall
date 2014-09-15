@@ -163,7 +163,8 @@ inline const Waypoint &ConvenienceStoreStage::GetExitWaypoint() const {
 }
 
 ConvenienceStoreScene::ConvenienceStoreScene()
-: initialized_(false),
+: MallBaseGameScene("Convenience Store"),
+  initialized_(false),
   stage_(),
   autodoor_(nullptr),
   shelfs_(),

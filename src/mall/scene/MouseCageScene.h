@@ -21,7 +21,7 @@ class MouseCageStage : public MallStage {
   virtual void Finalize();
 };
 
-class MouseCageScene : public MallGameSceneInterface {
+class MouseCageScene : public MallBaseGameScene {
  public:
   MouseCageScene();
   virtual ~MouseCageScene();

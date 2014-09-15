@@ -29,7 +29,7 @@ class RoughGridStage : public GridStage {
   virtual int Initialize(const glm::vec2 &size);
 };
 
-class GridScene : public MallGameSceneInterface {
+class GridScene : public MallBaseGameScene {
  public:
   GridScene();
   ~GridScene();

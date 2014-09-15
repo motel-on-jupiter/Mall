@@ -25,7 +25,7 @@ class BridgeStage : public MallStage {
   static const glm::vec2 kRoadwayWaypointPosTbl[];
 };
 
-class BridgeScene : public MallGameSceneInterface {
+class BridgeScene : public MallBaseGameScene {
  public:
   BridgeScene();
   ~BridgeScene();

@@ -79,6 +79,7 @@ int RoughGridStage::Initialize(const glm::vec2 &size) {
 }
 
 GridScene::GridScene() :
+    MallBaseGameScene("Grid Wandering"),
     initialized_(false),
     stage_(),
     walkers_() {
