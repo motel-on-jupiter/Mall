@@ -1,15 +1,12 @@
 /**
  * Copyright (C) 2014 The Motel on Jupiter
  */
-#include "GridScene.h"
-
-#include <boost/foreach.hpp>
-#include <GL/glew.h>
-#include <glm/gtx/random.hpp>
-
+#include "core/scene/GridScene.h"
 #include "core/actor/Walker.h"
-#include "util/logging/Logger.h"
-#include "util/macro_util.h"
+#include "mojgame/auxiliary/csyntax_aux.h"
+#include "mojgame/includer/gl_include.h"
+#include "mojgame/includer/glm_include.h"
+#include "mojgame/logging/Logger.h"
 
 const int GridScene::kNumWalkWalkers = 5;
 
@@ -33,10 +30,10 @@ int GridStage::Initialize(const glm::vec2 &size) {
   int max_column = static_cast<int>(size.y / kGridInterval);
   for (int raw = 0; raw < max_raw; ++raw) {
     for (int column = 0; column < max_column; ++column) {
-      Waypoint *point = new Waypoint(glm::vec2(kGridInterval * (static_cast<float>(raw) + 0.5f),
+      mojgame::Waypoint *point = new mojgame::Waypoint(glm::vec2(kGridInterval * (static_cast<float>(raw) + 0.5f),
                                                kGridInterval * (static_cast<float>(column) + 0.5f)));
       if (point == nullptr) {
-        LOGGER.Error("Failed to allocate the waypoint object");
+        mojgame::LOGGER().Error("Failed to allocate the waypoint object");
         return -1;
       }
 
@@ -86,18 +83,13 @@ GridScene::GridScene() :
 }
 
 GridScene::~GridScene() {
-  if (initialized_) {
-    if (!Logger::is_destroyed()) {
-      LOGGER.Warn("Need to finalize the game");
-    }
-  }
 }
 
 int GridScene::Initialize(const glm::vec2 &stage_size) {
   // Initialize the stage
   int ret = stage_.Initialize(stage_size);
   if (ret != 0) {
-    LOGGER.Error("Failed to initialize the stage");
+    mojgame::LOGGER().Error("Failed to initialize the stage");
     return -1;
   }
 
@@ -109,9 +101,9 @@ int GridScene::Initialize(const glm::vec2 &stage_size) {
                                 *(stage_.const_graph().points()[originidx]),
                                 *(stage_.const_graph().points()[terminusidx]));
     if (walker == nullptr) {
-      LOGGER.Error("Failed to create the walker object (idx: %d)", i);
-      BOOST_FOREACH (auto walker, walkers_) {
-        delete walker;
+      mojgame::LOGGER().Error("Failed to create the walker object (idx: %d)", i);
+      for (auto it = walkers_.begin(); it != walkers_.end(); ++it) {
+        delete *it;
       }
       walkers_.clear();
       return -1;
@@ -130,17 +122,14 @@ int GridScene::Initialize(const glm::vec2 &stage_size) {
 
 void GridScene::Finalize() {
   if (!initialized_) {
-    LOGGER.Notice("Ignored the duplicate call to finalize game");
+    mojgame::LOGGER().Notice("Ignored the duplicate call to finalize game");
     return;
   }
-
-  BOOST_FOREACH (auto walker, walkers_) {
-    delete walker;
+  for (auto it = walkers_.begin(); it != walkers_.end(); ++it) {
+    delete *it;
   }
   stage_.Finalize();
-
   initialized_ = false;
-
   return;
 }
 
@@ -151,7 +140,8 @@ int GridScene::Update(float elapsed_time) {
     return 1;
   }
 
-  BOOST_FOREACH (auto walker, walkers_) {
+  for (auto it = walkers_.begin(); it != walkers_.end(); ++it) {
+    Walker *walker = *it;
     walker->Update(elapsed_time);
     if (walker->HasReached() && !(walker->navi().rerouting())) {
       unsigned int terminusidx = static_cast<int>(glm::linearRand(0.0f, static_cast<float>(stage_.const_graph().points().size())));
@@ -167,8 +157,8 @@ int GridScene::Draw() {
     return 1;
   }
   stage_.Draw();
-  BOOST_FOREACH (auto walker, walkers_) {
-    walker->Draw();
+  for (auto it = walkers_.begin(); it != walkers_.end(); ++it) {
+    (*it)->Draw();
   }
   return 0;
 }
@@ -177,16 +167,16 @@ int GridScene::OnMouseButtonDown(unsigned char button, const glm::vec2 &cursor_p
   if (button == 1) {
     Walker *nearest_walker = nullptr;
     float nearest_dist = 0.0f;
-    BOOST_FOREACH (auto walker, walkers_) {
-      float dist = glm::length(cursor_pos * stage_.size() - walker->pos());
+    for (auto it = walkers_.begin(); it != walkers_.end(); ++it) {
+      float dist = glm::length(cursor_pos * stage_.size() - (*it)->pos());
       if ((nearest_walker == nullptr) || (dist < nearest_dist)) {
-        nearest_walker = walker;
+        nearest_walker = *it;
         nearest_dist = dist;
       }
     }
     if (nearest_dist < 10.0f) {
       assert(nearest_walker != nullptr);
-      LOGGER.Info("name: %s, sex: %d, age: %d, height: %d, weight: %d",
+      mojgame::LOGGER().Info("name: %s, sex: %d, age: %d, height: %d, weight: %d",
                   nearest_walker->property().name(),
                   nearest_walker->property().sex(),
                   nearest_walker->property().age(),

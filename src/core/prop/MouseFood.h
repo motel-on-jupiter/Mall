@@ -1,17 +1,20 @@
 /**
  * Copyright (C) 2014 The Motel On Jupiter
  */
-#ifndef MOUSEFOOD_H_
-#define MOUSEFOOD_H_
+#ifndef CORE_PROP_MOUSEFOOD_H_
+#define CORE_PROP_MOUSEFOOD_H_
 
-#include "entity/BaseEntity.h"
-#include "entity/EntityDraw.h"
+#include "mojgame/catalogue/entity_extention/PlanarEntityDraw.h"
+#include "mojgame/entity/PlanarEntity.h"
+#include "mojgame/includer/glm_include.h"
 
 class Mouse;
 
-class MouseFood : public BaseEntity, public EntityRectangleDraw {
+class MouseFood : public mojgame::PlanarEntity,
+    public mojgame::EntityRectangleDraw {
  public:
-  MouseFood(const glm::vec2 &pos, float rot, const glm::vec2 &scale, const GLubyte *color);
+  MouseFood(const glm::vec2 &pos, float rot, const glm::vec2 &scale,
+            const GLubyte *color);
   virtual ~MouseFood();
 
   virtual void Affect(Mouse &mouse) const = 0;
@@ -33,4 +36,4 @@ class MouseWater : public MouseFood {
   virtual void Affect(Mouse &mouse) const;
 };
 
-#endif /* MOUSEFOOD_H_ */
+#endif /* CORE_PROP_MOUSEFOOD_H_ */

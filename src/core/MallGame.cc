@@ -3,16 +3,14 @@
  */
 #include "MallGame.h"
 
-#include <GL/glew.h>
-#include <SDL_surface.h>
-#include <SDL_video.h>
-
 #include "core/scene/BridgeScene.h"
 #include "core/scene/ConvenienceStoreScene.h"
 #include "core/scene/GridScene.h"
 #include "core/scene/MouseCageScene.h"
-#include "util/logging/Logger.h"
-#include "util/macro_util.h"
+#include "mojgame/auxiliary/csyntax_aux.h"
+#include "mojgame/includer/gl_include.h"
+#include "mojgame/includer/sdl_include.h"
+#include "mojgame/logging/Logger.h"
 
 MallGame::MallGame()
 : scenes_(), current_scene_(nullptr), stage_size_(), cursor_(0), ongoing_(false) {
@@ -25,25 +23,25 @@ MallGame::~MallGame() {
 int MallGame::Initialize(const glm::vec2 &stage_size) {
   MallBaseGameScene *scene = new GridScene();
   if (scene == nullptr) {
-    LOGGER.Error("Failed to create the grid scene");
+    mojgame::LOGGER().Error("Failed to create the grid scene");
     return -1;
   }
   scenes_.push_back(scene);
   scene = new BridgeScene();
   if (scene == nullptr) {
-    LOGGER.Error("Failed to create the bridge scene");
+    mojgame::LOGGER().Error("Failed to create the bridge scene");
     return -1;
   }
   scenes_.push_back(scene);
   scene = new ConvenienceStoreScene();
   if (scene == nullptr) {
-    LOGGER.Error("Failed to create the covenience store scene");
+    mojgame::LOGGER().Error("Failed to create the covenience store scene");
     return -1;
   }
   scenes_.push_back(scene);
   scene = new MouseCageScene();
   if (scene == nullptr) {
-    LOGGER.Error("Failed to create the mouse cage scene");
+    mojgame::LOGGER().Error("Failed to create the mouse cage scene");
     return -1;
   }
   scenes_.push_back(scene);
@@ -58,8 +56,8 @@ void MallGame::Finalize() {
     current_scene_->Finalize();
     current_scene_ = nullptr;
   }
-  BOOST_FOREACH(MallBaseGameScene *scene, scenes_) {
-    delete scene;
+  for (auto it = scenes_.begin(); it != scenes_.end(); ++it) {
+    delete *it;
   }
   scenes_.clear();
 }
@@ -140,11 +138,11 @@ int MallGame::OnKeyboardDown(SDL_Keycode key) {
         break;
       case SDLK_RETURN: {
         MallBaseGameScene *setup_scene = scenes_.at(cursor_);
-        LOGGER.Info("Set up the game scene (scene: %s)",
+        mojgame::LOGGER().Info("Set up the game scene (scene: %s)",
                     setup_scene->name().c_str());
         int ret = setup_scene->Initialize(stage_size_);
         if (ret < 0) {
-          LOGGER.Error("Failed to setup the scene (ret: %d, scene: %s)", ret,
+          mojgame::LOGGER().Error("Failed to setup the scene (ret: %d, scene: %s)", ret,
                        setup_scene->name().c_str());
           return -1;
         }
@@ -157,7 +155,7 @@ int MallGame::OnKeyboardDown(SDL_Keycode key) {
     }
   } else {
     if (key == SDLK_ESCAPE) {
-      LOGGER.Info("Clean up the game scene");
+      mojgame::LOGGER().Info("Clean up the game scene");
       current_scene_->Finalize();
       current_scene_ = nullptr;
     }

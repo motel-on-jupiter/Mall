@@ -1,14 +1,14 @@
 /**
  * Copyright (C) 2014 The Motel On Jupiter
  */
-#include "MouseFood.h"
+#include "core/prop/MouseFood.h"
 #include "core/actor/Mouse.h"
-#include "util/color_sample.h"
+#include "mojgame/sampler/color_sample.h"
 
 MouseFood::MouseFood(const glm::vec2 &pos, float rot, const glm::vec2 &scale,
                      const GLubyte* color)
-: BaseEntity(pos, rot, scale),
-  EntityRectangleDraw(*this, true, color) {
+: mojgame::PlanarEntity(pos, rot, scale),
+  mojgame::EntityRectangleDraw(*this, true, color) {
 }
 
 MouseFood::~MouseFood() {
@@ -16,7 +16,7 @@ MouseFood::~MouseFood() {
 
 MouseCheese::MouseCheese(const glm::vec2& pos, float rot,
                          const glm::vec2& scale)
-: MouseFood(pos, rot, scale, X11Color::kOrangeRed) {
+: MouseFood(pos, rot, scale, mojgame::X11Color::kOrangeRed) {
 }
 
 MouseCheese::~MouseCheese() {
@@ -28,7 +28,7 @@ void MouseCheese::Affect(Mouse &mouse) const {
 
 MouseWater::MouseWater(const glm::vec2& pos, float rot,
                        const glm::vec2& scale)
-: MouseFood(pos, rot, scale, X11Color::kAqua) {
+: MouseFood(pos, rot, scale, mojgame::X11Color::kAqua) {
 }
 
 MouseWater::~MouseWater() {

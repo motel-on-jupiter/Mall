@@ -1,20 +1,43 @@
 /**
  * Copyright (C) 2014 The Motel On Jupiter
  */
-#ifndef MOUSE_H_
-#define MOUSE_H_
+#ifndef CORE_ACTOR_MOUSE_H_
+#define CORE_ACTOR_MOUSE_H_
 
 #include <vector>
-#include "entity/BaseEntity.h"
-#include "entity/EntityDraw.h"
-#include "entity/EntityPhisiology.h"
+#include "mojgame/catalogue/entity_extention/PlanarEntityDraw.h"
+#include "mojgame/entity/PlanarEntity.h"
 
 class MouseCheese;
 class MouseFood;
 class MouseWater;
 
-class Mouse :
-    public BaseEntity, public EntityTriangleDraw, public EntityPhisiology {
+class MousePhisiology : public mojgame::PlanarEntityExtention {
+ public:
+  MousePhisiology(mojgame::PlanarEntity &entity);
+  virtual ~MousePhisiology() {
+  }
+
+  virtual void Update(float elapsed_time);
+
+  float GetAppetiteForFood() const;
+  float GetAppetiteForDrink() const;
+  float GetDesireForSleep() const;
+  void GratifyAppetitleForFood(float degree);
+  void GratifyAppetitleForDrink(float degree);
+  void GratifyDesireForSleep(float degree);
+
+ private:
+  float hungry_;
+  float maxhungry_;
+  float thirsty_;
+  float maxthirsty_;
+  float sleepy_;
+  float maxsleepy_;
+};
+
+class Mouse : public mojgame::PlanarEntity, public mojgame::EntityTriangleDraw,
+    public MousePhisiology {
  public:
   Mouse(const glm::vec2 &pos, float rot, const glm::vec2 &scale,
         const std::vector<const MouseCheese *> &cheeses,
@@ -37,4 +60,4 @@ class Mouse :
   float ingestingtimer_;
 };
 
-#endif /* MOUSE_H_ */
+#endif /* CORE_ACTOR_MOUSE_H_ */

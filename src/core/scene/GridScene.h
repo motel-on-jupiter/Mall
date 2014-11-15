@@ -2,8 +2,8 @@
  * Copyright (C) 2014 The Motel on Jupiter
  */
 
-#ifndef GRIDSCENE_H_
-#define GRIDSCENE_H_
+#ifndef CORE_SCENE_GRIDSCENE_H_
+#define CORE_SCENE_GRIDSCENE_H_
 
 #include "core/MallGame.h"
 #include "core/MallStage.h"
@@ -48,4 +48,4 @@ class GridScene : public MallBaseGameScene {
   std::vector<Walker *> walkers_;
 };
 
-#endif /* GRIDSCENE_H_ */
+#endif /* CORE_SCENE_GRIDSCENE_H_ */

@@ -1,19 +1,20 @@
 /**
  * Copyright (C) 2014 The Motel on Jupiter
  */
-#ifndef WALKER_H_
-#define WALKER_H_
+#ifndef CORE_ACTOR_WALKER_H_
+#define CORE_ACTOR_WALKER_H_
 
-#include "entity/EntityRouting.h"
 #include "core/actor/MallHuman.h"
+#include "mojgame/catalogue/entity_extention/PlanarEntityRouting.h"
+#include "mojgame/navigation/Waypoint.h"
 
-class Walker : public MallHuman, public EntityRouting {
+class Walker : public MallHuman, public mojgame::PlanarEntityRouting {
 public:
   static const float kDefaultMoveSpeed;
   static const float kDefaultTurnSpeed;
 
-  Walker(float rot, const WaypointGraph &graph, const Waypoint &origin,
-         const Waypoint &terminus, float movespeed = kDefaultMoveSpeed,
+  Walker(float rot, const mojgame::WaypointGraph &graph, const mojgame::Waypoint &origin,
+         const mojgame::Waypoint &terminus, float movespeed = kDefaultMoveSpeed,
          float turnspeed = kDefaultTurnSpeed);
   virtual ~Walker() {}
 
@@ -21,4 +22,4 @@ public:
   virtual void Draw();
 };
 
-#endif /* WALKER_H_ */
+#endif /* CORE_ACTOR_WALKER_H_ */

@@ -4,21 +4,23 @@
 #ifndef AUTOMOBILE_H_
 #define AUTOMOBILE_H_
 
-#include "entity/BaseEntity.h"
-#include "entity/EntityDraw.h"
-#include "entity/EntityRouting.h"
+#include "mojgame/entity/PlanarEntity.h"
+#include "mojgame/catalogue/entity_extention/PlanarEntityDraw.h"
+#include "mojgame/catalogue/entity_extention/PlanarEntityRouting.h"
 
-class Automobile :
-    public BaseEntity, public EntityRectangleDraw, public EntityRouting {
-public:
+class Automobile : public mojgame::PlanarEntity,
+    public mojgame::EntityRectangleDraw, public mojgame::PlanarEntityRouting {
+ public:
   static const float kDefaultMoveSpeed;
   static const float kDefaultTurnSpeed;
   static const glm::vec2 kScale;
 
-  Automobile(float rot, const WaypointGraph &graph, const Waypoint &origin,
-             const Waypoint &terminus, float movespeed = kDefaultMoveSpeed,
-             float turnspeed = kDefaultTurnSpeed);
-  virtual ~Automobile() {}
+  Automobile(float rot, const mojgame::WaypointGraph &graph,
+             const mojgame::Waypoint &origin, const mojgame::Waypoint &terminus,
+             float movespeed = kDefaultMoveSpeed, float turnspeed =
+                 kDefaultTurnSpeed);
+  virtual ~Automobile() {
+  }
 
   virtual void Update(float elapsed_time);
 };

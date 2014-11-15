@@ -2,40 +2,29 @@
  * Copyright (C) 2014 The Motel on Jupiter
  */
 #include "BridgeScene.h"
-
 #include <vector>
-#include <GL/glew.h>
-#include <boost/foreach.hpp>
-
 #include "core/actor/Automobile.h"
 #include "core/actor/Walker.h"
-#include "navigation/Waypoint.h"
-#include "util/logging/Logger.h"
-#include "util/macro_util.h"
+#include "mojgame/auxiliary/csyntax_aux.h"
+#include "mojgame/includer/gl_include.h"
+#include "mojgame/navigation/Waypoint.h"
+#include "mojgame/logging/Logger.h"
 
-BridgeStage::BridgeStage() : MallStage() {
+BridgeStage::BridgeStage()
+    : MallStage() {
 }
 
 BridgeStage::~BridgeStage() {
 }
 
-const glm::vec2 BridgeStage::kSidewalkWaypointPosTbl[] = {
-  glm::vec2(20.0f, 3.0f),
-  glm::vec2(0.0f, 3.0f),
-  glm::vec2(0.0f, 4.0f),
-  glm::vec2(20.0f, 4.0f),
-  glm::vec2(20.0f, 11.0f),
-  glm::vec2(0.0f, 11.0f),
-  glm::vec2(0.0f, 12.0f),
-  glm::vec2(20.0f, 12.0f),
-};
+const glm::vec2 BridgeStage::kSidewalkWaypointPosTbl[] = { glm::vec2(20.0f,
+                                                                     3.0f),
+    glm::vec2(0.0f, 3.0f), glm::vec2(0.0f, 4.0f), glm::vec2(20.0f, 4.0f),
+    glm::vec2(20.0f, 11.0f), glm::vec2(0.0f, 11.0f), glm::vec2(0.0f, 12.0f),
+    glm::vec2(20.0f, 12.0f), };
 
-const glm::vec2 BridgeStage::kRoadwayWaypointPosTbl[] = {
-  glm::vec2(0.0f, 6.5f),
-  glm::vec2(20.0f, 6.5f),
-  glm::vec2(20.0f, 8.5f),
-  glm::vec2(0.0f, 8.5f),
-};
+const glm::vec2 BridgeStage::kRoadwayWaypointPosTbl[] = { glm::vec2(0.0f, 6.5f),
+    glm::vec2(20.0f, 6.5f), glm::vec2(20.0f, 8.5f), glm::vec2(0.0f, 8.5f), };
 
 int BridgeStage::Initialize(const glm::vec2 &size) {
   // Call the base-class method
@@ -45,30 +34,33 @@ int BridgeStage::Initialize(const glm::vec2 &size) {
   }
 
   // Create the way-points
-  for (int i=0; i<ARRAYSIZE(kSidewalkWaypointPosTbl); ++i) {
-    Waypoint *point = new Waypoint(kSidewalkWaypointPosTbl[i]);
+  for (int i = 0; i < ARRAYSIZE(kSidewalkWaypointPosTbl); ++i) {
+    mojgame::Waypoint *point = new mojgame::Waypoint(
+        kSidewalkWaypointPosTbl[i]);
     if (point == nullptr) {
-      LOGGER.Error("Failed to allocate the sidewalk waypoint object (idx: %d)", i);
+      mojgame::LOGGER().Error(
+          "Failed to allocate the sidewalk waypoint object (idx: %d)", i);
       graph().Clear();
       return -1;
     }
     graph().AddPoint(point);
   }
-  for (int i=0; i<ARRAYSIZE(kSidewalkWaypointPosTbl) / 2; ++i) {
+  for (int i = 0; i < ARRAYSIZE(kSidewalkWaypointPosTbl) / 2; ++i) {
     graph().points()[i * 2]->AddNextPoint(graph().points()[i * 2 + 1]);
   }
-  for (int i=0; i<ARRAYSIZE(kRoadwayWaypointPosTbl); ++i) {
-    Waypoint *point = new Waypoint(kRoadwayWaypointPosTbl[i]);
+  for (int i = 0; i < ARRAYSIZE(kRoadwayWaypointPosTbl); ++i) {
+    mojgame::Waypoint *point = new mojgame::Waypoint(kRoadwayWaypointPosTbl[i]);
     if (point == nullptr) {
-      LOGGER.Error("Failed to allocate the roadway waypoint object (idx: %d)", i);
+      mojgame::LOGGER().Error(
+          "Failed to allocate the roadway waypoint object (idx: %d)", i);
       graph().Clear();
       return -1;
     }
     graph().AddPoint(point);
   }
-  for (int i=0; i<ARRAYSIZE(kRoadwayWaypointPosTbl) / 2; ++i) {
-    graph().points()[ARRAYSIZE(kSidewalkWaypointPosTbl) + i * 2]->
-        AddNextPoint(graph().points()[ARRAYSIZE(kSidewalkWaypointPosTbl) + i * 2 + 1]);
+  for (int i = 0; i < ARRAYSIZE(kRoadwayWaypointPosTbl) / 2; ++i) {
+    graph().points()[ARRAYSIZE(kSidewalkWaypointPosTbl) + i * 2]->AddNextPoint(
+        graph().points()[ARRAYSIZE(kSidewalkWaypointPosTbl) + i * 2 + 1]);
   }
   return 0;
 }
@@ -77,26 +69,24 @@ void BridgeStage::Finalize() {
   graph().Clear();
 }
 
-BridgeScene::BridgeScene() :
-    MallBaseGameScene("Bridge Traffic"),
-    initialized_(false), stage_(), walkers_(), automobiles_() {
+BridgeScene::BridgeScene()
+    : MallBaseGameScene("Bridge Traffic"),
+      initialized_(false),
+      stage_(),
+      walkers_(),
+      automobiles_() {
   memset(lastgenwalkers_, 0, sizeof(lastgenwalkers_));
   memset(lastgenautomobiles_, 0, sizeof(lastgenautomobiles_));
 }
 
 BridgeScene::~BridgeScene() {
-  if (initialized_) {
-    if (!Logger::is_destroyed()) {
-      LOGGER.Warn("Need to finalize the game");
-    }
-  }
 }
 
 int BridgeScene::Initialize(const glm::vec2 &stage_size) {
   // Initialize the stage
   int ret = stage_.Initialize(stage_size);
   if (ret != 0) {
-    LOGGER.Error("Failed to initialize the stage");
+    mojgame::LOGGER().Error("Failed to initialize the stage");
     return -1;
   }
 
@@ -111,15 +101,15 @@ int BridgeScene::Initialize(const glm::vec2 &stage_size) {
 
 void BridgeScene::Finalize() {
   if (!initialized_) {
-    LOGGER.Notice("Ignored the duplicate call to finalize game");
+    mojgame::LOGGER().Notice("Ignored the duplicate call to finalize game");
     return;
   }
-  BOOST_FOREACH(Automobile *automobile, automobiles_) {
-    delete automobile;
+  for (auto it = automobiles_.begin(); it != automobiles_.end(); ++it) {
+    delete *it;
   }
   automobiles_.clear();
-  BOOST_FOREACH(Walker *walker, walkers_) {
-    delete walker;
+  for (auto it = walkers_.begin(); it != walkers_.end(); ++it) {
+    delete *it;
   }
   walkers_.clear();
   stage_.Finalize();
@@ -135,11 +125,10 @@ int BridgeScene::Update(float elapsed_time) {
   int status = 0;
 
   // Generate new walker
-  for (unsigned int i=0; i<4; ++i) {
-    if ((lastgenwalkers_[i] != nullptr) &&
-        (glm::distance(stage_.const_graph().points()[i * 2]->pos(),
-                       lastgenwalkers_[i]->pos()) <=
-            Walker::kScale.y * 1.0f)) {
+  for (unsigned int i = 0; i < 4; ++i) {
+    if ((lastgenwalkers_[i] != nullptr)
+        && (glm::distance(stage_.const_graph().points()[i * 2]->pos(),
+                          lastgenwalkers_[i]->pos()) <= Walker::kScale.y * 1.0f)) {
       continue;
     }
 
@@ -149,7 +138,7 @@ int BridgeScene::Update(float elapsed_time) {
                                   *(stage_.const_graph().points()[i * 2]),
                                   *(stage_.const_graph().points()[i * 2 + 1]));
       if (walker == nullptr) {
-        LOGGER.Error("Failed to create new walker");
+        mojgame::LOGGER().Error("Failed to create new walker");
         status = -1;
         break;
       } else {
@@ -159,21 +148,21 @@ int BridgeScene::Update(float elapsed_time) {
     }
   }
   // Generate new automobile
-  for (unsigned int i=4; i<6; ++i) {
-    if ((lastgenautomobiles_[i - 4] != nullptr) &&
-        (glm::distance(stage_.const_graph().points()[i * 2]->pos(),
-                       lastgenautomobiles_[i - 4]->pos()) <=
-            Automobile::kScale.y * 1.0f)) {
+  for (unsigned int i = 4; i < 6; ++i) {
+    if ((lastgenautomobiles_[i - 4] != nullptr)
+        && (glm::distance(stage_.const_graph().points()[i * 2]->pos(),
+                          lastgenautomobiles_[i - 4]->pos())
+            <= Automobile::kScale.y * 1.0f)) {
       continue;
     }
 
     float rot = glm::radians((i % 2 == 0) ? 90.0f : -90.0f);
     if (glm::linearRand(0.0f, 1.0f) < 0.45f * elapsed_time) {
-      Automobile *automobile = new Automobile(rot, stage_.const_graph(),
-                                              *(stage_.const_graph().points()[i * 2]),
-                                              *(stage_.const_graph().points()[i * 2 + 1]));
+      Automobile *automobile = new Automobile(
+          rot, stage_.const_graph(), *(stage_.const_graph().points()[i * 2]),
+          *(stage_.const_graph().points()[i * 2 + 1]));
       if (automobile == nullptr) {
-        LOGGER.Error("Failed to create new automobile");
+        mojgame::LOGGER().Error("Failed to create new automobile");
         status = -1;
         break;
       } else {
@@ -184,7 +173,7 @@ int BridgeScene::Update(float elapsed_time) {
   }
 
   // Update the walkers
-  for(auto it = walkers_.begin(); it != walkers_.end();) {
+  for (auto it = walkers_.begin(); it != walkers_.end();) {
     Walker *walker = *it;
     assert(walker != nullptr);
     walker->Update(elapsed_time);
@@ -196,7 +185,7 @@ int BridgeScene::Update(float elapsed_time) {
     }
   }
   // Update the automobiles
-  for(auto it = automobiles_.begin(); it != automobiles_.end();) {
+  for (auto it = automobiles_.begin(); it != automobiles_.end();) {
     Automobile *automobile = *it;
     assert(automobile != nullptr);
     automobile->Update(elapsed_time);
@@ -216,16 +205,17 @@ int BridgeScene::Draw() {
     return 1;
   }
   stage_.Draw();
-  BOOST_FOREACH(Walker *walker, walkers_) {
-    walker->Draw();
+  for (auto it = walkers_.begin(); it != walkers_.end(); ++it) {
+    (*it)->Draw();
   }
-  BOOST_FOREACH(Automobile *automobile, automobiles_) {
-    automobile->Draw();
+  for (auto it = automobiles_.begin(); it != automobiles_.end(); ++it) {
+    (*it)->Draw();
   }
   return 0;
 }
 
-int BridgeScene::OnMouseButtonDown(unsigned char button, const glm::vec2 &cursor_pos) {
+int BridgeScene::OnMouseButtonDown(unsigned char button,
+                                   const glm::vec2 &cursor_pos) {
   UNUSED(button);
   UNUSED(cursor_pos);
   return 0;

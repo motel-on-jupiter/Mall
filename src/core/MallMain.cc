@@ -7,16 +7,16 @@
 #include <sstream>
 #include <mmsystem.h>
 
-#include <AntTweakbar.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
 
 #include "core/MallGame.h"
 #include "core/MallTweakerContext.h"
-#include "util/logging/Logger.h"
-#include "util/measurement/FPSCounter.h"
-#include "util/wrapper/glgraphics_wrap.h"
-#include "util/macro_util.h"
+#include "mojgame/auxiliary/atb_aux.h"
+#include "mojgame/auxiliary/csyntax_aux.h"
+#include "mojgame/includer/gl_include.h"
+#include "mojgame/logging/Logger.h"
+#include "mojgame/misc/FPSCounter.h"
 
 static const std::string kWindowCaption = "Mall - The Motel on Jupiter";
 static const Uint32 kWindowWidth = 800;
@@ -32,7 +32,7 @@ static SDL_Window *window = nullptr;
 static SDL_GLContext context = nullptr;
 static TwBar *tw_bar = nullptr;
 static MallGame game;
-static FPSCounter fps_counter(kFPSCountSamplingTime);
+static mojgame::FPSCounter fps_counter(kFPSCountSamplingTime);
 
 static void MallCleanUp();
 
@@ -41,11 +41,11 @@ int MallMain(int argc, char *argv[], const char *config_path) {
   UNUSED(argv);
   UNUSED(config_path);
 
-  LOGGER.Info("Set up the application");
+  mojgame::LOGGER().Info("Set up the application");
 
   // Initialize SDL
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-    LOGGER.Error("Failed to initialize SDL video system (errmsg: %s)", SDL_GetError());
+    mojgame::LOGGER().Error("Failed to initialize SDL video system (errmsg: %s)", SDL_GetError());
     return -1;
   }
 
@@ -57,7 +57,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
                             SDL_WINDOWPOS_CENTERED, kWindowWidth, kWindowHeight,
                             SDL_WINDOW_OPENGL);
   if (window == nullptr) {
-    LOGGER.Error("Failed to create SDL window (errmsg: %s)", SDL_GetError());
+    mojgame::LOGGER().Error("Failed to create SDL window (errmsg: %s)", SDL_GetError());
     MallCleanUp();
     return -1;
   }
@@ -65,7 +65,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
   // Create OpenGL context
   context = SDL_GL_CreateContext(window);
   if (context == nullptr) {
-    LOGGER.Error("Failed to create SDL context for OpenGL (errmsg: %s)", SDL_GetError());
+    mojgame::LOGGER().Error("Failed to create SDL context for OpenGL (errmsg: %s)", SDL_GetError());
     MallCleanUp();
     return -1;
   }
@@ -76,12 +76,12 @@ int MallMain(int argc, char *argv[], const char *config_path) {
 
   // Initialize the tweaker library
   if (TwInit(TW_OPENGL, NULL) == 0) {
-    LOGGER.Error("Failed to initialize the tweaker library (errmsg: %s)", TwGetLastError());
+    mojgame::LOGGER().Error("Failed to initialize the tweaker library (errmsg: %s)", TwGetLastError());
     MallCleanUp();
     return -1;
   }
   if (TwWindowSize(kWindowWidth, kWindowHeight) == 0) {
-    LOGGER.Error("Failed to set the window size to tweaker (errmsg: %s)", TwGetLastError());
+    mojgame::LOGGER().Error("Failed to set the window size to tweaker (errmsg: %s)", TwGetLastError());
     MallCleanUp();
     return -1;
   }
@@ -93,32 +93,32 @@ int MallMain(int argc, char *argv[], const char *config_path) {
   if (TwAddVarRO(tw_bar, "SYSTEM_ACTUAL_FRAME_RATE", TW_TYPE_INT8,
                  &(tweaker_ctx.system_actual_fps),
                  "group='System' label='Actual Frame Rate'") == 0) {
-    LOGGER.Warn("Failed to add a tweak variable for actual-FPS (errmsg: %s)", TwGetLastError());
+    mojgame::LOGGER().Warn("Failed to add a tweak variable for actual-FPS (errmsg: %s)", TwGetLastError());
   }
   if (TwAddVarRW(tw_bar, "SYSTEM_TIME_SPEED", TW_TYPE_FLOAT,
                  &(tweaker_ctx.system_time_speed),
                  "group='System' label='Time Speed' min='0' max='30' step='0.5'") == 0) {
-    LOGGER.Warn("Failed to add a tweak variable for time-speed (errmsg: %s)", TwGetLastError());
+    mojgame::LOGGER().Warn("Failed to add a tweak variable for time-speed (errmsg: %s)", TwGetLastError());
   }
   if (TwAddVarRW(tw_bar, "WAKLER_ROUTE_VISIBLE", TW_TYPE_BOOLCPP,
                  &(tweaker_ctx.walker_route_visible),
                  "group='Walker' label='Route Visible'") == 0) {
-    LOGGER.Warn("Failed to add a tweak variable for route-visible (errmsg: %s)", TwGetLastError());
+    mojgame::LOGGER().Warn("Failed to add a tweak variable for route-visible (errmsg: %s)", TwGetLastError());
   }
   if (TwAddVarRW(tw_bar, "STAGE_WAYPOINT_VISIBLE", TW_TYPE_BOOLCPP,
                  &(tweaker_ctx.stage_waypoint_visible),
                  "group='Stage' label='Waypoint Visible'") == 0) {
-    LOGGER.Warn("Failed to add a tweak variable for waypoint-visible (errmsg: %s)", TwGetLastError());
+    mojgame::LOGGER().Warn("Failed to add a tweak variable for waypoint-visible (errmsg: %s)", TwGetLastError());
   }
   if (TwAddVarRW(tw_bar, "STAGE_TRACABLE_VISIBLE", TW_TYPE_BOOLCPP,
                  &(tweaker_ctx.stage_traceable_visible),
                  "group='Stage' label='Traceable Visible'") == 0) {
-    LOGGER.Warn("Failed to add a tweak variable for graph-traceable-visible (errmsg: %s)", TwGetLastError());
+    mojgame::LOGGER().Warn("Failed to add a tweak variable for graph-traceable-visible (errmsg: %s)", TwGetLastError());
   }
 
   // Initialize the game
   if (game.Initialize(kStageSize) != 0) {
-    LOGGER.Error("Failed to initialize the game objects");
+    mojgame::LOGGER().Error("Failed to initialize the game objects");
     MallCleanUp();
     return -1;
   }
@@ -135,7 +135,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     bool escape_loop = false;
     SDL_Event event;
     while (SDL_PollEvent(&event) == 1) {
-      if (TwEventSDL20(&event) != 0) {
+      if (mojgame::atb_aux::TwEventSDL20(&event) != 0) {
         continue;
       }
       switch (event.type) {
@@ -158,7 +158,7 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     // Update the game
     int ret = game.Update(kGameLoopIntervalSec * tweaker_ctx.system_time_speed);
     if (ret < 0) {
-      LOGGER.Error("Failed to update the game objects (ret: %d)", ret);
+      mojgame::LOGGER().Error("Failed to update the game objects (ret: %d)", ret);
       loop_stat = -1;
       break;
     }
@@ -166,12 +166,12 @@ int MallMain(int argc, char *argv[], const char *config_path) {
     // Draw the objects
     ret = game.Draw(glm::vec2(kWindowWidth, kWindowHeight));
     if (ret < 0) {
-      LOGGER.Error("Failed to draw the game objects (ret: %d)", ret);
+      mojgame::LOGGER().Error("Failed to draw the game objects (ret: %d)", ret);
       loop_stat = -1;
       break;
     }
     if (TwDraw() == 0) {
-      LOGGER.Error("Failed to draw the tweaker (errmsg: %s)", TwGetLastError());
+      mojgame::LOGGER().Error("Failed to draw the tweaker (errmsg: %s)", TwGetLastError());
       loop_stat = -1;
       break;
     }
@@ -193,11 +193,11 @@ int MallMain(int argc, char *argv[], const char *config_path) {
 }
 
 static void MallCleanUp() {
-  LOGGER.Info("Clean up the application");
+  mojgame::LOGGER().Info("Clean up the application");
 
   game.Finalize();
   if (TwRemoveAllVars(tw_bar) == 0) {
-    LOGGER.Warn("Failed to remove all tweaker varibables (errmsg: %s)",
+    mojgame::LOGGER().Warn("Failed to remove all tweaker varibables (errmsg: %s)",
                 TwGetLastError());
   }
   if (TwTerminate() == 0) {

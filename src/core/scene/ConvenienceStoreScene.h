@@ -1,8 +1,8 @@
 /**
  * Copyright (C) 2014 The Motel on Jupiter
  */
-#ifndef CONVENIENCESTORESCENE_H_
-#define CONVENIENCESTORESCENE_H_
+#ifndef CORE_SCENE_CONVENIENCESTORESCENE_H_
+#define CORE_SCENE_CONVENIENCESTORESCENE_H_
 
 #include <string>
 #include <vector>
@@ -27,9 +27,9 @@ class ConvenienceStoreStage : public MallStage {
   virtual void Finalize();
 
   size_t GetCashierNum() const;
-  const Waypoint &GetPotalWaypoint() const;
-  const Waypoint *GetCashierWaypoint(size_t idx) const;
-  const Waypoint &GetExitWaypoint() const;
+  const mojgame::Waypoint &GetPotalWaypoint() const;
+  const mojgame::Waypoint *GetCashierWaypoint(size_t idx) const;
+  const mojgame::Waypoint &GetExitWaypoint() const;
 
  private:
   static const glm::vec2 kWaypointPositionTbl[];
@@ -52,16 +52,16 @@ class ConvenienceStoreCustomer : public Walker {
   int Update(float elapsed_time);
 
  protected:
-  ConvenienceStoreCustomer(const WaypointGraph &graph, const Waypoint &potalpoint,
-                           const Waypoint &wantedpoint, const Waypoint &cashierpoint,
-                           const Waypoint &exitpoint, std::string wanteditem,
+  ConvenienceStoreCustomer(const mojgame::WaypointGraph &graph, const mojgame::Waypoint &potalpoint,
+                           const mojgame::Waypoint &wantedpoint, const mojgame::Waypoint &cashierpoint,
+                           const mojgame::Waypoint &exitpoint, std::string wanteditem,
                            unsigned int wantednum);
 
  private:
-  const Waypoint &potalpoint_;
-  const Waypoint &wantedpoint_;
-  const Waypoint &cashierpoint_;
-  const Waypoint &exitpoint_;
+  const mojgame::Waypoint &potalpoint_;
+  const mojgame::Waypoint &wantedpoint_;
+  const mojgame::Waypoint &cashierpoint_;
+  const mojgame::Waypoint &exitpoint_;
   std::string wanteditem_;
   unsigned int wantednum_;
 };
@@ -97,4 +97,4 @@ class ConvenienceStoreScene : public MallBaseGameScene {
   std::vector<ConvenienceStoreCustomer *> customers_;
 };
 
-#endif /* CONVENIENCESTORESCENE_H_ */
+#endif /* CORE_SCENE_CONVENIENCESTORESCENE_H_ */

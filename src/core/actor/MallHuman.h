@@ -1,11 +1,11 @@
 /**
  * Copyright (C) 2014 The Motel on Jupiter
  */
-#ifndef MALLHUMAN_H_
-#define MALLHUMAN_H_
+#ifndef CORE_ACTOR_MALLHUMAN_H_
+#define CORE_ACTOR_MALLHUMAN_H_
 
-#include "entity/BaseEntity.h"
-#include "entity/EntityDraw.h"
+#include "mojgame/catalogue/entity_extention/PlanarEntityDraw.h"
+#include "mojgame/entity/PlanarEntity.h"
 
 class MallHumanProperty {
  public:
@@ -38,7 +38,7 @@ class MallHumanProperty {
   unsigned char weight_;
 };
 
-class MallHuman : public BaseEntity, public EntityRectangleDraw {
+class MallHuman : public mojgame::PlanarEntity, public mojgame::EntityRectangleDraw {
 public:
   static const glm::vec2 kScale;
 
@@ -51,4 +51,4 @@ private:
   MallHumanProperty property_;
 };
 
-#endif /* MALLHUMAN_H_ */
+#endif /* CORE_ACTOR_MALLHUMAN_H_ */

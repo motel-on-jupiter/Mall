@@ -5,11 +5,11 @@
 #define AUTOMATICDOOR_H_
 
 #include <vector>
-#include "entity/BaseEntity.h"
+#include "mojgame/entity/PlanarEntity.h"
 
 class Walker;
 
-class AutomaticDoor : public BaseEntity {
+class AutomaticDoor : public mojgame::PlanarEntity {
  public:
   static const float kDefaultDetectionDistance;
   static const float kDefaultStayTime;
@@ -22,7 +22,7 @@ class AutomaticDoor : public BaseEntity {
                 float openspeed = kDefaultOpenSpeed);
   virtual ~AutomaticDoor();
 
-  void Update(float elapsedtime, const BaseEntity **detecttargets,
+  void Update(float elapsedtime, const mojgame::PlanarEntity **detecttargets,
               size_t numtargets);
   void Draw();
 

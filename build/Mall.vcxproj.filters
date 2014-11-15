@@ -7,33 +7,6 @@
     <Filter Include="src\pch">
       <UniqueIdentifier>{da491382-eb5e-47f5-b0a5-85b79613aaef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\util">
-      <UniqueIdentifier>{a0c53f76-0fdf-4770-b5bb-deed13f008a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\util\logging">
-      <UniqueIdentifier>{535fb364-4fd2-431a-a7ee-81db418e4d4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\util\wrapper">
-      <UniqueIdentifier>{4ebfc1a6-adad-404e-a41a-d51bd8a67b19}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\util\logging\emitter">
-      <UniqueIdentifier>{4a78daca-3f4f-446a-929b-1ed36ccfaea3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\util\config">
-      <UniqueIdentifier>{1db45bc2-2208-44d7-8f17-41ec9d4302c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\util\config\reader">
-      <UniqueIdentifier>{4e7da0cc-f32f-4bc4-9a0d-b2a4b980df39}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\navigation">
-      <UniqueIdentifier>{2e092d5a-9299-4c75-88bf-2bc65a1906a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\entity">
-      <UniqueIdentifier>{3e1219e0-f4d4-4385-bc79-5052c626b3f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\util\measurement">
-      <UniqueIdentifier>{a58c77db-2fc1-428c-a6be-b13809aa0b07}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\core">
       <UniqueIdentifier>{39a98e8c-0104-43e8-a7d4-8277b38b795d}</UniqueIdentifier>
     </Filter>
@@ -46,29 +19,65 @@
     <Filter Include="src\core\prop">
       <UniqueIdentifier>{7565ef9a-4ca2-48da-a78c-7787224ffba6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\mojgame">
+      <UniqueIdentifier>{e7c547ff-dfa2-406c-89d2-1e147fe4c5d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\auxiliary">
+      <UniqueIdentifier>{035d5d46-8887-4577-8b44-9b5eefef692e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\auxiliary\gl">
+      <UniqueIdentifier>{d370be7e-fcc5-419c-8633-1f4164e5302d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\camera">
+      <UniqueIdentifier>{99c7523d-e739-41b2-809d-4016c8dec398}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\catalogue">
+      <UniqueIdentifier>{a4e6aaae-4036-4b7e-b248-7bc5a723cef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\catalogue\camera_controller">
+      <UniqueIdentifier>{247786d0-4d68-46c9-a4c6-daf5993046e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\catalogue\entity_extention">
+      <UniqueIdentifier>{b1f19d8e-cd54-4fe9-8829-2b21a7ba1836}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\catalogue\log_emitter">
+      <UniqueIdentifier>{cb8e68ac-620b-4233-a243-506eb765e381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\catalogue\scene">
+      <UniqueIdentifier>{3550eae0-484b-4494-84c7-2fdba96a1fd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\entity">
+      <UniqueIdentifier>{ec457a09-5c5d-4bfa-8b44-95f8c1024d12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\external">
+      <UniqueIdentifier>{64e82355-97d0-4a6a-894f-4dc4c02fa211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\includer">
+      <UniqueIdentifier>{04657997-6b0f-43e0-9543-4f4054185a91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\logging">
+      <UniqueIdentifier>{19e0b28a-6b97-427e-945b-80a4539f8a5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\misc">
+      <UniqueIdentifier>{736f684a-0df0-4074-8543-2e24054f911b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\sampler">
+      <UniqueIdentifier>{42ef9e08-e4c8-4978-bbb2-85f9f8bc7a91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\scene">
+      <UniqueIdentifier>{80c9f48d-64fa-4141-8f85-e39d5e17e57f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\external\inireader">
+      <UniqueIdentifier>{fed17f46-2d75-4ef4-80eb-62cb3912812b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mojgame\navigation">
+      <UniqueIdentifier>{d9ee2ae1-6b24-44ef-aa4c-f01351aa388a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\pch\precompile.cc">
       <Filter>src\pch</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\util\logging\emitter\PipeLogEmitter.cc">
-      <Filter>src\util\logging\emitter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\util\logging\emitter\DebuggerConsoleLogEmitter.cc">
-      <Filter>src\util\logging\emitter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\util\logging\emitter\FileLogEmitter.cc">
-      <Filter>src\util\logging\emitter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\util\logging\emitter\LogEmitter.cc">
-      <Filter>src\util\logging\emitter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\util\logging\emitter\MessageBoxLogEmitter.cc">
-      <Filter>src\util\logging\emitter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\util\logging\Logger.cc">
-      <Filter>src\util\logging</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\util\logging\Logger.cc">
       <Filter>src\util\logging</Filter>
     </ClCompile>
@@ -86,42 +95,6 @@
     </ClCompile>
     <ClCompile Include="..\src\util\logging\emitter\PipeLogEmitter.cc">
       <Filter>src\util\logging\emitter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\util\config\reader\GLINIReader.cpp">
-      <Filter>src\util\config\reader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\util\config\reader\INIReader.cpp">
-      <Filter>src\util\config\reader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\util\config\ini.c">
-      <Filter>src\util\config</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\util\wrapper\TwEventSDL20.c">
-      <Filter>src\util\wrapper</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\util\wrapper\atb_wrap.cc">
-      <Filter>src\util\wrapper</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\navigation\Waypoint.cc">
-      <Filter>src\navigation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\navigation\Navigator.cc">
-      <Filter>src\navigation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\entity\EntityRouting.cc">
-      <Filter>src\entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\entity\BaseEntity.cc">
-      <Filter>src\entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\entity\EntityDraw.cc">
-      <Filter>src\entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\util\measurement\FPSCounter.cc">
-      <Filter>src\util\measurement</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\entity\EntityPhisiology.cc">
-      <Filter>src\entity</Filter>
     </ClCompile>
     <ClCompile Include="..\src\core\MallGame.cc">
       <Filter>src\core</Filter>
@@ -171,38 +144,143 @@
     <ClCompile Include="..\src\main.cc">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\assert_aux.cc">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\atb_aux.cc">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\coroutine_aux.cc">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\csyntax_aux.cc">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\glm_aux.cc">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\ini_aux.cc">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\math_aux.cc">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\sdl_aux.cc">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\sdlttf_aux.cc">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\gl\gl_aux.cc">
+      <Filter>src\mojgame\auxiliary\gl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\gl\gl_cubic_rendering.cc">
+      <Filter>src\mojgame\auxiliary\gl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\gl\gl_planar_rendering.cc">
+      <Filter>src\mojgame\auxiliary\gl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\gl\gl_rendering.cc">
+      <Filter>src\mojgame\auxiliary\gl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\gl\gl_shader.cc">
+      <Filter>src\mojgame\auxiliary\gl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\gl\GLFrameBuffer.cc">
+      <Filter>src\mojgame\auxiliary\gl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\auxiliary\gl\GLMaterialColor.cc">
+      <Filter>src\mojgame\auxiliary\gl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\camera\Camera.cc">
+      <Filter>src\mojgame\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\camera\CameraController.cc">
+      <Filter>src\mojgame\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\catalogue\camera_controller\DesignerCameraController.cc">
+      <Filter>src\mojgame\catalogue\camera_controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\catalogue\camera_controller\FirstPersonCameraController.cc">
+      <Filter>src\mojgame\catalogue\camera_controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\catalogue\entity_extention\CubicEntityDraw.cc">
+      <Filter>src\mojgame\catalogue\entity_extention</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\catalogue\entity_extention\CubicEntityPhysics.cc">
+      <Filter>src\mojgame\catalogue\entity_extention</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\catalogue\entity_extention\PlanarEntityDraw.cc">
+      <Filter>src\mojgame\catalogue\entity_extention</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\catalogue\log_emitter\DebuggerConsoleLogEmitter.cc">
+      <Filter>src\mojgame\catalogue\log_emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\catalogue\log_emitter\FileLogEmitter.cc">
+      <Filter>src\mojgame\catalogue\log_emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\catalogue\log_emitter\MessageBoxLogEmitter.cc">
+      <Filter>src\mojgame\catalogue\log_emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\catalogue\log_emitter\PipeLogEmitter.cc">
+      <Filter>src\mojgame\catalogue\log_emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\catalogue\scene\TitleScene.cc">
+      <Filter>src\mojgame\catalogue\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\entity\CubicEntity.cc">
+      <Filter>src\mojgame\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\entity\PlanarEntity.cc">
+      <Filter>src\mojgame\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\external\inireader\INIReader.cpp">
+      <Filter>src\mojgame\external\inireader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\external\ini.c">
+      <Filter>src\mojgame\external</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\external\TwEventSDL20.c">
+      <Filter>src\mojgame\external</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\logging\LogEmitter.cc">
+      <Filter>src\mojgame\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\logging\Logger.cc">
+      <Filter>src\mojgame\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\misc\FPSCounter.cc">
+      <Filter>src\mojgame\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\sampler\color_sample.cc">
+      <Filter>src\mojgame\sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\sampler\physics_constant.cc">
+      <Filter>src\mojgame\sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\scene\BaseScene.cc">
+      <Filter>src\mojgame\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\scene\GraphDrivenScene.cc">
+      <Filter>src\mojgame\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\scene\SceneGraph.cc">
+      <Filter>src\mojgame\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\navigation\Navigator.cc">
+      <Filter>src\mojgame\navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\navigation\Waypoint.cc">
+      <Filter>src\mojgame\navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\catalogue\entity_extention\PlanarEntityRouting.cc">
+      <Filter>src\mojgame\catalogue\entity_extention</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\pch\precompile.h">
       <Filter>src\pch</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\util\logging\emitter\PipeLogEmitter.h">
-      <Filter>src\util\logging\emitter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\logging\emitter\DebuggerConsoleLogEmitter.h">
-      <Filter>src\util\logging\emitter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\logging\emitter\FileLogEmitter.h">
-      <Filter>src\util\logging\emitter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\logging\emitter\LogEmitter.h">
-      <Filter>src\util\logging\emitter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\logging\emitter\MessageBoxLogEmitter.h">
-      <Filter>src\util\logging\emitter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\logging\Logger.h">
-      <Filter>src\util\logging</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\wrapper\crtdbg_wrap.h">
-      <Filter>src\util\wrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\wrapper\glgraphics_wrap.h">
-      <Filter>src\util\wrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\wrapper\glm_wrap.h">
-      <Filter>src\util\wrapper</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\util\logging\Logger.h">
       <Filter>src\util\logging</Filter>
     </ClInclude>
@@ -229,51 +307,6 @@
     </ClInclude>
     <ClInclude Include="..\src\util\logging\emitter\PipeLogEmitter.h">
       <Filter>src\util\logging\emitter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\config\ini.h">
-      <Filter>src\util\config</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\config\reader\GLINIReader.h">
-      <Filter>src\util\config\reader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\config\reader\INIReader.h">
-      <Filter>src\util\config\reader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\macro_util.h">
-      <Filter>src\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\wrapper\atb_wrap.h">
-      <Filter>src\util\wrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\navigation\Waypoint.h">
-      <Filter>src\navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\navigation\Navigator.h">
-      <Filter>src\navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\wrapper\sdl_wrap.h">
-      <Filter>src\util\wrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\entity\EntityRouting.h">
-      <Filter>src\entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\entity\BaseEntity.h">
-      <Filter>src\entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\entity\EntityDraw.h">
-      <Filter>src\entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\measurement\FPSCounter.h">
-      <Filter>src\util\measurement</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\math_aux.h">
-      <Filter>src\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\entity\EntityPhisiology.h">
-      <Filter>src\entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\util\color_sample.h">
-      <Filter>src\util</Filter>
     </ClInclude>
     <ClInclude Include="..\src\core\MallGame.h">
       <Filter>src\core</Filter>
@@ -320,5 +353,175 @@
     <ClInclude Include="..\src\core\scene\MouseCageScene.h">
       <Filter>src\core\scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\assert_aux.h">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\atb_aux.h">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\coroutine_aux.h">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\csyntax_aux.h">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\glm_aux.h">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\ini_aux.h">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\math_aux.h">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\sdl_aux.h">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\sdlttf_aux.h">
+      <Filter>src\mojgame\auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\gl\gl_aux.h">
+      <Filter>src\mojgame\auxiliary\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\gl\gl_cubic_rendering.h">
+      <Filter>src\mojgame\auxiliary\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\gl\gl_planar_rendering.h">
+      <Filter>src\mojgame\auxiliary\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\gl\gl_rendering.h">
+      <Filter>src\mojgame\auxiliary\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\gl\gl_shader.h">
+      <Filter>src\mojgame\auxiliary\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\gl\GLFrameBuffer.h">
+      <Filter>src\mojgame\auxiliary\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\auxiliary\gl\GLMaterialColor.h">
+      <Filter>src\mojgame\auxiliary\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\camera\Camera.h">
+      <Filter>src\mojgame\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\camera\CameraController.h">
+      <Filter>src\mojgame\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\catalogue\camera_controller\DesignerCameraController.h">
+      <Filter>src\mojgame\catalogue\camera_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\catalogue\camera_controller\FirstPersonCameraController.h">
+      <Filter>src\mojgame\catalogue\camera_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\catalogue\entity_extention\CubicEntityDraw.h">
+      <Filter>src\mojgame\catalogue\entity_extention</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\catalogue\entity_extention\CubicEntityPhysics.h">
+      <Filter>src\mojgame\catalogue\entity_extention</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\catalogue\entity_extention\PlanarEntityDraw.h">
+      <Filter>src\mojgame\catalogue\entity_extention</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\catalogue\log_emitter\DebuggerConsoleLogEmitter.h">
+      <Filter>src\mojgame\catalogue\log_emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\catalogue\log_emitter\FileLogEmitter.h">
+      <Filter>src\mojgame\catalogue\log_emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\catalogue\log_emitter\MessageBoxLogEmitter.h">
+      <Filter>src\mojgame\catalogue\log_emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\catalogue\log_emitter\PipeLogEmitter.h">
+      <Filter>src\mojgame\catalogue\log_emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\catalogue\scene\TitleScene.h">
+      <Filter>src\mojgame\catalogue\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\entity\CubicEntity.h">
+      <Filter>src\mojgame\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\entity\PlanarEntity.h">
+      <Filter>src\mojgame\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\external\inireader\INIReader.h">
+      <Filter>src\mojgame\external\inireader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\external\coroutine.h">
+      <Filter>src\mojgame\external</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\external\glm_all.hpp">
+      <Filter>src\mojgame\external</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\external\ini.h">
+      <Filter>src\mojgame\external</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\includer\atb_include.h">
+      <Filter>src\mojgame\includer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\includer\bullet_include.h">
+      <Filter>src\mojgame\includer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\includer\coroutine_include.h">
+      <Filter>src\mojgame\includer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\includer\crtdbg_include.h">
+      <Filter>src\mojgame\includer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\includer\gl_include.h">
+      <Filter>src\mojgame\includer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\includer\glm_include.h">
+      <Filter>src\mojgame\includer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\includer\ini_include.h">
+      <Filter>src\mojgame\includer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\includer\sdl_include.h">
+      <Filter>src\mojgame\includer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\includer\sdlttf_include.h">
+      <Filter>src\mojgame\includer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\includer\spark_include.h">
+      <Filter>src\mojgame\includer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\logging\LogEmitter.h">
+      <Filter>src\mojgame\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\logging\Logger.h">
+      <Filter>src\mojgame\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\misc\FPSCounter.h">
+      <Filter>src\mojgame\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\sampler\color_sample.h">
+      <Filter>src\mojgame\sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\sampler\physics_constant.h">
+      <Filter>src\mojgame\sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\scene\BaseScene.h">
+      <Filter>src\mojgame\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\scene\GraphDrivenScene.h">
+      <Filter>src\mojgame\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\scene\SceneGraph.h">
+      <Filter>src\mojgame\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\navigation\Navigator.h">
+      <Filter>src\mojgame\navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\navigation\Waypoint.h">
+      <Filter>src\mojgame\navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mojgame\catalogue\entity_extention\PlanarEntityRouting.h">
+      <Filter>src\mojgame\catalogue\entity_extention</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\mojgame\logging\Logger.inl">
+      <Filter>src\mojgame\logging</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -26,40 +26,66 @@
     <ClCompile Include="..\src\core\scene\ConvenienceStoreScene.cc" />
     <ClCompile Include="..\src\core\scene\GridScene.cc" />
     <ClCompile Include="..\src\core\scene\MouseCageScene.cc" />
-    <ClCompile Include="..\src\entity\BaseEntity.cc" />
-    <ClCompile Include="..\src\entity\EntityDraw.cc" />
-    <ClCompile Include="..\src\entity\EntityPhisiology.cc" />
-    <ClCompile Include="..\src\entity\EntityRouting.cc" />
     <ClCompile Include="..\src\main.cc" />
-    <ClCompile Include="..\src\navigation\Navigator.cc" />
-    <ClCompile Include="..\src\navigation\Waypoint.cc" />
-    <ClCompile Include="..\src\pch\precompile.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\src\util\config\ini.c">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    <ClCompile Include="..\src\mojgame\auxiliary\assert_aux.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\atb_aux.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\coroutine_aux.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\csyntax_aux.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\glm_aux.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\gl\GLFrameBuffer.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\gl\GLMaterialColor.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\gl\gl_aux.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\gl\gl_cubic_rendering.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\gl\gl_planar_rendering.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\gl\gl_rendering.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\gl\gl_shader.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\ini_aux.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\math_aux.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\sdlttf_aux.cc" />
+    <ClCompile Include="..\src\mojgame\auxiliary\sdl_aux.cc" />
+    <ClCompile Include="..\src\mojgame\camera\Camera.cc" />
+    <ClCompile Include="..\src\mojgame\camera\CameraController.cc" />
+    <ClCompile Include="..\src\mojgame\catalogue\camera_controller\DesignerCameraController.cc" />
+    <ClCompile Include="..\src\mojgame\catalogue\camera_controller\FirstPersonCameraController.cc" />
+    <ClCompile Include="..\src\mojgame\catalogue\entity_extention\CubicEntityDraw.cc" />
+    <ClCompile Include="..\src\mojgame\catalogue\entity_extention\CubicEntityPhysics.cc" />
+    <ClCompile Include="..\src\mojgame\catalogue\entity_extention\PlanarEntityDraw.cc" />
+    <ClCompile Include="..\src\mojgame\catalogue\entity_extention\PlanarEntityRouting.cc" />
+    <ClCompile Include="..\src\mojgame\catalogue\log_emitter\DebuggerConsoleLogEmitter.cc" />
+    <ClCompile Include="..\src\mojgame\catalogue\log_emitter\FileLogEmitter.cc" />
+    <ClCompile Include="..\src\mojgame\catalogue\log_emitter\MessageBoxLogEmitter.cc" />
+    <ClCompile Include="..\src\mojgame\catalogue\log_emitter\PipeLogEmitter.cc" />
+    <ClCompile Include="..\src\mojgame\catalogue\scene\TitleScene.cc" />
+    <ClCompile Include="..\src\mojgame\entity\CubicEntity.cc" />
+    <ClCompile Include="..\src\mojgame\entity\PlanarEntity.cc" />
+    <ClCompile Include="..\src\mojgame\external\ini.c">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </ForcedIncludeFiles>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4127;4530;4996</DisableSpecificWarnings>
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4127;4530;4996</DisableSpecificWarnings>
     </ClCompile>
-    <ClCompile Include="..\src\util\config\reader\GLINIReader.cpp" />
-    <ClCompile Include="..\src\util\config\reader\INIReader.cpp" />
-    <ClCompile Include="..\src\util\logging\emitter\DebuggerConsoleLogEmitter.cc" />
-    <ClCompile Include="..\src\util\logging\emitter\FileLogEmitter.cc" />
-    <ClCompile Include="..\src\util\logging\emitter\LogEmitter.cc" />
-    <ClCompile Include="..\src\util\logging\emitter\MessageBoxLogEmitter.cc" />
-    <ClCompile Include="..\src\util\logging\emitter\PipeLogEmitter.cc" />
-    <ClCompile Include="..\src\util\logging\Logger.cc" />
-    <ClCompile Include="..\src\util\measurement\FPSCounter.cc" />
-    <ClCompile Include="..\src\util\wrapper\atb_wrap.cc" />
-    <ClCompile Include="..\src\util\wrapper\TwEventSDL20.c">
+    <ClCompile Include="..\src\mojgame\external\inireader\INIReader.cpp" />
+    <ClCompile Include="..\src\mojgame\external\TwEventSDL20.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\mojgame\logging\LogEmitter.cc" />
+    <ClCompile Include="..\src\mojgame\logging\Logger.cc" />
+    <ClCompile Include="..\src\mojgame\misc\FPSCounter.cc" />
+    <ClCompile Include="..\src\mojgame\navigation\Navigator.cc" />
+    <ClCompile Include="..\src\mojgame\navigation\Waypoint.cc" />
+    <ClCompile Include="..\src\mojgame\sampler\color_sample.cc" />
+    <ClCompile Include="..\src\mojgame\sampler\physics_constant.cc" />
+    <ClCompile Include="..\src\mojgame\scene\BaseScene.cc" />
+    <ClCompile Include="..\src\mojgame\scene\GraphDrivenScene.cc" />
+    <ClCompile Include="..\src\mojgame\scene\SceneGraph.cc" />
+    <ClCompile Include="..\src\pch\precompile.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -78,31 +104,65 @@
     <ClInclude Include="..\src\core\scene\ConvenienceStoreScene.h" />
     <ClInclude Include="..\src\core\scene\GridScene.h" />
     <ClInclude Include="..\src\core\scene\MouseCageScene.h" />
-    <ClInclude Include="..\src\entity\BaseEntity.h" />
-    <ClInclude Include="..\src\entity\EntityDraw.h" />
-    <ClInclude Include="..\src\entity\EntityPhisiology.h" />
-    <ClInclude Include="..\src\entity\EntityRouting.h" />
-    <ClInclude Include="..\src\navigation\Navigator.h" />
-    <ClInclude Include="..\src\navigation\Waypoint.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\assert_aux.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\atb_aux.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\coroutine_aux.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\csyntax_aux.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\glm_aux.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\gl\GLFrameBuffer.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\gl\GLMaterialColor.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\gl\gl_aux.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\gl\gl_cubic_rendering.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\gl\gl_planar_rendering.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\gl\gl_rendering.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\gl\gl_shader.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\ini_aux.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\math_aux.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\sdlttf_aux.h" />
+    <ClInclude Include="..\src\mojgame\auxiliary\sdl_aux.h" />
+    <ClInclude Include="..\src\mojgame\camera\Camera.h" />
+    <ClInclude Include="..\src\mojgame\camera\CameraController.h" />
+    <ClInclude Include="..\src\mojgame\catalogue\camera_controller\DesignerCameraController.h" />
+    <ClInclude Include="..\src\mojgame\catalogue\camera_controller\FirstPersonCameraController.h" />
+    <ClInclude Include="..\src\mojgame\catalogue\entity_extention\CubicEntityDraw.h" />
+    <ClInclude Include="..\src\mojgame\catalogue\entity_extention\CubicEntityPhysics.h" />
+    <ClInclude Include="..\src\mojgame\catalogue\entity_extention\PlanarEntityDraw.h" />
+    <ClInclude Include="..\src\mojgame\catalogue\entity_extention\PlanarEntityRouting.h" />
+    <ClInclude Include="..\src\mojgame\catalogue\log_emitter\DebuggerConsoleLogEmitter.h" />
+    <ClInclude Include="..\src\mojgame\catalogue\log_emitter\FileLogEmitter.h" />
+    <ClInclude Include="..\src\mojgame\catalogue\log_emitter\MessageBoxLogEmitter.h" />
+    <ClInclude Include="..\src\mojgame\catalogue\log_emitter\PipeLogEmitter.h" />
+    <ClInclude Include="..\src\mojgame\catalogue\scene\TitleScene.h" />
+    <ClInclude Include="..\src\mojgame\entity\CubicEntity.h" />
+    <ClInclude Include="..\src\mojgame\entity\PlanarEntity.h" />
+    <ClInclude Include="..\src\mojgame\external\coroutine.h" />
+    <ClInclude Include="..\src\mojgame\external\glm_all.hpp" />
+    <ClInclude Include="..\src\mojgame\external\ini.h" />
+    <ClInclude Include="..\src\mojgame\external\inireader\INIReader.h" />
+    <ClInclude Include="..\src\mojgame\includer\atb_include.h" />
+    <ClInclude Include="..\src\mojgame\includer\bullet_include.h" />
+    <ClInclude Include="..\src\mojgame\includer\coroutine_include.h" />
+    <ClInclude Include="..\src\mojgame\includer\crtdbg_include.h" />
+    <ClInclude Include="..\src\mojgame\includer\glm_include.h" />
+    <ClInclude Include="..\src\mojgame\includer\gl_include.h" />
+    <ClInclude Include="..\src\mojgame\includer\ini_include.h" />
+    <ClInclude Include="..\src\mojgame\includer\sdlttf_include.h" />
+    <ClInclude Include="..\src\mojgame\includer\sdl_include.h" />
+    <ClInclude Include="..\src\mojgame\includer\spark_include.h" />
+    <ClInclude Include="..\src\mojgame\logging\LogEmitter.h" />
+    <ClInclude Include="..\src\mojgame\logging\Logger.h" />
+    <ClInclude Include="..\src\mojgame\misc\FPSCounter.h" />
+    <ClInclude Include="..\src\mojgame\navigation\Navigator.h" />
+    <ClInclude Include="..\src\mojgame\navigation\Waypoint.h" />
+    <ClInclude Include="..\src\mojgame\sampler\color_sample.h" />
+    <ClInclude Include="..\src\mojgame\sampler\physics_constant.h" />
+    <ClInclude Include="..\src\mojgame\scene\BaseScene.h" />
+    <ClInclude Include="..\src\mojgame\scene\GraphDrivenScene.h" />
+    <ClInclude Include="..\src\mojgame\scene\SceneGraph.h" />
     <ClInclude Include="..\src\pch\precompile.h" />
-    <ClInclude Include="..\src\util\color_sample.h" />
-    <ClInclude Include="..\src\util\config\ini.h" />
-    <ClInclude Include="..\src\util\config\reader\GLINIReader.h" />
-    <ClInclude Include="..\src\util\config\reader\INIReader.h" />
-    <ClInclude Include="..\src\util\logging\emitter\DebuggerConsoleLogEmitter.h" />
-    <ClInclude Include="..\src\util\logging\emitter\FileLogEmitter.h" />
-    <ClInclude Include="..\src\util\logging\emitter\LogEmitter.h" />
-    <ClInclude Include="..\src\util\logging\emitter\MessageBoxLogEmitter.h" />
-    <ClInclude Include="..\src\util\logging\emitter\PipeLogEmitter.h" />
-    <ClInclude Include="..\src\util\logging\Logger.h" />
-    <ClInclude Include="..\src\util\macro_util.h" />
-    <ClInclude Include="..\src\util\math_aux.h" />
-    <ClInclude Include="..\src\util\measurement\FPSCounter.h" />
-    <ClInclude Include="..\src\util\wrapper\atb_wrap.h" />
-    <ClInclude Include="..\src\util\wrapper\crtdbg_wrap.h" />
-    <ClInclude Include="..\src\util\wrapper\glgraphics_wrap.h" />
-    <ClInclude Include="..\src\util\wrapper\glm_wrap.h" />
-    <ClInclude Include="..\src\util\wrapper\sdl_wrap.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\mojgame\logging\Logger.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1AA04D48-AD99-4B2A-8058-B840FC91770A}</ProjectGuid>
@@ -155,7 +215,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>MOJGAMELIB_WITH_GLEW;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <ForcedIncludeFiles>pch/precompile.h</ForcedIncludeFiles>
@@ -187,7 +247,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>MOJGAMELIB_WITH_GLEW;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <ForcedIncludeFiles>pch/precompile.h</ForcedIncludeFiles>
