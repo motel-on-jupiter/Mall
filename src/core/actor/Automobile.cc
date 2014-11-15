@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2014 The Motel on Jupiter
  */
-#include "mall/actor/Automobile.h"
+#include "core/actor/Automobile.h"
 #include "entity/BaseEntity.h"
 #include "entity/EntityDraw.h"
 #include "entity/EntityRouting.h"

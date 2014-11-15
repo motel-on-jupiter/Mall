@@ -25,17 +25,8 @@
     <Filter Include="src\util\config\reader">
       <UniqueIdentifier>{4e7da0cc-f32f-4bc4-9a0d-b2a4b980df39}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\mall">
-      <UniqueIdentifier>{127c405c-97a2-4fa0-be2f-ba5cddbd7415}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\mall\actor">
-      <UniqueIdentifier>{be309a10-42a5-41c7-8941-c88dcad634df}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\navigation">
       <UniqueIdentifier>{2e092d5a-9299-4c75-88bf-2bc65a1906a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\mall\scene">
-      <UniqueIdentifier>{1d106df7-ee78-4f12-adfd-0339722a2b92}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\entity">
       <UniqueIdentifier>{3e1219e0-f4d4-4385-bc79-5052c626b3f2}</UniqueIdentifier>
@@ -43,8 +34,17 @@
     <Filter Include="src\util\measurement">
       <UniqueIdentifier>{a58c77db-2fc1-428c-a6be-b13809aa0b07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\mall\prop">
-      <UniqueIdentifier>{1353de2a-f4f7-4954-a185-c4e8a38bbfbe}</UniqueIdentifier>
+    <Filter Include="src\core">
+      <UniqueIdentifier>{39a98e8c-0104-43e8-a7d4-8277b38b795d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core\scene">
+      <UniqueIdentifier>{66e50d94-7797-4f5f-8ce0-69309dba0f97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core\actor">
+      <UniqueIdentifier>{40a5f732-bda0-4aec-989d-f601c5e56d3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core\prop">
+      <UniqueIdentifier>{7565ef9a-4ca2-48da-a78c-7787224ffba6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -96,13 +96,6 @@
     <ClCompile Include="..\src\util\config\ini.c">
       <Filter>src\util\config</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\main.cc" />
-    <ClCompile Include="..\src\mall\MallMain.cc">
-      <Filter>src\mall</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mall\MallGame.cc">
-      <Filter>src\mall</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\util\wrapper\TwEventSDL20.c">
       <Filter>src\util\wrapper</Filter>
     </ClCompile>
@@ -112,26 +105,8 @@
     <ClCompile Include="..\src\navigation\Waypoint.cc">
       <Filter>src\navigation</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mall\actor\Walker.cc">
-      <Filter>src\mall\actor</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\navigation\Navigator.cc">
       <Filter>src\navigation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mall\MallStage.cc">
-      <Filter>src\mall</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mall\scene\BridgeScene.cc">
-      <Filter>src\mall\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mall\scene\GridScene.cc">
-      <Filter>src\mall\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mall\scene\ConvenienceStoreScene.cc">
-      <Filter>src\mall\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mall\actor\MallHuman.cc">
-      <Filter>src\mall\actor</Filter>
     </ClCompile>
     <ClCompile Include="..\src\entity\EntityRouting.cc">
       <Filter>src\entity</Filter>
@@ -142,32 +117,59 @@
     <ClCompile Include="..\src\entity\EntityDraw.cc">
       <Filter>src\entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mall\actor\Automobile.cc">
-      <Filter>src\mall\actor</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\util\measurement\FPSCounter.cc">
       <Filter>src\util\measurement</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mall\MallTweakerContext.cc">
-      <Filter>src\mall</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mall\prop\AutomaticDoor.cc">
-      <Filter>src\mall\prop</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mall\prop\ShopShelf.cc">
-      <Filter>src\mall\prop</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mall\scene\MouseCageScene.cc">
-      <Filter>src\mall\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mall\actor\Mouse.cc">
-      <Filter>src\mall\actor</Filter>
     </ClCompile>
     <ClCompile Include="..\src\entity\EntityPhisiology.cc">
       <Filter>src\entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mall\prop\MouseFood.cc">
-      <Filter>src\mall\prop</Filter>
+    <ClCompile Include="..\src\core\MallGame.cc">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\MallMain.cc">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\MallStage.cc">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\MallTweakerContext.cc">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\actor\Automobile.cc">
+      <Filter>src\core\actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\actor\MallHuman.cc">
+      <Filter>src\core\actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\actor\Mouse.cc">
+      <Filter>src\core\actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\actor\Walker.cc">
+      <Filter>src\core\actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\prop\AutomaticDoor.cc">
+      <Filter>src\core\prop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\prop\MouseFood.cc">
+      <Filter>src\core\prop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\prop\ShopShelf.cc">
+      <Filter>src\core\prop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\scene\BridgeScene.cc">
+      <Filter>src\core\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\scene\ConvenienceStoreScene.cc">
+      <Filter>src\core\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\scene\GridScene.cc">
+      <Filter>src\core\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\scene\MouseCageScene.cc">
+      <Filter>src\core\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cc">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -240,41 +242,17 @@
     <ClInclude Include="..\src\util\macro_util.h">
       <Filter>src\util</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\MallMain.h">
-      <Filter>src\mall</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mall\MallGame.h">
-      <Filter>src\mall</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\util\wrapper\atb_wrap.h">
       <Filter>src\util\wrapper</Filter>
     </ClInclude>
     <ClInclude Include="..\src\navigation\Waypoint.h">
       <Filter>src\navigation</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\actor\Walker.h">
-      <Filter>src\mall\actor</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\navigation\Navigator.h">
       <Filter>src\navigation</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\MallStage.h">
-      <Filter>src\mall</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mall\scene\BridgeScene.h">
-      <Filter>src\mall\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mall\scene\GridScene.h">
-      <Filter>src\mall\scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\util\wrapper\sdl_wrap.h">
       <Filter>src\util\wrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mall\scene\ConvenienceStoreScene.h">
-      <Filter>src\mall\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mall\actor\MallHuman.h">
-      <Filter>src\mall\actor</Filter>
     </ClInclude>
     <ClInclude Include="..\src\entity\EntityRouting.h">
       <Filter>src\entity</Filter>
@@ -285,38 +263,62 @@
     <ClInclude Include="..\src\entity\EntityDraw.h">
       <Filter>src\entity</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\actor\Automobile.h">
-      <Filter>src\mall\actor</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\util\measurement\FPSCounter.h">
       <Filter>src\util\measurement</Filter>
     </ClInclude>
     <ClInclude Include="..\src\util\math_aux.h">
       <Filter>src\util</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\MallTweakerContext.h">
-      <Filter>src\mall</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mall\prop\AutomaticDoor.h">
-      <Filter>src\mall\prop</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mall\prop\ShopShelf.h">
-      <Filter>src\mall\prop</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mall\scene\MouseCageScene.h">
-      <Filter>src\mall\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mall\actor\Mouse.h">
-      <Filter>src\mall\actor</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\entity\EntityPhisiology.h">
       <Filter>src\entity</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mall\prop\MouseFood.h">
-      <Filter>src\mall\prop</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\util\color_sample.h">
       <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\MallGame.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\MallMain.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\MallStage.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\MallTweakerContext.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\actor\Automobile.h">
+      <Filter>src\core\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\actor\MallHuman.h">
+      <Filter>src\core\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\actor\Mouse.h">
+      <Filter>src\core\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\actor\Walker.h">
+      <Filter>src\core\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\prop\AutomaticDoor.h">
+      <Filter>src\core\prop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\prop\MouseFood.h">
+      <Filter>src\core\prop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\prop\ShopShelf.h">
+      <Filter>src\core\prop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\scene\BridgeScene.h">
+      <Filter>src\core\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\scene\ConvenienceStoreScene.h">
+      <Filter>src\core\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\scene\GridScene.h">
+      <Filter>src\core\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\scene\MouseCageScene.h">
+      <Filter>src\core\scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

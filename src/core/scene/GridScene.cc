@@ -7,7 +7,7 @@
 #include <GL/glew.h>
 #include <glm/gtx/random.hpp>
 
-#include "mall/actor/Walker.h"
+#include "core/actor/Walker.h"
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 

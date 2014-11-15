@@ -11,26 +11,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\core\actor\Automobile.cc" />
+    <ClCompile Include="..\src\core\actor\MallHuman.cc" />
+    <ClCompile Include="..\src\core\actor\Mouse.cc" />
+    <ClCompile Include="..\src\core\actor\Walker.cc" />
+    <ClCompile Include="..\src\core\MallGame.cc" />
+    <ClCompile Include="..\src\core\MallMain.cc" />
+    <ClCompile Include="..\src\core\MallStage.cc" />
+    <ClCompile Include="..\src\core\MallTweakerContext.cc" />
+    <ClCompile Include="..\src\core\prop\AutomaticDoor.cc" />
+    <ClCompile Include="..\src\core\prop\MouseFood.cc" />
+    <ClCompile Include="..\src\core\prop\ShopShelf.cc" />
+    <ClCompile Include="..\src\core\scene\BridgeScene.cc" />
+    <ClCompile Include="..\src\core\scene\ConvenienceStoreScene.cc" />
+    <ClCompile Include="..\src\core\scene\GridScene.cc" />
+    <ClCompile Include="..\src\core\scene\MouseCageScene.cc" />
     <ClCompile Include="..\src\entity\BaseEntity.cc" />
     <ClCompile Include="..\src\entity\EntityDraw.cc" />
     <ClCompile Include="..\src\entity\EntityPhisiology.cc" />
     <ClCompile Include="..\src\entity\EntityRouting.cc" />
     <ClCompile Include="..\src\main.cc" />
-    <ClCompile Include="..\src\mall\actor\Automobile.cc" />
-    <ClCompile Include="..\src\mall\actor\MallHuman.cc" />
-    <ClCompile Include="..\src\mall\actor\Mouse.cc" />
-    <ClCompile Include="..\src\mall\actor\Walker.cc" />
-    <ClCompile Include="..\src\mall\MallGame.cc" />
-    <ClCompile Include="..\src\mall\MallMain.cc" />
-    <ClCompile Include="..\src\mall\MallStage.cc" />
-    <ClCompile Include="..\src\mall\MallTweakerContext.cc" />
-    <ClCompile Include="..\src\mall\prop\AutomaticDoor.cc" />
-    <ClCompile Include="..\src\mall\prop\MouseFood.cc" />
-    <ClCompile Include="..\src\mall\prop\ShopShelf.cc" />
-    <ClCompile Include="..\src\mall\scene\BridgeScene.cc" />
-    <ClCompile Include="..\src\mall\scene\ConvenienceStoreScene.cc" />
-    <ClCompile Include="..\src\mall\scene\GridScene.cc" />
-    <ClCompile Include="..\src\mall\scene\MouseCageScene.cc" />
     <ClCompile Include="..\src\navigation\Navigator.cc" />
     <ClCompile Include="..\src\navigation\Waypoint.cc" />
     <ClCompile Include="..\src\pch\precompile.cc">
@@ -63,25 +63,25 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\core\actor\Automobile.h" />
+    <ClInclude Include="..\src\core\actor\MallHuman.h" />
+    <ClInclude Include="..\src\core\actor\Mouse.h" />
+    <ClInclude Include="..\src\core\actor\Walker.h" />
+    <ClInclude Include="..\src\core\MallGame.h" />
+    <ClInclude Include="..\src\core\MallMain.h" />
+    <ClInclude Include="..\src\core\MallStage.h" />
+    <ClInclude Include="..\src\core\MallTweakerContext.h" />
+    <ClInclude Include="..\src\core\prop\AutomaticDoor.h" />
+    <ClInclude Include="..\src\core\prop\MouseFood.h" />
+    <ClInclude Include="..\src\core\prop\ShopShelf.h" />
+    <ClInclude Include="..\src\core\scene\BridgeScene.h" />
+    <ClInclude Include="..\src\core\scene\ConvenienceStoreScene.h" />
+    <ClInclude Include="..\src\core\scene\GridScene.h" />
+    <ClInclude Include="..\src\core\scene\MouseCageScene.h" />
     <ClInclude Include="..\src\entity\BaseEntity.h" />
     <ClInclude Include="..\src\entity\EntityDraw.h" />
     <ClInclude Include="..\src\entity\EntityPhisiology.h" />
     <ClInclude Include="..\src\entity\EntityRouting.h" />
-    <ClInclude Include="..\src\mall\actor\Automobile.h" />
-    <ClInclude Include="..\src\mall\actor\MallHuman.h" />
-    <ClInclude Include="..\src\mall\actor\Mouse.h" />
-    <ClInclude Include="..\src\mall\actor\Walker.h" />
-    <ClInclude Include="..\src\mall\MallGame.h" />
-    <ClInclude Include="..\src\mall\MallMain.h" />
-    <ClInclude Include="..\src\mall\MallStage.h" />
-    <ClInclude Include="..\src\mall\MallTweakerContext.h" />
-    <ClInclude Include="..\src\mall\prop\AutomaticDoor.h" />
-    <ClInclude Include="..\src\mall\prop\MouseFood.h" />
-    <ClInclude Include="..\src\mall\prop\ShopShelf.h" />
-    <ClInclude Include="..\src\mall\scene\BridgeScene.h" />
-    <ClInclude Include="..\src\mall\scene\ConvenienceStoreScene.h" />
-    <ClInclude Include="..\src\mall\scene\GridScene.h" />
-    <ClInclude Include="..\src\mall\scene\MouseCageScene.h" />
     <ClInclude Include="..\src\navigation\Navigator.h" />
     <ClInclude Include="..\src\navigation\Waypoint.h" />
     <ClInclude Include="..\src\pch\precompile.h" />

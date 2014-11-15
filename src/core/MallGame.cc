@@ -7,10 +7,10 @@
 #include <SDL_surface.h>
 #include <SDL_video.h>
 
-#include "mall/scene/BridgeScene.h"
-#include "mall/scene/ConvenienceStoreScene.h"
-#include "mall/scene/GridScene.h"
-#include "mall/scene/MouseCageScene.h"
+#include "core/scene/BridgeScene.h"
+#include "core/scene/ConvenienceStoreScene.h"
+#include "core/scene/GridScene.h"
+#include "core/scene/MouseCageScene.h"
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 

@@ -7,9 +7,9 @@
 #include <boost/foreach.hpp>
 #include <GL/glew.h>
 
-#include "mall/actor/Walker.h"
-#include "mall/prop/AutomaticDoor.h"
-#include "mall/prop/ShopShelf.h"
+#include "core/actor/Walker.h"
+#include "core/prop/AutomaticDoor.h"
+#include "core/prop/ShopShelf.h"
 #include "navigation/Waypoint.h"
 #include "util/logging/Logger.h"
 #include "util/color_sample.h"

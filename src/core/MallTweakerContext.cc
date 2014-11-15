@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2014 The Motel On Jupiter
  */
-#include "mall/MallTweakerContext.h"
+#include "core/MallTweakerContext.h"
 
 MallTweakerContext::MallTweakerContext()
 : system_actual_fps(0),

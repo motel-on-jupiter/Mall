@@ -2,7 +2,7 @@
  * Copyright (C) 2014 The Motel on Jupiter
  */
 
-#include "mall/MallMain.h"
+#include "core/MallMain.h"
 #include "util/logging/emitter/DebuggerConsoleLogEmitter.h"
 #include "util/logging/emitter/FileLogEmitter.h"
 #include "util/logging/Logger.h"

@@ -5,8 +5,8 @@
 #ifndef MOUSECAGESCENE_H_
 #define MOUSECAGESCENE_H_
 
-#include "mall/MallGame.h"
-#include "mall/MallStage.h"
+#include "core/MallGame.h"
+#include "core/MallStage.h"
 
 class Mouse;
 class MouseCheese;

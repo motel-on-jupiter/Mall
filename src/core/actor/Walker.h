@@ -5,7 +5,7 @@
 #define WALKER_H_
 
 #include "entity/EntityRouting.h"
-#include "mall/actor/MallHuman.h"
+#include "core/actor/MallHuman.h"
 
 class Walker : public MallHuman, public EntityRouting {
 public:

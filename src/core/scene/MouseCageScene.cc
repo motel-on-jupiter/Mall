@@ -3,8 +3,8 @@
  */
 #include "MouseCageScene.h"
 #include <boost/foreach.hpp>
-#include "mall/actor/Mouse.h"
-#include "mall/prop/MouseFood.h"
+#include "core/actor/Mouse.h"
+#include "core/prop/MouseFood.h"
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"
 

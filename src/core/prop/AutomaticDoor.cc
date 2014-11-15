@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2014 The Motel On Jupiter
  */
-#include "mall/prop/AutomaticDoor.h"
+#include "core/prop/AutomaticDoor.h"
 #include <algorithm>
 #include <boost/foreach.hpp>
 #include <GL/glew.h>

@@ -1,10 +1,10 @@
 /**
  * Copyright (C) 2014 The Motel on Jupiter
  */
-#include "mall/actor/Walker.h"
+#include "core/actor/Walker.h"
 #include <GL/glew.h>
 #include "entity/EntityRouting.h"
-#include "mall/MallTweakerContext.h"
+#include "core/MallTweakerContext.h"
 #include "util/color_sample.h"
 
 const float Walker::kDefaultMoveSpeed = 5.0f * 1000.0f / 60.0f / 60.0f;

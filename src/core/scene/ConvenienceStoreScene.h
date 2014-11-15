@@ -6,10 +6,10 @@
 
 #include <string>
 #include <vector>
-#include "mall/actor/MallHuman.h"
-#include "mall/actor/Walker.h"
-#include "mall/MallGame.h"
-#include "mall/MallStage.h"
+#include "core/actor/MallHuman.h"
+#include "core/actor/Walker.h"
+#include "core/MallGame.h"
+#include "core/MallStage.h"
 
 class AutomaticDoor;
 class ShopShelf;

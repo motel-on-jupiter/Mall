@@ -6,8 +6,8 @@
 #define BRIDGESCENE_H_
 
 #include <vector>
-#include "mall/MallGame.h"
-#include "mall/MallStage.h"
+#include "core/MallGame.h"
+#include "core/MallStage.h"
 
 class Automobile;
 class Walker;

@@ -11,8 +11,8 @@
 #include <SDL.h>
 #include <SDL_opengl.h>
 
-#include "mall/MallGame.h"
-#include "mall/MallTweakerContext.h"
+#include "core/MallGame.h"
+#include "core/MallTweakerContext.h"
 #include "util/logging/Logger.h"
 #include "util/measurement/FPSCounter.h"
 #include "util/wrapper/glgraphics_wrap.h"

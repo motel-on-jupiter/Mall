@@ -7,8 +7,8 @@
 #include <GL/glew.h>
 #include <boost/foreach.hpp>
 
-#include "mall/actor/Automobile.h"
-#include "mall/actor/Walker.h"
+#include "core/actor/Automobile.h"
+#include "core/actor/Walker.h"
 #include "navigation/Waypoint.h"
 #include "util/logging/Logger.h"
 #include "util/macro_util.h"

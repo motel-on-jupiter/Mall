@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2014 The Motel On Jupiter
  */
-#include "mall/prop/ShopShelf.h"
+#include "core/prop/ShopShelf.h"
 #include "navigation/Waypoint.h"
 #include "util/color_sample.h"
 

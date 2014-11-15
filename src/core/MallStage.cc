@@ -5,7 +5,7 @@
 #include "MallStage.h"
 #include <boost/foreach.hpp>
 #include <glm/gtx/compatibility.hpp>
-#include "mall/MallTweakerContext.h"
+#include "core/MallTweakerContext.h"
 #include "util/color_sample.h"
 
 MallStage::MallStage() : size_(), graph_() {

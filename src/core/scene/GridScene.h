@@ -5,8 +5,8 @@
 #ifndef GRIDSCENE_H_
 #define GRIDSCENE_H_
 
-#include "mall/MallGame.h"
-#include "mall/MallStage.h"
+#include "core/MallGame.h"
+#include "core/MallStage.h"
 
 class Walker;
 
